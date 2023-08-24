@@ -83,6 +83,7 @@ public class PersonalInformationPage extends AppCompatActivity {
 
         pan.setText(SessionManager.get_pan(prefs));
         dob.setText(SessionManager.get_dob(prefs));
+        email.setText(SessionManager.get_emailid(prefs));
         fullname.setText(SessionManager.get_firstname(prefs));
 
         backbutton.setOnClickListener(new View.OnClickListener() {

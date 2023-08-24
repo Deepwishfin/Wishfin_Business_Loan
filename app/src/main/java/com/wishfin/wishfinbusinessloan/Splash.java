@@ -210,7 +210,7 @@ public class Splash extends Activity {
                     }
 
                 } else {
-                    Intent intent = new Intent(Splash.this, LoanInformationPage.class);
+                    Intent intent = new Intent(Splash.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -257,7 +257,7 @@ public class Splash extends Activity {
                     }
 
                 } else {
-                    Intent intent = new Intent(Splash.this, LoanInformationPage.class);
+                    Intent intent = new Intent(Splash.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }

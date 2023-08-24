@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.text.format.Formatter;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -58,7 +59,7 @@ public class LoanInformationPage extends AppCompatActivity {
     KProgressHUD progressDialog;
     SharedPreferences prefs;
     RequestQueue queue;
-    String str_occupation = "2", str_loan_amount = "", str_cuurent_years = "", str_annual_turnover = "1", str_company_type, str_nature_business, str_industry_type,
+    String str_occupation = "2", str_annual_turnover = "1", str_company_type, str_nature_business, str_industry_type,
             str_sub_industry_type, str_business_place = "Owned by Self / Spouse", str_collateral_loan = "Property";
     String str_cityname = "Delhi";
     Spinner spinnercompanytype, spinnernaturebusiness, spinnerindustrytype, spinnersubindustrytype;
@@ -111,6 +112,11 @@ public class LoanInformationPage extends AppCompatActivity {
         chennai = findViewById(R.id.chennai);
         jaipur = findViewById(R.id.jaipur);
 
+        spinnercompanytype = findViewById(R.id.spinnercompanytype);
+        spinnernaturebusiness = findViewById(R.id.spinnernaturebusiness);
+        spinnerindustrytype = findViewById(R.id.spinnerindustrytype);
+        spinnersubindustrytype = findViewById(R.id.spinnersubindustrytype);
+
         selfbusiness = findViewById(R.id.selfbusiness);
         selfproffessional = findViewById(R.id.selfproffessional);
         turnover_btw_10_40_lac = findViewById(R.id.turnover_btw_10_40_lac);
@@ -126,6 +132,66 @@ public class LoanInformationPage extends AppCompatActivity {
         billdiscounting = findViewById(R.id.billdiscounting);
         no = findViewById(R.id.no);
 
+
+        spinnercompanytype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position != 0) {
+                    str_company_type = spinnercompanytype.getSelectedItem().toString();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinnernaturebusiness.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position != 0) {
+                    str_nature_business = spinnernaturebusiness.getSelectedItem().toString();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinnerindustrytype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position != 0) {
+                    str_industry_type = spinnerindustrytype.getSelectedItem().toString();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinnersubindustrytype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position != 0) {
+                    str_sub_industry_type = spinnersubindustrytype.getSelectedItem().toString();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         selfbusiness.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -536,15 +602,30 @@ public class LoanInformationPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                linearone.setVisibility(View.GONE);
-                lineartwo.setVisibility(View.GONE);
-                linearthree.setVisibility(View.GONE);
-                linearfour.setVisibility(View.GONE);
-                linearfive.setVisibility(View.GONE);
-                linearsix.setVisibility(View.GONE);
-                linearseven.setVisibility(View.VISIBLE);
-                lineareight.setVisibility(View.GONE);
-                page = 7;
+                if(str_company_type.equalsIgnoreCase(""))
+                {
+                    Toast.makeText(LoanInformationPage.this, "Select company type", Toast.LENGTH_SHORT).show();
+                }else  if(str_nature_business.equalsIgnoreCase(""))
+                {
+                    Toast.makeText(LoanInformationPage.this, "Select nature of business", Toast.LENGTH_SHORT).show();
+                }else  if(str_industry_type.equalsIgnoreCase(""))
+                {
+                    Toast.makeText(LoanInformationPage.this, "Select industry type", Toast.LENGTH_SHORT).show();
+                }else  if(str_sub_industry_type.equalsIgnoreCase(""))
+                {
+                    Toast.makeText(LoanInformationPage.this, "Select sub-industry type", Toast.LENGTH_SHORT).show();
+                }else {
+
+                    linearone.setVisibility(View.GONE);
+                    lineartwo.setVisibility(View.GONE);
+                    linearthree.setVisibility(View.GONE);
+                    linearfour.setVisibility(View.GONE);
+                    linearfive.setVisibility(View.GONE);
+                    linearsix.setVisibility(View.GONE);
+                    linearseven.setVisibility(View.VISIBLE);
+                    lineareight.setVisibility(View.GONE);
+                    page = 7;
+                }
 
 
             }
