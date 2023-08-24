@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <RelativeLayout
+                android:id="@+id/relione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/proimg"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:src="@drawable/profilepic"
+                    tools:ignore="ContentDescription" />
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@+id/proimg"
+                    android:text=""
+                    android:textColor="#2E384D"
+                    android:textSize="18dp" />
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                    android:id="@+id/goodmorning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name"
+                    android:layout_alignStart="@+id/name"
+                    android:text=""
+                    android:textColor="#8181A1"
+                    android:textSize="11dp"
+                    android:visibility="gone" />
+
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/relativeone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/footerreli"
+                android:layout_below="@+id/relione"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+
+                <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/cardone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:elevation="8dp"
+                    card_view:cardCornerRadius="10dp"
+                    card_view:cardElevation="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/gradientback"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="20dp"
+                        android:weightSum="4">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@drawable/dollar" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:text="Your required loan amount is"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                            <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                                android:id="@+id/loanamount"
+                                android:layout_width="match_parent"
+                                android:textStyle="bold"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:textSize="24dp" />
+
+                            <ImageView
+                                android:id="@+id/editbtn"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="end"
+                                android:src="@drawable/editicon" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/standardchartered" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/idfcbank" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/indus" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/sbibank" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                    android:id="@+id/article_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Best Offers For You!"
+                    android:layout_marginTop="10dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:visibility="visible" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/article_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:scrollbars="none"
+                    android:visibility="visible" />
+
+
+            </LinearLayout>
+
+
+            <include layout="@layout/footer" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

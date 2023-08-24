@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:padding="15dp"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/backbutton"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/backarrow"
+            android:contentDescription="TODO" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="17dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="EMI Calculator"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/headingbarfont" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="54dp"
+            android:orientation="vertical">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/gradientcalci">
+
+                        <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="20dp"
+                            android:elevation="8dp"
+                            card_view:cardCornerRadius="10dp"
+                            card_view:cardElevation="8dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center|top"
+                                    android:text="Monthly Instalment"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp" />
+
+                                <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                                    android:id="@+id/emirs"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginTop="20dp"
+                                    android:orientation="horizontal"
+                                    android:weightSum="2.1">
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:orientation="vertical">
+
+                                        <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:gravity="center"
+                                            android:text="Total Interest\nAmount"
+                                            android:textColor="@color/grey"
+                                            android:textSize="12sp" />
+
+                                        <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                                            android:id="@+id/totalint"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_marginTop="5dp"
+                                            android:gravity="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="0.1"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <View
+                                            android:layout_width="2dp"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/grey" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:orientation="vertical">
+
+                                        <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:gravity="center"
+                                            android:text="Total Amount\n(Principal+Interest)"
+                                            android:textColor="@color/grey"
+                                            android:textSize="12sp" />
+
+                                        <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                                            android:id="@+id/totalamount"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_marginTop="5dp"
+                                            android:gravity="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp" />
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10sp"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/loan_amount"
+                                android:textColor="@color/grey"
+                                android:textSize="14sp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:orientation="horizontal">
+
+                                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="₹ "
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp" />
+
+                                <EditText
+                                    android:id="@+id/loanamount_value"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@null"
+                                    android:inputType="number"
+                                    android:maxLength="8"
+                                    android:minEms="2"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <SeekBar
+                            android:id="@+id/loan_seekbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:max="50000000"
+                            android:min="1000000"
+                            android:progress="5000000"
+                            android:progressTint="#2FBF71"
+                            android:thumbTint="#2FBF71" />
+
+                        <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                            android:id="@+id/amountinwords"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:text="Desired Home Loan Amount"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/padding_10" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/tenure"
+                                android:textColor="@color/grey"
+                                android:textSize="14sp" />
+
+                            <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                                android:id="@+id/tenure_value"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+
+                        </LinearLayout>
+
+                        <SeekBar
+                            android:id="@+id/tenure_seekbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:max="30"
+                            android:min="5"
+                            android:progress="15"
+                            android:progressTint="#2FBF71"
+                            android:thumbTint="#2FBF71" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/interestrates"
+                                android:textColor="@color/grey"
+                                android:textSize="14sp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:orientation="horizontal">
+
+
+                                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                                    android:id="@+id/interestrate_value"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@null"
+                                    android:inputType="numberDecimal"
+                                    android:maxLength="4"
+                                    android:minEms="1"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp" />
+
+                                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="%"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <SeekBar
+                            android:id="@+id/int_rate_seekbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:max="200"
+                            android:min="50"
+                            android:progress="100"
+                            android:progressTint="#2FBF71"
+                            android:thumbTint="#2FBF71" />
+
+
+                        <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                            android:id="@+id/signupone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/roundedbutton"
+                            android:gravity="center"
+                            android:padding="15dp"
+                            android:text="@string/claculate"
+                            android:textAllCaps="true"
+                            android:textColor="#ffffff" />
+
+                        <view
+                            android:id="@+id/pie_view"
+                            class="im.dacer.androidcharts.PieView"
+                            android:layout_width="300dp"
+                            android:layout_height="300dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="5sp"
+                                android:layout_height="5sp"
+                                android:background="@color/grey" />
+
+                            <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10sp"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:text="Principal"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                            <View
+                                android:layout_width="5sp"
+                                android:layout_height="5sp"
+                                android:layout_marginStart="10sp"
+                                android:background="@color/primary" />
+
+                            <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10sp"
+                                android:gravity="center"
+                                android:maxLines="2"
+                                android:text="Interest"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="4">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:padding="10dp">
+
+                                <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:maxLines="2"
+                                    android:text="Year"
+                                    android:textColor="@color/black"
+                                    android:textSize="10sp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:padding="10dp">
+
+                                <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:maxLines="2"
+                                    android:text="Principal"
+                                    android:textColor="@color/black"
+                                    android:textSize="10sp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:padding="10dp">
+
+                                <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:maxLines="2"
+                                    android:text="Interest"
+                                    android:textColor="@color/black"
+                                    android:textSize="10sp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:padding="10dp">
+
+                                <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:maxLines="2"
+                                    android:text="Balance"
+                                    android:textColor="@color/black"
+                                    android:textSize="10sp" />
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/article_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="30dp"
+                            android:scrollbars="none"
+                            android:visibility="visible" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+
+        </LinearLayout>
+
+
+        <include layout="@layout/footeremicalci" />
+
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

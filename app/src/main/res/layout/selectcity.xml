@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="15dp"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/backbutton"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/backarrowblack"
+                android:contentDescription="TODO" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="17dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="Check Eligibility"
+                    android:textColor="#000"
+                    android:textSize="@dimen/headingfont" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <AutoCompleteTextView
+                android:id="@+id/rcity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/edittextback"
+                android:hint="Enter City"
+                android:imeOptions="actionNext"
+                android:inputType="textPostalAddress"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="#304258"
+                android:textColorHint="#B0BAC9"
+                android:textSize="14dp" />
+
+
+            <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                android:id="@+id/continuebtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="20dp"
+                android:background="@drawable/roundedbutton"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Next"
+                android:textAllCaps="true"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FAFBFD"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingRight="15dp"
+                tools:ignore="MissingConstraints">
+
+                <RelativeLayout
+                    android:id="@+id/backbutton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:gravity="center|left">
+
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/backarrowblack"
+                        android:contentDescription="TODO" />
+                </RelativeLayout>
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Confirmation"
+                    android:textColor="#2E384D"
+                    android:textSize="@dimen/headingfont" />
+
+            </LinearLayout>
+
+            <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="16dp"
+                android:text=""
+                android:textColor="#788691"
+                android:textSize="12dp" />
+
+            <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                android:id="@+id/cardname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="16dp"
+                android:textColor="#2E384D"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:paddingTop="50dp"
+                android:weightSum="2">
+
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:text="Thank You!!!"
+                    android:textColor="#000000"
+                    android:textSize="24dp" />
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                    android:id="@+id/heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:text="Thank You for completing your application. As soon as we hear an update from the bank we will notify you."
+                    android:textColor="#27364B"
+                    android:textSize="18dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/edittextback"
+                    android:padding="15dp">
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:contentDescription="TODO"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_offergreen" />
+
+                    <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@+id/imageView1"
+                        android:text="We are processing your application, usually it takes 2–3 working days"
+                        android:textColor="#0F1A2A"
+                        android:textSize="@dimen/detailheaading" />
+
+
+                </RelativeLayout>
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                    android:id="@+id/nextone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/roundedbutton"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="Go To Dashboard"
+                    android:textAllCaps="true"
+                    android:textColor="#ffffff" />
+
+
+            </LinearLayout>
+
+
+            <include layout="@layout/footer" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,984 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="15dp"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/backbutton"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/backarrowblack"
+                android:contentDescription="TODO" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="17dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="Check Eligibility"
+                    android:textColor="#000"
+                    android:textSize="@dimen/headingfont" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+
+            <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Employement Type"
+                android:textColor="#2E384D"
+                android:textSize="@dimen/font30"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/selfbusiness"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/textviewback"
+                    android:checked="true"
+                    android:padding="15dp"
+                    android:text="Self-Employed Business"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/selfproffessional"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/textviewback"
+                    android:padding="15dp"
+
+                    android:text="Self-Employed Professional "
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                    android:id="@+id/nextone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/roundedbutton"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="Next"
+                    android:textAllCaps="true"
+                    android:textColor="#ffffff" />
+            </RadioGroup>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lineartwo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Desired Loan Amount"
+                android:textColor="#2E384D"
+                android:textSize="@dimen/font30"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.wishfin.wishfinbusinessloan.MenuHidingEditText
+                    android:id="@+id/loanamount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/textviewback"
+                    android:hint="20,000,000"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:longClickable="false"
+                    android:maxLength="10"
+                    android:padding="15dp"
+                    android:singleLine="true"
+                    android:textColor="#304258"
+                    android:textColorHint="#B0BAC9"
+                    android:textSize="14dp" />
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                    android:id="@+id/amountinwords"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/loanamount"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="Desired Home Loan Amount"
+                    android:textColor="#2E384D"
+                    android:textSize="@dimen/banknamefont" />
+
+                <SeekBar
+                    android:id="@+id/seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/amountinwords"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:max="100000000"
+                    android:min="1000000"
+                    android:progressTint="#2FBF71"
+                    android:thumbTint="#2FBF71" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/seekbar"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="1000000"
+                        android:textColor="#2E384D"
+                        android:textSize="@dimen/detailheaading" />
+
+                    <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="100000000"
+                        android:textColor="#2E384D"
+                        android:textSize="@dimen/detailheaading" />
+
+
+                </LinearLayout>
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                    android:id="@+id/nexttwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/roundedbutton"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="Next"
+                    android:textAllCaps="true"
+                    android:textColor="#ffffff" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearthree"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Gross Annual Turnover?"
+                android:textColor="#2E384D"
+                android:textSize="@dimen/font30"
+                android:textStyle="bold" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+
+                        <RadioButton
+                            android:id="@+id/turnover_btw_10_40_lac"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/textviewback"
+                            android:checked="true"
+                            android:padding="15dp"
+                            android:text="5 - 10 lacs"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <RadioButton
+                            android:id="@+id/turnover_btw_40_lac_1_cr"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/textviewback"
+                            android:padding="15dp"
+
+                            android:text="10 - 25 lacs"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <RadioButton
+                            android:id="@+id/turnover_btw_1_3_cr"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/textviewback"
+                            android:padding="15dp"
+
+                            android:text="25 - 50 lacs"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+
+                        <RadioButton
+                            android:id="@+id/turnover_over_3_cr"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/textviewback"
+                            android:padding="15dp"
+
+                            android:text="Over 5 cr"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                            android:id="@+id/nextthree"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginTop="40dp"
+                            android:layout_marginEnd="40dp"
+                            android:layout_marginBottom="40dp"
+                            android:background="@drawable/roundedbutton"
+                            android:gravity="center"
+                            android:padding="15dp"
+                            android:text="Next"
+                            android:textAllCaps="true"
+                            android:textColor="#ffffff" />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+            </ScrollView>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearfour"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Current Business City"
+                android:textColor="#2E384D"
+                android:textSize="@dimen/font30"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                            android:id="@+id/delhi"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/textviewback"
+                            android:gravity="center"
+                            android:padding="15dp"
+                            android:text="Delhi"
+                            android:textAllCaps="true"
+                            android:textColor="#000" />
+
+                        <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                            android:id="@+id/mumbai"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/textviewback_white"
+                            android:gravity="center"
+                            android:padding="15dp"
+                            android:text="Mumbai"
+                            android:textAllCaps="true"
+                            android:textColor="#000" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                            android:id="@+id/pune"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/textviewback_white"
+                            android:gravity="center"
+                            android:padding="15dp"
+                            android:text="Pune"
+                            android:textAllCaps="true"
+                            android:textColor="#000" />
+
+                        <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                            android:id="@+id/banglore"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/textviewback_white"
+                            android:gravity="center"
+                            android:padding="15dp"
+                            android:text="Banglore"
+                            android:textAllCaps="true"
+                            android:textColor="#000" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                            android:id="@+id/chennai"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/textviewback_white"
+                            android:gravity="center"
+                            android:padding="15dp"
+                            android:text="Chennai"
+                            android:textAllCaps="true"
+                            android:textColor="#000" />
+
+                        <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                            android:id="@+id/jaipur"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/textviewback_white"
+                            android:gravity="center"
+                            android:padding="15dp"
+                            android:text="Jaipur"
+                            android:textAllCaps="true"
+                            android:textColor="#000" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                            android:id="@+id/view_all"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:padding="15dp"
+                            android:text="View all Cities"
+                            android:textAllCaps="true"
+                            android:textColor="#000" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                    android:id="@+id/nextfour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/roundedbutton"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="Next"
+                    android:textAllCaps="true"
+                    android:textColor="#ffffff" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearfive"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Years in Current Business"
+                android:textColor="#2E384D"
+                android:textSize="@dimen/font30"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.wishfin.wishfinbusinessloan.MenuHidingEditText
+                    android:id="@+id/businessyears"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/textviewback"
+                    android:hint="2"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:padding="15dp"
+                    android:singleLine="true"
+                    android:textColor="#304258"
+                    android:textColorHint="#B0BAC9"
+                    android:textSize="16sp" />
+
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                    android:id="@+id/nextfive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/roundedbutton"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="Next"
+                    android:textAllCaps="true"
+                    android:textColor="#ffffff" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearsix"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Business Details"
+                android:textColor="#2E384D"
+                android:textSize="@dimen/font30"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="Company Type"
+                    android:textColor="#2E384D"
+                    android:textSize="22sp" />
+
+                <Spinner
+                    android:id="@+id/spinnercompanytype"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/textviewback"
+                    android:entries="@array/companytype" />
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="Nature of Business"
+                    android:textColor="#2E384D"
+                    android:textSize="22sp" />
+
+                <Spinner
+                    android:id="@+id/spinnernaturebusiness"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/textviewback"
+                    android:entries="@array/naturebusiness" />
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="Industry Type"
+                    android:textColor="#2E384D"
+                    android:textSize="22sp" />
+
+                <Spinner
+                    android:id="@+id/spinnerindustrytype"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/textviewback"
+                    android:entries="@array/industrytype" />
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="Sub-Industry Type"
+                    android:textColor="#2E384D"
+                    android:textSize="22sp" />
+
+                <Spinner
+                    android:id="@+id/spinnersubindustrytype"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/textviewback" />
+
+
+                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                    android:id="@+id/nextsix"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/roundedbutton"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="Next"
+                    android:textAllCaps="true"
+                    android:textColor="#ffffff" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearseven"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Ownership of Residence /
+Business Place"
+                android:textColor="#2E384D"
+                android:textSize="@dimen/font30"
+                android:textStyle="bold" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/ownedbyself"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/textviewback"
+                            android:checked="true"
+                            android:padding="15dp"
+                            android:text="Owned by Self / Spouse"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <RadioButton
+                            android:id="@+id/ownedbyparents"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/textviewback"
+                            android:padding="15dp"
+
+                            android:text="Owned by Parents / Siblings"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <RadioButton
+                            android:id="@+id/rentedfamily"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/textviewback"
+                            android:padding="15dp"
+
+                            android:text="Rented with Family / Stay alone"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                            android:id="@+id/nextseven"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginTop="40dp"
+                            android:layout_marginEnd="40dp"
+                            android:layout_marginBottom="40dp"
+                            android:background="@drawable/roundedbutton"
+                            android:gravity="center"
+                            android:padding="15dp"
+                            android:text="Next"
+                            android:textAllCaps="true"
+                            android:textColor="#ffffff" />
+                    </RadioGroup>
+
+                </LinearLayout>
+            </ScrollView>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lineareight"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <com.wishfin.wishfinbusinessloan.FontClasses.RobotFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Wish to take loan
+against collateral?"
+                android:textColor="#2E384D"
+                android:textSize="@dimen/font30"
+                android:textStyle="bold" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/property"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/textviewback"
+                            android:checked="true"
+                            android:padding="15dp"
+                            android:text="Property"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <RadioButton
+                            android:id="@+id/gold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/textviewback"
+                            android:padding="15dp"
+
+                            android:text="Gold"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <RadioButton
+                            android:id="@+id/car"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/textviewback"
+                            android:padding="15dp"
+
+                            android:text="car"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <RadioButton
+                            android:id="@+id/billdiscounting"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/textviewback"
+                            android:padding="15dp"
+
+                            android:text="Bill Discounting"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <RadioButton
+                            android:id="@+id/no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/textviewback"
+                            android:padding="15dp"
+
+                            android:text="No"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+
+                    </RadioGroup>
+
+                    <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                        android:id="@+id/nexteight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginBottom="40dp"
+                        android:background="@drawable/roundedbutton"
+                        android:gravity="center"
+                        android:padding="15dp"
+                        android:text="Next"
+                        android:textAllCaps="true"
+                        android:textColor="#ffffff" />
+
+
+                </LinearLayout>
+            </ScrollView>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

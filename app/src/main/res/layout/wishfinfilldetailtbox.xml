@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:id="@+id/lineartwo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+
+            <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:paddingRight="20dp"
+                android:text="Please update your details"
+                android:textColor="#2E384D"
+                android:textSize="@dimen/headingfont" />
+
+            <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="25dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="Your information is 100% safe and secure"
+                android:textColor="#8181A1"
+                android:textSize="@dimen/subheadingfont" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                tools:ignore="NestedScrolling">
+
+                <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:elevation="8dp"
+                    card_view:cardCornerRadius="10dp"
+                    card_view:cardElevation="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ontimepaymentbackground"
+                        android:orientation="vertical"
+                        android:padding="15dp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/input_layout_fname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                            <com.wishfin.wishfinbusinessloan.MenuHidingEditText
+                                android:id="@+id/fname"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="#E2E2E2"
+                                android:hint="First Name"
+                                android:longClickable="false"
+                                android:imeOptions="actionNext"
+                                android:singleLine="true"
+                                android:textColor="#304258"
+                                android:textColorHint="#B0BAC9"
+                                android:textSize="14dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/input_layout_mname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp">
+
+                            <com.wishfin.wishfinbusinessloan.MenuHidingEditText
+                                android:id="@+id/mname"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="#E2E2E2"
+                                android:hint="Middle Name"
+                                android:longClickable="false"
+                                android:imeOptions="actionNext"
+                                android:singleLine="true"
+                                android:textColor="#304258"
+                                android:textColorHint="#B0BAC9"
+                                android:textSize="14dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/input_layout_lname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp">
+
+                            <com.wishfin.wishfinbusinessloan.MenuHidingEditText
+                                android:id="@+id/lname"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="#E2E2E2"
+                                android:hint="Last Name"
+                                android:longClickable="false"
+                                android:imeOptions="actionNext"
+                                android:singleLine="true"
+                                android:textColor="#304258"
+                                android:textColorHint="#B0BAC9"
+                                android:textSize="14dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/input_layout_emailid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp">
+
+                            <com.wishfin.wishfinbusinessloan.MenuHidingEditText
+                                android:id="@+id/emailid"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="#E2E2E2"
+                                android:longClickable="false"
+                                android:hint="Email Id"
+                                android:inputType="textEmailAddress"
+                                android:singleLine="true"
+                                android:textColor="#304258"
+                                android:textColorHint="#B0BAC9"
+                                android:textSize="14dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/input_layout_dob"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp">
+
+                            <com.wishfin.wishfinbusinessloan.MenuHidingEditText
+                                android:id="@+id/dob"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="#E2E2E2"
+                                android:clickable="false"
+                                android:longClickable="false"
+                                android:cursorVisible="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:hint="DOB"
+                                android:textColor="#304258"
+                                android:textColorHint="#B0BAC9"
+                                android:textSize="14dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/input_layout_pan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp">
+
+                            <com.wishfin.wishfinbusinessloan.MenuHidingEditText
+                                android:id="@+id/pan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="#E2E2E2"
+                                android:hint="PAN"
+                                android:longClickable="false"
+                                android:maxLength="10"
+                                android:singleLine="true"
+                                android:textColor="#304258"
+                                android:textColorHint="#B0BAC9"
+                                android:textSize="14dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/input_layout_monthly_income"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp">
+
+                            <com.wishfin.wishfinbusinessloan.MenuHidingEditText
+                                android:id="@+id/monthly_income"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="#E2E2E2"
+                                android:hint="Monthly Income"
+                                android:inputType="number"
+                                android:importantForAutofill="no"
+                                android:longClickable="false"
+                                android:maxLength="15"
+                                android:textColor="#304258"
+                                android:textColorHint="#B0BAC9"
+                                android:textSize="14dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginStart="5dp"
+                            android:textColor="#8181A1"
+                            android:text="Occupation"
+                            android:textSize="14dp" />
+
+                        <RadioGroup
+                            android:id="@+id/rg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/salariedcheck"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:buttonTint="@color/primary"
+                                android:text="Salaried"
+                                android:textColor="#001738" />
+
+                            <RadioButton
+                                android:id="@+id/selfemployedcheck"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:buttonTint="@color/primary"
+                                android:text="Self-employed"
+                                android:textColor="#001738" />
+                        </RadioGroup>
+
+
+
+                        <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                            android:id="@+id/signuptwo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@drawable/roundedbutton"
+                            android:gravity="center"
+                            android:padding="15dp"
+                            android:text="Update"
+                            android:textAllCaps="false"
+                            android:textColor="#ffffff" />
+
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </ScrollView>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,85 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Wishfin Business Loan</string>
+    ////////////////////Live//////////////////////////
+    <string name="partnerKey" translatable="false">3U6Bd2de3aa9e5dbf462b8195fc3acdc71d2a</string>
+    ///////////////////////////Test///////////////////////
+    <!--    <string name="partnerKey" translatable="false">mS69Ge96a318ccb8044d4afe5e6eea1090869</string>-->
+    <string name="signin">Signin</string>
+    <string name="login">Login</string>
+    <string name="welcomeenablers">Welcome Enablers</string>
+    <string name="mobilenumber">Mobile Number</string>
+    <string name="continu">Continue</string>
+    <string name="enterotp">Enter OTP</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="checkinternet">Check Your Internet</string>
+    <string name="dialogtext">Please Wait, Loading…</string>
+    <string name="entermobile">Enter Mobile Number</string>
+    <string name="interestrates">Interest Rate</string>
+    <string name="emicalci">Emi Calculator</string>
+    <string name="profile">Profile</string>
+    <string name="skip">Skip</string>
+    <string name="rateus">Rate Us</string>
+    <string name="hello">Hello</string>
+    <string name="wantstosignup">You are not registred with Wishfin. Please Click on proceed to get registered with Wishfin</string>
+    <string name="trywithdifferentcredntial" tools:ignore="MissingTranslation">Try Later!!!</string>
+    <string name="couldnotgetscore" tools:ignore="MissingTranslation">Could not get your Credit Score</string>
+    <string name="belowreasoncibilnotavaible" tools:ignore="MissingTranslation">Below reason why your Credit Score not available</string>
+    <string name="providedinfonotmatched" tools:ignore="MissingTranslation">Provided information is not matched</string>
+    <string name="personaldetailsnotmatched" tools:ignore="MissingTranslation">Personal details provided by you is not matched</string>
+    <string name="updateinfo" tools:ignore="MissingTranslation">UPDATE INFORMATIONS</string>
+    <string name="cibl_question_heading">CIBIL needs some more information to ensure your security and the accuracy of your score.You will be done in few seconds!</string>
+    <string name="rateuspopup">We are asking our top users to help make wishfin services stronger. Would you consider leaving some feedback here?</string>
+    <string name="loan_amount">Loan Amount</string>
+    <string name="tenure">Tenure</string>
+    <string name="dahboard">Dashboard</string>
+    <string name="notnow">Not Now</string>
+    <string name="claculate">Calculate Now</string>
+    <string name="resend">Resend</string>
+    <string name="updateapp" translatable="false">A new app version is available on Google Play Store.Please update the Wishfin Home Loan app to get the new features and benefits.</string>
+    <string-array name="companytype">
+        <item>Select</item>
+        <item>Proprietorship</item>
+        <item>Partnership Firm</item>
+        <item>Private Limited Company</item>
+        <item>Public Limited Company</item>
+        <item>Limited Liability Partnership</item>
+        <item>Director Applying As An Individual</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="naturebusiness">
+        <item>Select</item>
+        <item>Manufacturer</item>
+        <item>Trader/Wholesaler</item>
+        <item>Retailer</item>
+        <item>Service Provider</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="industrytype">
+        <item>Select</item>
+        <item>Agriculture</item>
+        <item>Automobiles</item>
+        <item>Cement</item>
+        <item>Chemicals</item>
+        <item>Computers</item>
+        <item>Construction</item>
+        <item>Consumer Durables</item>
+        <item>Containers and Packaging</item>
+        <item>Durables</item>
+        <item>Energy</item>
+        <item>Food and Beverages</item>
+        <item>Hardware Equipment</item>
+        <item>Healthcare</item>
+        <item>Household Products</item>
+        <item>Industrial Equipment</item>
+        <item>Metals</item>
+        <item>Mining</item>
+        <item>Paints</item>
+        <item>Paper</item>
+        <item>Petroleum Products</item>
+        <item>Plastics</item>
+        <item>Rubber</item>
+        <item>Speciality</item>
+        <item>Textiles</item>
+        <item>Other</item>
+    </string-array>
+</resources>

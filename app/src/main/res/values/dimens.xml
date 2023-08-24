@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="headingbarfont">18sp</dimen>
+    <dimen name="headingfont">20sp</dimen>
+    <dimen name="subheadingfont">16sp</dimen>
+    <dimen name="banknamefont">14sp</dimen>
+    <dimen name="activityPadding">16sp</dimen>
+    <dimen name="placeholderImage">60sp</dimen>
+    <dimen name="placeholderTextHeight">8sp</dimen>
+    <dimen name="padding_10">10sp</dimen>
+    <dimen name="detailheaading">12sp</dimen>
+    <dimen name="font30">30sp</dimen>
+</resources>

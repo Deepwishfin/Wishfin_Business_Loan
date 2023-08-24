@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "691633831835",
+    "project_id": "wishfin-business-loan",
+    "storage_bucket": "wishfin-business-loan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:691633831835:android:48f50c2ca53b138ebbab3e",
+        "android_client_info": {
+          "package_name": "com.wishfin.wishfinbusinessloan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "691633831835-f0u369m7jvtn9pqe82spperfbvcb3vcj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNXaaGQX2ddXxlB_7xsXjGlmWIBVhQSwQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "691633831835-f0u369m7jvtn9pqe82spperfbvcb3vcj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
