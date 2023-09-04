@@ -37,7 +37,6 @@ public class SessionManager {
     private static String OCCUPATION = "occupation";
     private static String MONTHLY_INCOME = "monthly_income";
     private static String MARITAL_STATUS = "marital_status";
-    private static String INDUSTRY_TYPE = "city";
     private static String EMPLOYER_SECTOR = "employer_sector";
     private static String BUSINESS_NATURE = "business_nature";
     private static String OWNERSHIP_TYPE = "ownership_type";
@@ -48,12 +47,15 @@ public class SessionManager {
     private static String GENDER = "gender";
     private static String CITY = "city";
     private static String LOAN_AMOUNT = "loanamount";
+    private static String ANNUAL_TURNOVER = "annualturnover";
 
-    private static String PROPERTY_VALUE = "property_value";
-    private static String PROPERTY_CITY = "property_city";
-    private static String Total_EMI = "total_emi";
-    private static String RESI_ADDRESS = "resi_address";
-    private static String PINCODE = "pincode";
+    private static String BUSINESS_YEAR = "business_year";
+    private static String COMPANY_TYPE = "company_type";
+    private static String NATURE_OF_BUSINESS = "nature_of_business";
+    private static String INDUSTRY_TYPE = "industry_type";
+    private static String SUB_INDUSTRY_TYPE = "sub_industry_type";
+    private static String OWNERSHIP_RESIDENCE = "ownership_residence";
+    private static String COLLATORAL_LOAN = "collatoral_loan";
 
     static void savePreference(SharedPreferences prefs, String key, Boolean value) {
         Editor e = prefs.edit();
@@ -444,45 +446,62 @@ public class SessionManager {
         return prefs.getString(LOAN_AMOUNT, "");
     }
 
+    static void save_annualturnover(SharedPreferences prefs, String value) {
+        SessionManager.savePreference(prefs, ANNUAL_TURNOVER, value);
+    }
+
+    static String get_annualturnover(SharedPreferences prefs) {
+        return prefs.getString(ANNUAL_TURNOVER, "");
+    }
+
     //////////////////////////
-    static void save_property_value(SharedPreferences prefs, String value) {
-        SessionManager.savePreference(prefs, PROPERTY_VALUE, value);
+    static void save_business_year(SharedPreferences prefs, String value) {
+        SessionManager.savePreference(prefs, BUSINESS_YEAR, value);
     }
 
-    static String get_property_value(SharedPreferences prefs) {
-        return prefs.getString(PROPERTY_VALUE, "");
+    static String get_business_year(SharedPreferences prefs) {
+        return prefs.getString(BUSINESS_YEAR, "");
     }
 
-    static void save_property_city(SharedPreferences prefs, String value) {
-        SessionManager.savePreference(prefs, PROPERTY_CITY, value);
+
+    static void save_nature_business(SharedPreferences prefs, String value) {
+        SessionManager.savePreference(prefs, NATURE_OF_BUSINESS, value);
     }
 
-    static String get_property_city(SharedPreferences prefs) {
-        return prefs.getString(PROPERTY_CITY, "");
+    static String get_nature_business(SharedPreferences prefs) {
+        return prefs.getString(NATURE_OF_BUSINESS, "");
     }
 
-    static void save_total_emi(SharedPreferences prefs, String value) {
-        SessionManager.savePreference(prefs, Total_EMI, value);
+    static void save_sub_industry_type(SharedPreferences prefs, String value) {
+        SessionManager.savePreference(prefs, SUB_INDUSTRY_TYPE, value);
     }
 
-    static String get_total_emi(SharedPreferences prefs) {
-        return prefs.getString(Total_EMI, "");
+    static String get_sub_industry_type(SharedPreferences prefs) {
+        return prefs.getString(SUB_INDUSTRY_TYPE, "");
     }
 
-    static void save_resi_address(SharedPreferences prefs, String value) {
-        SessionManager.savePreference(prefs, RESI_ADDRESS, value);
+    static void save_company_type(SharedPreferences prefs, String value) {
+        SessionManager.savePreference(prefs, COMPANY_TYPE, value);
     }
 
-    static String get_resi_address(SharedPreferences prefs) {
-        return prefs.getString(RESI_ADDRESS, "");
+    static String get_company_type(SharedPreferences prefs) {
+        return prefs.getString(COMPANY_TYPE, "");
     }
 
-    static void save_pincode(SharedPreferences prefs, String value) {
-        SessionManager.savePreference(prefs, PINCODE, value);
+    static void save_ownership_residence(SharedPreferences prefs, String value) {
+        SessionManager.savePreference(prefs, OWNERSHIP_RESIDENCE, value);
     }
 
-    static String get_pincode(SharedPreferences prefs) {
-        return prefs.getString(PINCODE, "");
+    static String get_ownership_residence(SharedPreferences prefs) {
+        return prefs.getString(OWNERSHIP_RESIDENCE, "");
+    }
+
+    static void save_collatoral_loan(SharedPreferences prefs, String value) {
+        SessionManager.savePreference(prefs, COLLATORAL_LOAN, value);
+    }
+
+    static String get_collatoral_loan(SharedPreferences prefs) {
+        return prefs.getString(COLLATORAL_LOAN, "");
     }
 
 }

@@ -15,6 +15,7 @@ import android.text.format.Formatter;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -38,11 +39,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.kaopiz.kprogresshud.KProgressHUD;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,6 +69,8 @@ public class LoanInformationPage extends AppCompatActivity {
     RadioButton selfbusiness, selfproffessional, turnover_btw_10_40_lac, turnover_btw_40_lac_1_cr, turnover_btw_1_3_cr,
             turnover_over_3_cr, ownedbyself, ownedbyparents, rentedfamily, property, gold, car, billdiscounting, no;
     String IPaddress = "";
+    ArrayList<String> list1 = new ArrayList<>();
+    ArrayList<String> list2 = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -154,6 +159,9 @@ public class LoanInformationPage extends AppCompatActivity {
 
                 if (position != 0) {
                     str_nature_business = spinnernaturebusiness.getSelectedItem().toString();
+                    get_industry_type_list();
+                    str_industry_type="";
+
                 }
             }
 
@@ -169,6 +177,7 @@ public class LoanInformationPage extends AppCompatActivity {
 
                 if (position != 0) {
                     str_industry_type = spinnerindustrytype.getSelectedItem().toString();
+                    get_sub_industry_type_list();
                 }
             }
 
@@ -514,6 +523,7 @@ public class LoanInformationPage extends AppCompatActivity {
                     linearseven.setVisibility(View.GONE);
                     lineareight.setVisibility(View.GONE);
                     page = 2;
+                    SessionManager.save_occupation(prefs, str_occupation);
                 } else {
                     Toast.makeText(getApplicationContext(), "Under Dev", Toast.LENGTH_SHORT).show();
                 }
@@ -537,6 +547,7 @@ public class LoanInformationPage extends AppCompatActivity {
                     linearseven.setVisibility(View.GONE);
                     lineareight.setVisibility(View.GONE);
                     page = 3;
+                    SessionManager.save_loanamount(prefs, loanamount.getText().toString());
                 }
 
             }
@@ -545,6 +556,7 @@ public class LoanInformationPage extends AppCompatActivity {
         nextthree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 linearone.setVisibility(View.GONE);
                 lineartwo.setVisibility(View.GONE);
                 linearthree.setVisibility(View.GONE);
@@ -554,6 +566,7 @@ public class LoanInformationPage extends AppCompatActivity {
                 linearseven.setVisibility(View.GONE);
                 lineareight.setVisibility(View.GONE);
                 page = 4;
+                SessionManager.save_annualturnover(prefs, str_annual_turnover);
 
             }
         });
@@ -572,6 +585,7 @@ public class LoanInformationPage extends AppCompatActivity {
                 linearseven.setVisibility(View.GONE);
                 lineareight.setVisibility(View.GONE);
                 page = 5;
+                SessionManager.save_city(prefs, str_cityname);
 
 
             }
@@ -593,6 +607,7 @@ public class LoanInformationPage extends AppCompatActivity {
                     linearseven.setVisibility(View.GONE);
                     lineareight.setVisibility(View.GONE);
                     page = 6;
+                    SessionManager.save_business_year(prefs, businessyears.getText().toString());
                 }
 
             }
@@ -602,19 +617,20 @@ public class LoanInformationPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(str_company_type.equalsIgnoreCase(""))
-                {
+                if (str_company_type.equalsIgnoreCase("")) {
                     Toast.makeText(LoanInformationPage.this, "Select company type", Toast.LENGTH_SHORT).show();
-                }else  if(str_nature_business.equalsIgnoreCase(""))
-                {
+                } else if (str_nature_business.equalsIgnoreCase("")) {
                     Toast.makeText(LoanInformationPage.this, "Select nature of business", Toast.LENGTH_SHORT).show();
-                }else  if(str_industry_type.equalsIgnoreCase(""))
-                {
+                } else if (str_industry_type.equalsIgnoreCase("")) {
                     Toast.makeText(LoanInformationPage.this, "Select industry type", Toast.LENGTH_SHORT).show();
-                }else  if(str_sub_industry_type.equalsIgnoreCase(""))
-                {
+                } else if (str_sub_industry_type.equalsIgnoreCase("")) {
                     Toast.makeText(LoanInformationPage.this, "Select sub-industry type", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
+
+                    SessionManager.save_company_type(prefs, str_company_type);
+                    SessionManager.save_nature_business(prefs, str_nature_business);
+                    SessionManager.save_industry_type(prefs, str_industry_type);
+                    SessionManager.save_sub_industry_type(prefs, str_sub_industry_type);
 
                     linearone.setVisibility(View.GONE);
                     lineartwo.setVisibility(View.GONE);
@@ -625,6 +641,7 @@ public class LoanInformationPage extends AppCompatActivity {
                     linearseven.setVisibility(View.VISIBLE);
                     lineareight.setVisibility(View.GONE);
                     page = 7;
+
                 }
 
 
@@ -644,6 +661,7 @@ public class LoanInformationPage extends AppCompatActivity {
                 linearseven.setVisibility(View.GONE);
                 lineareight.setVisibility(View.VISIBLE);
                 page = 8;
+                SessionManager.save_ownership_residence(prefs, str_business_place);
 
 
             }
@@ -652,6 +670,8 @@ public class LoanInformationPage extends AppCompatActivity {
         nexteight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                SessionManager.save_collatoral_loan(prefs, str_collateral_loan);
 
                 Intent intent = new Intent(LoanInformationPage.this, PersonalInformationPage.class);
                 startActivity(intent);
@@ -1123,6 +1143,148 @@ public class LoanInformationPage extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         get_cibil_history();
+    }
+
+    public void get_industry_type_list() {
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = BuildConfig.BASE_URL + "/get-industry-by-nature/" + str_nature_business;
+        StringRequest getRequest = new StringRequest(Request.Method.GET, url, response -> {
+
+            try {
+                progressDialog.dismiss();
+                JSONObject jsonObject = new JSONObject(response);
+                list1 = new ArrayList<>();
+                list1.add("Select");
+                list2=new ArrayList<>();
+
+                if (jsonObject.getString("status").equalsIgnoreCase("Success")) {
+
+                    JSONArray jsonArray = (jsonObject.getJSONArray("result"));
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        JSONObject objectnew2 = jsonArray.getJSONObject(i);
+                        list1.add(objectnew2.getString("name"));
+
+                    }
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list1);
+                    arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerindustrytype.setAdapter(arrayAdapter);
+
+                } else if (jsonObject.getString("status").equalsIgnoreCase("failed")) {
+                    if (progressDialog != null && progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
+                    Toast.makeText(LoanInformationPage.this, "" + jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+
+                }
+
+            } catch (Exception e) {
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+                e.printStackTrace();
+            }
+
+
+        }, error -> {
+
+            try {
+                int statusCode = error.networkResponse.statusCode;
+
+                error.printStackTrace();
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<String, String>();
+                String bearer = "Bearer " + SessionManager.get_access_token(prefs);
+                header.put("Content-Type", "application/json; charset=utf-8");
+                header.put("Accept", "application/json");
+                header.put("Authorization", bearer);
+
+                return header;
+            }
+        };
+        queue.add(getRequest);
+
+    }
+
+    public void get_sub_industry_type_list() {
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = BuildConfig.BASE_URL + "/bussiness-loan-create/" + str_industry_type;
+        StringRequest getRequest = new StringRequest(Request.Method.GET, url, response -> {
+
+            try {
+                progressDialog.dismiss();
+                JSONObject jsonObject = new JSONObject(response);
+
+                list2 = new ArrayList<>();
+                list2.add("Select");
+
+                if (jsonObject.getString("status").equalsIgnoreCase("Success")) {
+
+                    JSONArray jsonArray = (jsonObject.getJSONArray("result"));
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        JSONObject objectnew2 = jsonArray.getJSONObject(i);
+                        list2.add(objectnew2.getString("name"));
+
+                    }
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list2);
+                    arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnersubindustrytype.setAdapter(arrayAdapter);
+
+                } else if (jsonObject.getString("status").equalsIgnoreCase("failed")) {
+                    if (progressDialog != null && progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
+                    Toast.makeText(LoanInformationPage.this, "" + jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+
+                }
+
+            } catch (Exception e) {
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+                e.printStackTrace();
+            }
+
+
+        }, error -> {
+
+            try {
+                int statusCode = error.networkResponse.statusCode;
+
+                error.printStackTrace();
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<String, String>();
+                String bearer = "Bearer " + SessionManager.get_access_token(prefs);
+                header.put("Content-Type", "application/json; charset=utf-8");
+                header.put("Accept", "application/json");
+                header.put("Authorization", bearer);
+
+                return header;
+            }
+        };
+        queue.add(getRequest);
+
     }
 
 

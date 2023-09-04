@@ -286,31 +286,45 @@ public class PersonalInformationPage extends AppCompatActivity {
     public void getloanid() {
         final JSONObject json = new JSONObject();
         try {
-            json.put("resource_pagename", "");
-            json.put("resource_source", "");
-            json.put("resource_referal", "");
-            json.put("resource_ip_address", "");
+            json.put("legal_response", "Accept");
+            json.put("report_trigger", "true");
+            json.put("show_report_xml", false);
+            json.put("consent_option", "");
+            json.put("website_flag", "wishfin");
+            json.put("resource_pagename", "Business_Loan_Wishfin_Android");
+            json.put("resource_source", "Business_Loan_Wishfin_Android");
             json.put("resource_querystring", "");
+            json.put("resource_ip_address", "");
+            json.put("source", "Wishfin_Android");
             json.put("utm_source", "");
             json.put("utm_medium", "");
-            json.put("utm_campaign", "");
-            json.put("pagename", "AndroidApp");
-            json.put("source", "wishfinAndroidHLEligibility");
-            json.put("loanamount", SessionManager.get_loanamount(prefs));
-            json.put("city", SessionManager.get_city(prefs));
-            json.put("occupation", SessionManager.get_occupation(prefs));
-            json.put("monthlyincome", SessionManager.get_monthly_income(prefs));
-            json.put("fullname", SessionManager.get_firstname(prefs));
-            json.put("mobileno", SessionManager.get_mobile(prefs));
-            json.put("emailid", SessionManager.get_emailid(prefs));
-            json.put("accept", "1");
-            json.put("has_applied_sbi", "1");
-            json.put("submit", "Check your Rates Now");
+            json.put("referrer_address", "Business_Loan_Wishfin_Android");
+            json.put("querystring", "");
+
+            json.put("EmploymentType", SessionManager.get_occupation(prefs));
+            json.put("DesiredLoanAmount", SessionManager.get_loanamount(prefs));
+            json.put("GrossAnnualTurnover", SessionManager.get_annualturnover(prefs));
+            json.put("YearsinCurrentBusiness", SessionManager.get_business_year(prefs));
+            json.put("CompanyType", SessionManager.get_company_type(prefs));
+            json.put("NatureofBusiness", SessionManager.get_nature_business(prefs));
+            json.put("IndustryType", SessionManager.get_industry_type(prefs));
+            json.put("SubIndustryType", SessionManager.get_sub_industry_type(prefs));
+            json.put("OwnershipofResidenceOrBusinessPlace", SessionManager.get_ownership_residence(prefs));
+            json.put("Wishtotakeloanagainstcollateral", SessionManager.get_collatoral_loan(prefs));
+            json.put("fname", SessionManager.get_firstname(prefs));
+            json.put("lname", SessionManager.get_lastname(prefs));
+            json.put("Gender", SessionManager.get_gender(prefs));
+            json.put("Email", SessionManager.get_emailid(prefs));
+            json.put("Dob", SessionManager.get_dob(prefs));
+            json.put("Pincode", pincode.getText().toString());
+            json.put("Pan", SessionManager.get_pan(prefs));
+            json.put("city_name", SessionManager.get_city(prefs));
+            json.put("total_monthly_obligation", "");
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/home-loan", json, response -> {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/bussiness-loan-create", json, response -> {
             try {
 
                 JSONObject jsonObject = new JSONObject(response.toString());
@@ -320,8 +334,13 @@ public class PersonalInformationPage extends AppCompatActivity {
                     progressDialog.dismiss();
                 }
                 lead_id = jsonObject1.getString("id");
-                progressDialog.show();
-                update_lead();
+                SessionManager.save_lead_id(prefs, lead_id);
+                Intent intent = new Intent(PersonalInformationPage.this, Dashboard.class);
+                startActivity(intent);
+                finish();
+
+//                progressDialog.show();
+//                update_lead();
 
             } catch (Exception e) {
                 if (progressDialog != null && progressDialog.isShowing()) {

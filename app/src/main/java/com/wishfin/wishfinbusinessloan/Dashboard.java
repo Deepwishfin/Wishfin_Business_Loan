@@ -229,7 +229,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
     public void get_bank_quote_list(String id) {
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = BuildConfig.BASE_URL + "/v1/home-loan-get-quote/" + id;
+        String url = BuildConfig.BASE_URL + "/bussiness-loan-create?lead_id=" + id;
         StringRequest getRequest = new StringRequest(Request.Method.GET, url, response -> {
 
             try {
