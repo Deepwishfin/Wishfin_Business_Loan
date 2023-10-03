@@ -73,8 +73,7 @@ public class SelectCityPage extends AppCompatActivity {
 
                 }else {
                     SessionManager.save_city(prefs, str_cityname);
-                    Intent intent = new Intent(SelectCityPage.this, PersonalInformationPage.class);
-                    startActivity(intent);
+                    finish();
                 }
             }
         });

@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.InputType;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -29,7 +28,6 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,9 +41,8 @@ public class PersonalInformationPage extends AppCompatActivity {
     SharedPreferences prefs;
     RequestQueue queue;
 
-    ArrayList<Gettersetterforall> citylist = new ArrayList<>();
-    ArrayList<String> stringcitylist = new ArrayList<>();
     String gender = "1", lead_id = "";
+
     RadioButton yescheck, nocheck, malecheck, femalecheck;
     EditText pincode, pan, fullname, email, dob;
     int mYear, mMonth, mDay;
@@ -66,6 +63,7 @@ public class PersonalInformationPage extends AppCompatActivity {
         queue = Volley.newRequestQueue(PersonalInformationPage.this);
         prefs = PreferenceManager.getDefaultSharedPreferences(PersonalInformationPage.this);
 
+        SessionManager.save_gender(prefs,gender);
         continuebtn = findViewById(R.id.continuebtn);
         heading = findViewById(R.id.heading);
         subheading = findViewById(R.id.subheading);
@@ -86,131 +84,43 @@ public class PersonalInformationPage extends AppCompatActivity {
         email.setText(SessionManager.get_emailid(prefs));
         fullname.setText(SessionManager.get_firstname(prefs));
 
-        backbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        backbutton.setOnClickListener(v -> finish());
 
         getaouth();
 
-        dob.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePicdob("user");
-            }
+        dob.setOnClickListener(v -> DatePicdob());
+
+        malecheck.setOnClickListener(v -> {
+            gender = "1";
+            SessionManager.save_gender(prefs,gender);
         });
 
-        malecheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gender = "1";
-            }
-        });
-
-        femalecheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gender = "0";
-            }
+        femalecheck.setOnClickListener(v -> {
+            gender = "0";
+            SessionManager.save_gender(prefs,gender);
         });
 
 
-        continuebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        continuebtn.setOnClickListener(v -> {
 
-                if (fullname.getText().toString().trim().equalsIgnoreCase("")) {
-                    Toast.makeText(getApplicationContext(), "Enter Full Name", Toast.LENGTH_LONG).show();
-                } else if (email.getText().toString().trim().equalsIgnoreCase("")) {
-                    Toast.makeText(getApplicationContext(), "Enter Email", Toast.LENGTH_LONG).show();
-                } else if (dob.getText().toString().trim().equalsIgnoreCase("")) {
-                    Toast.makeText(getApplicationContext(), "Select DOB", Toast.LENGTH_LONG).show();
-                } else if (pincode.getText().toString().length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Enter Pincode", Toast.LENGTH_LONG).show();
-                } else if (!validatePAN()) {
-                    Toast.makeText(getApplicationContext(), "Enter Valid PAN", Toast.LENGTH_LONG).show();
-                } else {
-                    progressDialog.show();
-                    getloanid();
-                }
-
-
+            if (fullname.getText().toString().trim().equalsIgnoreCase("")) {
+                Toast.makeText(getApplicationContext(), "Enter Full Name", Toast.LENGTH_LONG).show();
+            } else if (email.getText().toString().trim().equalsIgnoreCase("")) {
+                Toast.makeText(getApplicationContext(), "Enter Email", Toast.LENGTH_LONG).show();
+            } else if (dob.getText().toString().trim().equalsIgnoreCase("")) {
+                Toast.makeText(getApplicationContext(), "Select DOB", Toast.LENGTH_LONG).show();
+            } else if (pincode.getText().toString().length() < 6) {
+                Toast.makeText(getApplicationContext(), "Enter Pincode", Toast.LENGTH_LONG).show();
+            } else if (!validatePAN()) {
+                Toast.makeText(getApplicationContext(), "Enter Valid PAN", Toast.LENGTH_LONG).show();
+            } else {
+                progressDialog.show();
+                getloanid();
             }
+
+
         });
 
-    }
-
-    public void update_lead() {
-        final JSONObject json = new JSONObject();
-        try {
-
-            json.put("gender", gender);
-            json.put("panno", pan.getText().toString());
-            json.put("coapplicantname", "");
-            json.put("coapplicantdob", "");
-            json.put("coapplicantincome", "");
-            json.put("coapplicanttotalobiligation", "");
-            json.put("prorequestid", lead_id);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/v1/home-loan-continue", json, response -> {
-            try {
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-
-                JSONObject jsonObject = new JSONObject(response.toString());
-                JSONObject jsonObject1 = jsonObject.getJSONObject("result");
-
-                if (jsonObject.getString("status").equalsIgnoreCase("Success")) {
-
-                    Intent intent = new Intent(PersonalInformationPage.this, Dashboard.class);
-                    startActivity(intent);
-                    finish();
-
-                }
-
-
-            } catch (Exception e) {
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-                e.printStackTrace();
-            }
-
-
-        }, error -> {
-
-            try {
-                int statusCode = error.networkResponse.statusCode;
-                if (statusCode == 421) {
-                    getaouth();
-                }
-                error.printStackTrace();
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> header = new HashMap<String, String>();
-                String bearer = "Bearer " + SessionManager.get_access_token(prefs);
-                header.put("Content-Type", "application/json; charset=utf-8");
-                header.put("Accept", "application/json");
-                header.put("Authorization", bearer);
-
-                return header;
-            }
-        };
-        queue.add(jsonObjectRequest);
     }
 
     public void getaouth() {
@@ -248,13 +158,10 @@ public class PersonalInformationPage extends AppCompatActivity {
         String pannum = pan.getText().toString().trim();
         Pattern pattern = Pattern.compile("[A-Z]{5}[0-9]{4}[A-Z]{1}");
         Matcher matcher = pattern.matcher(pannum);
-        if (!matcher.matches() || pan.getText().length() != 10) {
-            return false;
-        }
-        return true;
+        return matcher.matches() && pan.getText().length() == 10;
     }
 
-    private void DatePicdob(String type) {
+    private void DatePicdob() {
 
         Calendar mcurrentDate = Calendar.getInstance();
         mYear = mcurrentDate.get(Calendar.YEAR);
@@ -319,7 +226,6 @@ public class PersonalInformationPage extends AppCompatActivity {
             json.put("Pincode", pincode.getText().toString());
             json.put("Pan", SessionManager.get_pan(prefs));
             json.put("city_name", SessionManager.get_city(prefs));
-            json.put("total_monthly_obligation", "");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -333,8 +239,15 @@ public class PersonalInformationPage extends AppCompatActivity {
                 if (progressDialog != null && progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
-                lead_id = jsonObject1.getString("id");
-                SessionManager.save_lead_id(prefs, lead_id);
+                if(jsonObject1.getString("id").equalsIgnoreCase("true"))
+                {
+                    Toast.makeText(getApplicationContext(), "Details Updated", Toast.LENGTH_LONG).show();
+
+                }else {
+                    lead_id = jsonObject1.getString("id");
+                    SessionManager.save_lead_id(prefs, lead_id);
+                }
+                SessionManager.save_pincode(prefs,pincode.getText().toString());
                 Intent intent = new Intent(PersonalInformationPage.this, Dashboard.class);
                 startActivity(intent);
                 finish();
@@ -367,8 +280,8 @@ public class PersonalInformationPage extends AppCompatActivity {
             }
         }) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> header = new HashMap<String, String>();
+            public Map<String, String> getHeaders() {
+                Map<String, String> header = new HashMap<>();
                 String bearer = "Bearer " + SessionManager.get_access_token(prefs);
                 header.put("Content-Type", "application/json; charset=utf-8");
                 header.put("Accept", "application/json");

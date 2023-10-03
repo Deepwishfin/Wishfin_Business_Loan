@@ -87,6 +87,8 @@ public class LoanInformationPage extends AppCompatActivity {
         queue = Volley.newRequestQueue(LoanInformationPage.this);
         prefs = PreferenceManager.getDefaultSharedPreferences(LoanInformationPage.this);
 
+        SessionManager.save_city(prefs, str_cityname);
+
         seekBar = findViewById(R.id.seekbar);
         loanamount = findViewById(R.id.loanamount);
         businessyears = findViewById(R.id.businessyears);
@@ -152,6 +154,7 @@ public class LoanInformationPage extends AppCompatActivity {
 
             }
         });
+
 
         spinnernaturebusiness.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -334,6 +337,7 @@ public class LoanInformationPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 str_cityname = "Delhi";
+                SessionManager.save_city(prefs, str_cityname);
                 delhi.setBackgroundResource(R.drawable.textviewback);
                 mumbai.setBackgroundResource(R.drawable.textviewback_white);
                 pune.setBackgroundResource(R.drawable.textviewback_white);
@@ -346,6 +350,7 @@ public class LoanInformationPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 str_cityname = "Mumbai";
+                SessionManager.save_city(prefs, str_cityname);
                 mumbai.setBackgroundResource(R.drawable.textviewback);
                 delhi.setBackgroundResource(R.drawable.textviewback_white);
                 pune.setBackgroundResource(R.drawable.textviewback_white);
@@ -358,6 +363,7 @@ public class LoanInformationPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 str_cityname = "Pune";
+                SessionManager.save_city(prefs, str_cityname);
                 pune.setBackgroundResource(R.drawable.textviewback);
                 mumbai.setBackgroundResource(R.drawable.textviewback_white);
                 delhi.setBackgroundResource(R.drawable.textviewback_white);
@@ -370,6 +376,7 @@ public class LoanInformationPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 str_cityname = "Banglore";
+                SessionManager.save_city(prefs, str_cityname);
                 banglore.setBackgroundResource(R.drawable.textviewback);
                 mumbai.setBackgroundResource(R.drawable.textviewback_white);
                 pune.setBackgroundResource(R.drawable.textviewback_white);
@@ -382,6 +389,7 @@ public class LoanInformationPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 str_cityname = "Chennai";
+                SessionManager.save_city(prefs, str_cityname);
                 chennai.setBackgroundResource(R.drawable.textviewback);
                 mumbai.setBackgroundResource(R.drawable.textviewback_white);
                 pune.setBackgroundResource(R.drawable.textviewback_white);
@@ -394,6 +402,7 @@ public class LoanInformationPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 str_cityname = "Jaipur";
+                SessionManager.save_city(prefs, str_cityname);
                 jaipur.setBackgroundResource(R.drawable.textviewback);
                 mumbai.setBackgroundResource(R.drawable.textviewback_white);
                 pune.setBackgroundResource(R.drawable.textviewback_white);
@@ -461,8 +470,8 @@ public class LoanInformationPage extends AppCompatActivity {
                     linearone.setVisibility(View.GONE);
                     lineartwo.setVisibility(View.GONE);
                     linearthree.setVisibility(View.GONE);
-                    linearfour.setVisibility(View.GONE);
-                    linearfive.setVisibility(View.VISIBLE);
+                    linearfour.setVisibility(View.VISIBLE);
+                    linearfive.setVisibility(View.GONE);
                     linearsix.setVisibility(View.GONE);
                     linearseven.setVisibility(View.GONE);
                     lineareight.setVisibility(View.GONE);
@@ -474,8 +483,8 @@ public class LoanInformationPage extends AppCompatActivity {
                     lineartwo.setVisibility(View.GONE);
                     linearthree.setVisibility(View.GONE);
                     linearfour.setVisibility(View.GONE);
-                    linearfive.setVisibility(View.GONE);
-                    linearsix.setVisibility(View.VISIBLE);
+                    linearfive.setVisibility(View.VISIBLE);
+                    linearsix.setVisibility(View.GONE);
                     linearseven.setVisibility(View.GONE);
                     lineareight.setVisibility(View.GONE);
                     page = 5;
@@ -487,8 +496,8 @@ public class LoanInformationPage extends AppCompatActivity {
                     linearthree.setVisibility(View.GONE);
                     linearfour.setVisibility(View.GONE);
                     linearfive.setVisibility(View.GONE);
-                    linearsix.setVisibility(View.GONE);
-                    linearseven.setVisibility(View.VISIBLE);
+                    linearsix.setVisibility(View.VISIBLE);
+                    linearseven.setVisibility(View.GONE);
                     lineareight.setVisibility(View.GONE);
                     page = 6;
 
@@ -500,8 +509,8 @@ public class LoanInformationPage extends AppCompatActivity {
                     linearfour.setVisibility(View.GONE);
                     linearfive.setVisibility(View.GONE);
                     linearsix.setVisibility(View.GONE);
-                    linearseven.setVisibility(View.GONE);
-                    lineareight.setVisibility(View.VISIBLE);
+                    linearseven.setVisibility(View.VISIBLE);
+                    lineareight.setVisibility(View.GONE);
                     page = 7;
 
                 }
@@ -585,7 +594,8 @@ public class LoanInformationPage extends AppCompatActivity {
                 linearseven.setVisibility(View.GONE);
                 lineareight.setVisibility(View.GONE);
                 page = 5;
-                SessionManager.save_city(prefs, str_cityname);
+
+                Toast.makeText(LoanInformationPage.this,  SessionManager.get_city(prefs), Toast.LENGTH_SHORT).show();
 
 
             }

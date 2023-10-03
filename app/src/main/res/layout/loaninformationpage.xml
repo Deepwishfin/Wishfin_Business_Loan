@@ -916,7 +916,7 @@ against collateral?"
                             android:background="@drawable/textviewback"
                             android:padding="15dp"
 
-                            android:text="car"
+                            android:text="Car"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold" />

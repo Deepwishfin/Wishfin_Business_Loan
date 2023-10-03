@@ -103,7 +103,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dashboardincostraint);
+        setContentView(R.layout.dashboard);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -239,17 +239,14 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
 
                 if (jsonObject.getString("status").equalsIgnoreCase("Success")) {
 
-                    JSONObject jsonObject1 = jsonObject.getJSONObject("result");
-                    JSONObject jsonObject11 = jsonObject1.getJSONObject("customer");
-                    selected_banks = jsonObject11.getString("selected_banks");
 
-                    JSONArray jsonArray = (jsonObject1.getJSONArray("bank-quote"));
+                    JSONArray jsonArray = (jsonObject.getJSONArray("result"));
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject objectnew2 = jsonArray.getJSONObject(i);
                         Gettersetterforall pack = new Gettersetterforall();
                         try {
                             pack.setInterest_rate(objectnew2.getString("interest_rate"));
-                            pack.setEmi(objectnew2.getString("emi"));
+                            pack.setEmi("657489");
                             pack.setTenure(objectnew2.getString("tenure"));
                             pack.setLoan_amount(objectnew2.getString("loan_amount"));
                             pack.setProcessing_fee(objectnew2.getString("processing_fee"));
@@ -261,9 +258,9 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                             pack.setProcessing_fee("NA");
                         }
                         pack.setBank_code(objectnew2.getString("bank_code"));
-                        pack.setBank_name(objectnew2.getString("bank_name"));
+                        pack.setBank_name(objectnew2.getString("pl_bank_name"));
                         pack.setShow_logo(objectnew2.getString("show_logo"));
-                        pack.setApi_to_use(objectnew2.getString("api_to_use"));
+//                        pack.setApi_to_use(objectnew2.getString("api_to_use"));
                         pack.setImage_path(objectnew2.getString("image_path"));
 
                         if (selected_banks.contains(objectnew2.getString("bank_code"))) {

@@ -56,6 +56,7 @@ public class SessionManager {
     private static String SUB_INDUSTRY_TYPE = "sub_industry_type";
     private static String OWNERSHIP_RESIDENCE = "ownership_residence";
     private static String COLLATORAL_LOAN = "collatoral_loan";
+    private static String PINCODE = "pincode";
 
     static void savePreference(SharedPreferences prefs, String key, Boolean value) {
         Editor e = prefs.edit();
@@ -502,6 +503,14 @@ public class SessionManager {
 
     static String get_collatoral_loan(SharedPreferences prefs) {
         return prefs.getString(COLLATORAL_LOAN, "");
+    }
+
+    static void save_pincode(SharedPreferences prefs, String value) {
+        SessionManager.savePreference(prefs, PINCODE, value);
+    }
+
+    static String get_pincode(SharedPreferences prefs) {
+        return prefs.getString(PINCODE, "");
     }
 
 }
