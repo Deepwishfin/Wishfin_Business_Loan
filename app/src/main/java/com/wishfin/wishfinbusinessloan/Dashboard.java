@@ -39,6 +39,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ahmadrosid.svgloader.SvgLoader;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -58,7 +59,6 @@ import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.kaopiz.kprogresshud.KProgressHUD;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -246,7 +246,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                         Gettersetterforall pack = new Gettersetterforall();
                         try {
                             pack.setInterest_rate(objectnew2.getString("interest_rate"));
-                            pack.setEmi("657489");
+                            pack.setEmi("0");
                             pack.setTenure(objectnew2.getString("tenure"));
                             pack.setLoan_amount(objectnew2.getString("loan_amount"));
                             pack.setProcessing_fee(objectnew2.getString("processing_fee"));
@@ -402,9 +402,9 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
 
             holder.joiningfees.setText(list_car.get(position).getInterest_rate() + "%");
             holder.annualfees.setText(list_car.get(position).getProcessing_fee());
-
+            String uffuhg =list_car.get(position).getImage_path();
             try {
-                Picasso.get().load(list_car.get(position).getImage_path()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(holder.imageView);
+                Utilllllssss.fetchSvg(context, uffuhg, holder.imageView);
             } catch (Exception e) {
 
             }
@@ -426,11 +426,19 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                     int pos = (int) v.getTag();
 
                     if (!list_car.get(pos).getSelected_banks().equalsIgnoreCase("True")) {
-                        Intent intent = new Intent(Dashboard.this, ApplyBankLoan.class);
-                        intent.putExtra("lead_id", SessionManager.get_lead_id(prefs));
-                        intent.putExtra("bank_code", list_car.get(pos).getBank_code());
-                        intent.putExtra("bank_name", list_car.get(pos).getBank_name());
-                        startActivity(intent);
+                        if (list_car.get(pos).getBank_code().equalsIgnoreCase("m105")) {
+                            Intent intent = new Intent(Dashboard.this, KreditBeeApplyNow.class);
+                            intent.putExtra("lead_id", SessionManager.get_lead_id(prefs));
+                            intent.putExtra("bank_code", list_car.get(pos).getBank_code());
+                            intent.putExtra("bank_name", list_car.get(pos).getBank_name());
+                            startActivity(intent);
+                        } else if (list_car.get(pos).getBank_code().equalsIgnoreCase("m104")) {
+                            Intent intent = new Intent(Dashboard.this, MoneyViewApplyNow.class);
+                            intent.putExtra("lead_id", SessionManager.get_lead_id(prefs));
+                            intent.putExtra("bank_code", list_car.get(pos).getBank_code());
+                            intent.putExtra("bank_name", list_car.get(pos).getBank_name());
+                            startActivity(intent);
+                        }
                     }
 
                 }
@@ -511,11 +519,11 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                     submit.setOnClickListener(view -> {
                         try {
                             Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setData(Uri.parse("market://details?id=com.mywish.wishfin.wishfin_home_loan"));
+                            intent.setData(Uri.parse("market://details?id=com.wishfin.wishfinbusinessloan"));
                             startActivity(intent);
                         } catch (Exception e) { //google play app is not installed
                             Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.mywish.wishfin.wishfin_home_loan&hl=en_IN&gl=in"));
+                            intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.wishfin.wishfinbusinessloan&hl=en_IN&gl=in"));
                             startActivity(intent);
                         }
                     });

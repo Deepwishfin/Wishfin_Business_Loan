@@ -244,27 +244,47 @@
                                 android:orientation="vertical">
 
                                 <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
-                                    android:id="@+id/pincodehead"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10sp"
                                     android:layout_marginBottom="10sp"
-                                    android:text="Company"
+                                    android:text="Family Annual Income"
                                     android:textColor="#2E384D"
                                     android:textSize="14sp" />
 
-                                <AutoCompleteTextView
-                                    android:id="@+id/spinnercompanytype"
+                                <Spinner
+                                    android:id="@+id/select_family_income"
                                     android:layout_width="match_parent"
-                                    android:layout_height="48dp"
-                                    android:padding="10sp"
-                                    android:textColorHint="#B0BAC9"
-                                    android:hint="Enter here"
                                     android:background="@drawable/edittextback"
-                                   />
+                                    android:layout_height="40sp"
+                                    android:entries="@array/array_family_income"
+                                    android:gravity="center"
+                                    android:importantForAutofill="no"
+                                    android:textSize="14sp"
+                                    tools:ignore="RtlSymmetry" />
 
                                 <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
-                                    android:id="@+id/salaryhead"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10sp"
+                                    android:layout_marginBottom="10sp"
+                                    android:text="Education"
+                                    android:textColor="#2E384D"
+                                    android:textSize="14sp" />
+
+                                <Spinner
+                                    android:id="@+id/select_education"
+                                    android:layout_width="match_parent"
+                                    android:background="@drawable/edittextback"
+                                    android:layout_height="40sp"
+                                    android:entries="@array/array_education"
+                                    android:gravity="center"
+                                    android:importantForAutofill="no"
+                                    android:textSize="14sp"
+                                    tools:ignore="RtlSymmetry" />
+
+                                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10sp"
@@ -286,6 +306,7 @@
                                     android:textColor="#304258"
                                     android:textColorHint="#B0BAC9"
                                     android:textSize="14sp" />
+
 
                             </LinearLayout>
 

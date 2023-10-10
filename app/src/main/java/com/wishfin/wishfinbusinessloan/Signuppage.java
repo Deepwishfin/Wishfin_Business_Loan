@@ -226,7 +226,7 @@ public class Signuppage extends Activity implements SMSReceiver.OTPReceiveListen
         getaouth();
 
         checkbox_text.setText(Html.fromHtml("By Tapping continue, I am agree to " +
-                "<a href='com.mywish.wishfin.wishfin_home_loan.Dynamicdisplaypage://Kode'>TERMS AND CONDITIONS</a>" + " and I give my Consent to check my <b> Cibil Score </b>"));
+                "<a href='com.wishfin.wishfinbusinessloan.Dynamicdisplaypage://Kode'>TERMS AND CONDITIONS</a>" + " and I give my Consent to check my <b> Cibil Score </b>"));
         checkbox_text.setClickable(true);
         checkbox_text.setMovementMethod(LinkMovementMethod.getInstance());
 

@@ -6,7 +6,6 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,13 +14,11 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.RetryPolicy;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.kaopiz.kprogresshud.KProgressHUD;
 
@@ -33,20 +30,20 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class KreditBeeApplyNow extends AppCompatActivity {
+public class MoneyViewApplyNow extends AppCompatActivity {
 
     KProgressHUD progressDialog;
     SharedPreferences prefs;
     RequestQueue queue;
-    String str_company_name="",lead_id = "", bank_code = "", bank_name = "";
-    AutoCompleteTextView spinnercompanytype;
-    TextView continuebtn,heading;
+    String str_family_income = "", str_education = "",strpartnetrefid="", lead_id = "", bank_code = "", bank_name = "";
+    Spinner select_family_income, select_education;
+    TextView continuebtn, heading;
     EditText monthlysalary;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.kreditbeeapplynow);
+        setContentView(R.layout.moneyviewapplynow);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -55,8 +52,8 @@ public class KreditBeeApplyNow extends AppCompatActivity {
         }
         progressDialog = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setLabel(getString(R.string.dialogtext)).setCancellable(false).setAnimationSpeed(1).setDimAmount(0.5f);
 
-        queue = Volley.newRequestQueue(KreditBeeApplyNow.this);
-        prefs = PreferenceManager.getDefaultSharedPreferences(KreditBeeApplyNow.this);
+        queue = Volley.newRequestQueue(MoneyViewApplyNow.this);
+        prefs = PreferenceManager.getDefaultSharedPreferences(MoneyViewApplyNow.this);
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -75,22 +72,37 @@ public class KreditBeeApplyNow extends AppCompatActivity {
             bank_name = (String) savedInstanceState.getSerializable("bank_name");
         }
 
-        continuebtn=findViewById(R.id.continuebtn);
-        spinnercompanytype=findViewById(R.id.spinnercompanytype);
-        monthlysalary=findViewById(R.id.monthlysalary);
-        heading=findViewById(R.id.heading);
+        continuebtn = findViewById(R.id.continuebtn);
+        select_family_income = findViewById(R.id.select_family_income);
+        select_education = findViewById(R.id.select_education);
+        monthlysalary = findViewById(R.id.monthlysalary);
+        heading = findViewById(R.id.heading);
 
         heading.setText(bank_name);
 
         getaouth();
 
-        spinnercompanytype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        select_family_income.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-//                if(position!=0) {
-//                    str_company_name = spinnercompanytype.get;
-//                }
+                if (position != 0) {
+                    str_family_income = select_family_income.getSelectedItem().toString();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        select_education.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position != 0) {
+                    str_education = select_education.getSelectedItem().toString();
+                }
             }
 
             @Override
@@ -103,12 +115,15 @@ public class KreditBeeApplyNow extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(monthlysalary.getText().toString().trim().equalsIgnoreCase(""))
-                {
-                    Toast.makeText(KreditBeeApplyNow.this, "Please enter salary", Toast.LENGTH_SHORT).show();
-                }else{
+                if (monthlysalary.getText().toString().trim().equalsIgnoreCase("")) {
+                    Toast.makeText(MoneyViewApplyNow.this, "Please enter salary", Toast.LENGTH_SHORT).show();
+                } else if (str_family_income.equalsIgnoreCase("")) {
+                    Toast.makeText(MoneyViewApplyNow.this, "Please select family income", Toast.LENGTH_SHORT).show();
+                } else if (str_education.equalsIgnoreCase("")) {
+                    Toast.makeText(MoneyViewApplyNow.this, "Please select education", Toast.LENGTH_SHORT).show();
+                } else {
                     progressDialog.show();
-                    checkduplicatelead();
+                    createlead();
 
                 }
 
@@ -146,95 +161,34 @@ public class KreditBeeApplyNow extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
-    public void checkduplicatelead() {
 
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-        String url = BuildConfig.BASE_URL + "/lead-bank?mobile_number=" + SessionManager.get_mobile(prefs) + "&bank_code=m105" + SessionManager.get_cibil_id(prefs);
-        StringRequest getRequest = new StringRequest(Request.Method.GET, url,
-                response -> {
-                    // response
-                    if (progressDialog != null && progressDialog.isShowing()) {
-                        progressDialog.dismiss();
-                    }
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-
-                        if (jsonObject.getString("status").equalsIgnoreCase("success")) {
-                            leadbank();
-                        } else if (jsonObject.getString("status").equalsIgnoreCase("failed")) {
-                            if (progressDialog != null && progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
-
-                        }
-
-                    } catch (Exception e) {
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                        e.printStackTrace();
-                    }
-                },
-                error -> {
-                    // TODO Auto-generated method stub
-                    if (progressDialog != null && progressDialog.isShowing()) {
-                        progressDialog.dismiss();
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                String bearer = "Bearer " + SessionManager.get_access_token(prefs);
-                params.put("Content-Type", "application/json; charset=utf-8");
-                params.put("Accept", "application/json");
-                params.put("Authorization", bearer);
-
-                return params;
-            }
-        };
-        queue.add(getRequest);
-
-    }
-
-    public void leadbank() {
+    public void createlead() {
         final JSONObject json = new JSONObject();
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("'Date\n'dd-MM-yyyy '\n\nand\n\nTime\n'HH:mm:ss z");
             String currentDateAndTime = sdf.format(new Date());
+            strpartnetrefid="WISHFIN-ANDROID" + currentDateAndTime;
 
-            json.put("bank_code", bank_code);
-            json.put("product_type", "BL");
-            json.put("member_reference_id", "0");
-            json.put("partner_application_id", "WISHFIN-ANDROID"+currentDateAndTime);
-            json.put("first_name", SessionManager.get_firstname(prefs));
-            json.put("middle_name", SessionManager.get_mname(prefs));
-            json.put("last_name", SessionManager.get_lastname(prefs));
-            json.put("email_id", SessionManager.get_emailid(prefs));
-            json.put("mobile_number", SessionManager.get_mobile(prefs));
-            json.put("pancard", SessionManager.get_pan(prefs));
-            json.put("occupation", "1");
+            json.put("partnerCode", "29");
+            json.put("partnerRef", strpartnetrefid);
+            json.put("phone", SessionManager.get_mobile(prefs));
+            json.put("pan", SessionManager.get_pan(prefs));
+            json.put("name", SessionManager.get_firstname(prefs) + " " + SessionManager.get_mname(prefs) + " " + SessionManager.get_lastname(prefs));
             json.put("gender", SessionManager.get_gender(prefs));
-            json.put("date_of_birth", SessionManager.get_dob(prefs));
-            json.put("loan_purpose", "");
-            json.put("monthly_income", monthlysalary.getText().toString());
-            json.put("corr_pincode", SessionManager.get_pincode(prefs));
-            json.put("corr_city", SessionManager.get_city(prefs));
-            json.put("corr_state", "");
-            json.put("corr_add_type", "");
-            json.put("journey_upto", "");
-            json.put("source", "Wishfin_Android");
-            json.put("utm_source", "");
-            json.put("ip_address", "");
-            json.put("pagename", "");
-            json.put("cc_pl_id", lead_id);
+            json.put("dateOfBirth", SessionManager.get_dob(prefs));
+            json.put("bureauPermission", "1");
+            json.put("employmentType", "Salaried");
+            json.put("incomeMode", "online");
+            json.put("declaredIncome", monthlysalary.getText().toString());
+            json.put("educationLevel", str_education);
+            json.put("loanPurpose", "");
+            json.put("annualFamilyIncome", str_family_income);
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/lead-bank", json, response -> {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/money-view/create-lead", json, response -> {
             try {
 
                 JSONObject jsonObject = new JSONObject(response.toString());
@@ -243,7 +197,7 @@ public class KreditBeeApplyNow extends AppCompatActivity {
                 if (progressDialog != null && progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
-                createtoken(jsonObject1.getString("id"));
+                getoffers(jsonObject1.getString("id"));
 
             } catch (Exception e) {
                 if (progressDialog != null && progressDialog.isShowing()) {
@@ -283,20 +237,16 @@ public class KreditBeeApplyNow extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
-    private void createtoken(String id) {
+    private void getoffers(String id) {
         final JSONObject json = new JSONObject();
         try {
 
             json.put("lead_id", id);
-            json.put("email", SessionManager.get_emailid(prefs));
-            json.put("phone", SessionManager.get_mobile(prefs));
-            json.put("source", "Wishfin1");
-            json.put("source2", "Wishfin_Android");
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/create-lead-token", json, response -> {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/money-view/get-lead-status", json, response -> {
             try {
 
                 JSONObject jsonObject = new JSONObject(response.toString());
@@ -307,7 +257,7 @@ public class KreditBeeApplyNow extends AppCompatActivity {
                     progressDialog.dismiss();
                 }
 
-                getstatus(jsonObject2.getString("idToken"),id);
+                getactivitystatus(id);
 
             } catch (Exception e) {
                 if (progressDialog != null && progressDialog.isShowing()) {
@@ -347,11 +297,12 @@ public class KreditBeeApplyNow extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
-    private void getstatus(String idToken,String id) {
+    private void getactivitystatus(String id) {
         final JSONObject json = new JSONObject();
         try {
-            json.put("lead_id", id);
-            json.put("token", idToken);
+            json.put("type", "bankstatement");
+            json.put("leadId", id);
+            json.put("partner_reference_id", strpartnetrefid);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -360,13 +311,12 @@ public class KreditBeeApplyNow extends AppCompatActivity {
             try {
 
                 JSONObject jsonObject = new JSONObject(response.toString());
-                JSONObject jsonObject1 = jsonObject.getJSONObject("result");
 
                 if (progressDialog != null && progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
 
-                createprofile(idToken,id);
+                journeyurl(id);
 
 
             } catch (Exception e) {
@@ -407,36 +357,18 @@ public class KreditBeeApplyNow extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
-    private void createprofile(String idToken,String id) {
+    private void journeyurl(String id) {
         final JSONObject json = new JSONObject();
         try {
 
-            json.put("fname", SessionManager.get_firstname(prefs));
-            json.put("lname", SessionManager.get_lastname(prefs));
-            json.put("pan", SessionManager.get_pan(prefs));
-            json.put("pincode", SessionManager.get_pincode(prefs));
-            json.put("monthlySalary", monthlysalary.getText().toString());
-            json.put("employmentType", "salaried");
-            json.put("dob", SessionManager.get_dob(prefs));
-            json.put("gender", SessionManager.get_gender(prefs));
-            if(str_company_name.equalsIgnoreCase(""))
-            {
-                json.put("company", "-1");
-                json.put("companyName", "Others");
-            }else {
-
-                json.put("company", "");
-                json.put("companyName", str_company_name);
-            }
-            json.put("modeOfSalary", "Bank Transfer");
-            json.put("lead_id", id);
-            json.put("token", idToken);
+            json.put("leadId", id);
+            json.put("partner_reference_id", strpartnetrefid);
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/profile-eligible", json, response -> {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/money-view/get-journey-url", json, response -> {
             try {
 
                 JSONObject jsonObject = new JSONObject(response.toString());
@@ -445,7 +377,7 @@ public class KreditBeeApplyNow extends AppCompatActivity {
                 if (progressDialog != null && progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
-                Toast.makeText(this, ""+jsonObject1.getString("msg"), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "" + jsonObject1.getString("msg"), Toast.LENGTH_SHORT).show();
                 finish();
 
             } catch (Exception e) {
@@ -486,87 +418,5 @@ public class KreditBeeApplyNow extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
-
-//    public void leasavepersonalloan() {
-//        final JSONObject json = new JSONObject();
-//        try {
-//            json.put("wish_id", "");
-//            json.put("fullname", SessionManager.get_firstname(prefs) + " " + SessionManager.get_mname(prefs) + " " + SessionManager.get_lastname(prefs));
-//            json.put("gender", SessionManager.get_gender(prefs));
-//            json.put("date_of_birth", SessionManager.get_dob(prefs));
-//            json.put("mobileno", SessionManager.get_mobile(prefs));
-//            json.put("emailid", SessionManager.get_emailid(prefs));
-//            json.put("city", SessionManager.get_city(prefs));
-//            json.put("pancard", SessionManager.get_pan(prefs));
-//            json.put("monthlyincome", SessionManager.get_monthly_income(prefs));
-//            json.put("company_name", "");
-//            json.put("occupation", SessionManager.get_occupation(prefs));
-//            json.put("loanamount", SessionManager.get_loanamount(prefs));
-//            json.put("annualturnover", SessionManager.get_annualturnover(prefs));
-//            json.put("accept", "");
-//            json.put("source", "Wishfin_Android");
-//            json.put("querystring", "");
-//            json.put("utm_source", "");
-//            json.put("utm_medium", "");
-//            json.put("utm_campaign", "");
-//            json.put("referrer_address", "");
-//            json.put("resource_pagename", "Business_Loan_Wishfin_Android");
-//            json.put("resource_ip_address", "");
-//
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/personal-loan", json, response -> {
-//            try {
-//
-//                JSONObject jsonObject = new JSONObject(response.toString());
-//                JSONObject jsonObject1 = jsonObject.getJSONObject("result");
-//
-//                if (progressDialog != null && progressDialog.isShowing()) {
-//                    progressDialog.dismiss();
-//                }
-//
-//                leadbank(jsonObject1.getString("id"));
-//
-//
-//            } catch (Exception e) {
-//                if (progressDialog != null && progressDialog.isShowing()) {
-//                    progressDialog.dismiss();
-//                }
-//                e.printStackTrace();
-//            }
-//
-//
-//        }, error -> {
-//
-//            try {
-//                int statusCode = error.networkResponse.statusCode;
-//                if (statusCode == 421) {
-//                    getaouth();
-//                }
-//                error.printStackTrace();
-//                if (progressDialog != null && progressDialog.isShowing()) {
-//                    progressDialog.dismiss();
-//                }
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }) {
-//            @Override
-//            public Map<String, String> getHeaders() {
-//                Map<String, String> header = new HashMap<>();
-//                String bearer = "Bearer " + SessionManager.get_access_token(prefs);
-//                header.put("Content-Type", "application/json; charset=utf-8");
-//                header.put("Accept", "application/json");
-//                header.put("Authorization", bearer);
-//
-//                return header;
-//            }
-//        };
-//        queue.add(jsonObjectRequest);
-//    }
-
-
 }
+

@@ -82,4 +82,19 @@
         <item>Textiles</item>
         <item>Other</item>
     </string-array>
+    <string-array name="array_family_income">
+        <item>Select</item>
+        <item>Less than 3 Lakhs</item>
+        <item>More than 3 Lakhs</item>
+    </string-array>
+    <string-array name="array_education">
+        <item>Select</item>
+        <item>PHD</item>
+        <item>POST GRADUATION</item>
+        <item>GRADUATION</item>
+        <item>DIPLOMA</item>
+        <item>PASSED 12TH</item>
+        <item>PASSED 10TH</item>
+        <item>LESS THAN 10TH</item>
+    </string-array>
 </resources>
