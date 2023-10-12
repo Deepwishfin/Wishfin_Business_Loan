@@ -1,5 +1,6 @@
 package com.wishfin.wishfinbusinessloan;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -25,8 +26,6 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +34,7 @@ public class MoneyViewApplyNow extends AppCompatActivity {
     KProgressHUD progressDialog;
     SharedPreferences prefs;
     RequestQueue queue;
-    String str_family_income = "", str_education = "",strpartnetrefid="", lead_id = "", bank_code = "", bank_name = "";
+    String str_family_income = "", str_education = "", strpartnetrefid = "", lead_id = "", bank_code = "", bank_name = "";
     Spinner select_family_income, select_education;
     TextView continuebtn, heading;
     EditText monthlysalary;
@@ -165,9 +164,9 @@ public class MoneyViewApplyNow extends AppCompatActivity {
     public void createlead() {
         final JSONObject json = new JSONObject();
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("'Date\n'dd-MM-yyyy '\n\nand\n\nTime\n'HH:mm:ss z");
-            String currentDateAndTime = sdf.format(new Date());
-            strpartnetrefid="WISHFIN-ANDROID" + currentDateAndTime;
+            Long tsLong = System.currentTimeMillis() / 1000;
+            String ts = tsLong.toString();
+            strpartnetrefid = "WISHFIN-ANDROID" + ts;
 
             json.put("partnerCode", "29");
             json.put("partnerRef", strpartnetrefid);
@@ -192,12 +191,16 @@ public class MoneyViewApplyNow extends AppCompatActivity {
             try {
 
                 JSONObject jsonObject = new JSONObject(response.toString());
-                JSONObject jsonObject1 = jsonObject.getJSONObject("result");
 
                 if (progressDialog != null && progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
-                getoffers(jsonObject1.getString("id"));
+                if (jsonObject.getString("status").equalsIgnoreCase("success")) {
+                    Intent intent2 = new Intent(MoneyViewApplyNow.this, MoneyViewOfferPage.class);
+                    intent2.putExtra("lead_id",jsonObject.getString("leadId"));
+                    intent2.putExtra("strpartnetrefid",strpartnetrefid);
+                    startActivity(intent2);
+                }
 
             } catch (Exception e) {
                 if (progressDialog != null && progressDialog.isShowing()) {
@@ -237,186 +240,8 @@ public class MoneyViewApplyNow extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
-    private void getoffers(String id) {
-        final JSONObject json = new JSONObject();
-        try {
-
-            json.put("lead_id", id);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/money-view/get-lead-status", json, response -> {
-            try {
-
-                JSONObject jsonObject = new JSONObject(response.toString());
-                JSONObject jsonObject1 = jsonObject.getJSONObject("result");
-                JSONObject jsonObject2 = jsonObject1.getJSONObject("model");
-
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-
-                getactivitystatus(id);
-
-            } catch (Exception e) {
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-                e.printStackTrace();
-            }
 
 
-        }, error -> {
-
-            try {
-                int statusCode = error.networkResponse.statusCode;
-                if (statusCode == 421) {
-                    getaouth();
-                }
-                error.printStackTrace();
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> header = new HashMap<>();
-                String bearer = "Bearer " + SessionManager.get_access_token(prefs);
-                header.put("Content-Type", "application/json; charset=utf-8");
-                header.put("Accept", "application/json");
-                header.put("Authorization", bearer);
-
-                return header;
-            }
-        };
-        queue.add(jsonObjectRequest);
-    }
-
-    private void getactivitystatus(String id) {
-        final JSONObject json = new JSONObject();
-        try {
-            json.put("type", "bankstatement");
-            json.put("leadId", id);
-            json.put("partner_reference_id", strpartnetrefid);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/get-status", json, response -> {
-            try {
-
-                JSONObject jsonObject = new JSONObject(response.toString());
-
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-
-                journeyurl(id);
-
-
-            } catch (Exception e) {
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-                e.printStackTrace();
-            }
-
-
-        }, error -> {
-
-            try {
-                int statusCode = error.networkResponse.statusCode;
-                if (statusCode == 421) {
-                    getaouth();
-                }
-                error.printStackTrace();
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> header = new HashMap<>();
-                String bearer = "Bearer " + SessionManager.get_access_token(prefs);
-                header.put("Content-Type", "application/json; charset=utf-8");
-                header.put("Accept", "application/json");
-                header.put("Authorization", bearer);
-
-                return header;
-            }
-        };
-        queue.add(jsonObjectRequest);
-    }
-
-    private void journeyurl(String id) {
-        final JSONObject json = new JSONObject();
-        try {
-
-            json.put("leadId", id);
-            json.put("partner_reference_id", strpartnetrefid);
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/money-view/get-journey-url", json, response -> {
-            try {
-
-                JSONObject jsonObject = new JSONObject(response.toString());
-                JSONObject jsonObject1 = jsonObject.getJSONObject("result");
-
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-                Toast.makeText(this, "" + jsonObject1.getString("msg"), Toast.LENGTH_SHORT).show();
-                finish();
-
-            } catch (Exception e) {
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-                e.printStackTrace();
-            }
-
-
-        }, error -> {
-
-            try {
-                int statusCode = error.networkResponse.statusCode;
-                if (statusCode == 421) {
-                    getaouth();
-                }
-                error.printStackTrace();
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> header = new HashMap<>();
-                String bearer = "Bearer " + SessionManager.get_access_token(prefs);
-                header.put("Content-Type", "application/json; charset=utf-8");
-                header.put("Accept", "application/json");
-                header.put("Authorization", bearer);
-
-                return header;
-            }
-        };
-        queue.add(jsonObjectRequest);
-    }
 
 }
 

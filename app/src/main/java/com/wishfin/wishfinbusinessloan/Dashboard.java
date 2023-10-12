@@ -438,6 +438,18 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                             intent.putExtra("bank_code", list_car.get(pos).getBank_code());
                             intent.putExtra("bank_name", list_car.get(pos).getBank_name());
                             startActivity(intent);
+                        }else if (list_car.get(pos).getBank_code().equalsIgnoreCase("m036")) {
+                            Intent intent = new Intent(Dashboard.this, LendingKartApplyNow.class);
+                            intent.putExtra("lead_id", SessionManager.get_lead_id(prefs));
+                            intent.putExtra("bank_code", list_car.get(pos).getBank_code());
+                            intent.putExtra("bank_name", list_car.get(pos).getBank_name());
+                            startActivity(intent);
+                        }else if (list_car.get(pos).getBank_code().equalsIgnoreCase("m016")) {
+                            Intent intent = new Intent(Dashboard.this, TataCapitalApplyNow.class);
+                            intent.putExtra("lead_id", SessionManager.get_lead_id(prefs));
+                            intent.putExtra("bank_code", list_car.get(pos).getBank_code());
+                            intent.putExtra("bank_name", list_car.get(pos).getBank_name());
+                            startActivity(intent);
                         }
                     }
 

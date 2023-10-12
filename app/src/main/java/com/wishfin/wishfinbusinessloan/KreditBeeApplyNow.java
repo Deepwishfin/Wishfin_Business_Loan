@@ -39,7 +39,7 @@ public class KreditBeeApplyNow extends AppCompatActivity {
     SharedPreferences prefs;
     RequestQueue queue;
     String str_company_name="",lead_id = "", bank_code = "", bank_name = "";
-    AutoCompleteTextView spinnercompanytype;
+    AutoCompleteTextView autocompletecompanytype;
     TextView continuebtn,heading;
     EditText monthlysalary;
 
@@ -76,7 +76,7 @@ public class KreditBeeApplyNow extends AppCompatActivity {
         }
 
         continuebtn=findViewById(R.id.continuebtn);
-        spinnercompanytype=findViewById(R.id.spinnercompanytype);
+        autocompletecompanytype=findViewById(R.id.spinnercompanytype);
         monthlysalary=findViewById(R.id.monthlysalary);
         heading=findViewById(R.id.heading);
 
@@ -84,13 +84,11 @@ public class KreditBeeApplyNow extends AppCompatActivity {
 
         getaouth();
 
-        spinnercompanytype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        autocompletecompanytype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-//                if(position!=0) {
-//                    str_company_name = spinnercompanytype.get;
-//                }
+                str_company_name=parent.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -201,13 +199,13 @@ public class KreditBeeApplyNow extends AppCompatActivity {
     public void leadbank() {
         final JSONObject json = new JSONObject();
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("'Date\n'dd-MM-yyyy '\n\nand\n\nTime\n'HH:mm:ss z");
-            String currentDateAndTime = sdf.format(new Date());
+            Long tsLong = System.currentTimeMillis()/1000;
+            String ts = tsLong.toString();
 
             json.put("bank_code", bank_code);
             json.put("product_type", "BL");
             json.put("member_reference_id", "0");
-            json.put("partner_application_id", "WISHFIN-ANDROID"+currentDateAndTime);
+            json.put("partner_application_id", "WISHFIN-ANDROID"+ts);
             json.put("first_name", SessionManager.get_firstname(prefs));
             json.put("middle_name", SessionManager.get_mname(prefs));
             json.put("last_name", SessionManager.get_lastname(prefs));
