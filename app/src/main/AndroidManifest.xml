@@ -80,6 +80,9 @@
             android:name=".MoneyViewOfferPage"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".TataCapitalApplyNow"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Profilepage"
             android:screenOrientation="portrait" />
 
