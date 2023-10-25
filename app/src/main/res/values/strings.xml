@@ -35,6 +35,8 @@
     <string name="notnow">Not Now</string>
     <string name="claculate">Calculate Now</string>
     <string name="resend">Resend</string>
+    <string name="officeaddress">Office Address</string>
+    <string name="residentaddress">Residential Address</string>
     <string name="updateapp" translatable="false">A new app version is available on Google Play Store.Please update the Wishfin Home Loan app to get the new features and benefits.</string>
     <string-array name="companytype">
         <item>Select</item>
@@ -96,5 +98,11 @@
         <item>PASSED 12TH</item>
         <item>PASSED 10TH</item>
         <item>LESS THAN 10TH</item>
+    </string-array>
+    <string-array name="array_marital_status">
+        <item>Select</item>
+        <item>Single</item>
+        <item>Married</item>
+        <item>Divorced</item>
     </string-array>
 </resources>

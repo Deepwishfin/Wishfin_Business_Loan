@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,8 +21,10 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,10 +36,13 @@ public class TataCapitalApplyNow extends AppCompatActivity {
     KProgressHUD progressDialog;
     SharedPreferences prefs;
     RequestQueue queue;
-    String str_city_name = "", str_state_name = "", str_branch_code = "", lead_id = "", bank_code = "", bank_name = "";
-    Spinner select_family_income, select_education;
+    Spinner select_maritalstatus;
+    String str_city_name = "", str_state_name = "",str_pincode_name="", str_branch_code = "", str_webtopNo = "",
+            lead_id = "", bank_code = "", bank_name = "", str_first_name = "", str_middlename = "", str_last_name = "",str_loan_amount="";
     TextView continuebtn, heading;
-    EditText monthlysalary, pincode;
+    EditText monthlysalary,official_email,oaddreessline1,oaddreessline2,raddreessline1,raddreessline2;
+
+    AutoCompleteTextView employername,ocity,opincode,rcity,rpincode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,22 +65,33 @@ public class TataCapitalApplyNow extends AppCompatActivity {
                 lead_id = null;
                 bank_code = null;
                 bank_name = null;
+                str_loan_amount = null;
             } else {
                 lead_id = extras.getString("lead_id");
                 bank_code = extras.getString("bank_code");
                 bank_name = extras.getString("bank_name");
+                str_loan_amount = extras.getString("loan_amount");
             }
         } else {
             lead_id = (String) savedInstanceState.getSerializable("lead_id");
             bank_code = (String) savedInstanceState.getSerializable("bank_code");
             bank_name = (String) savedInstanceState.getSerializable("bank_name");
+            str_loan_amount = (String) savedInstanceState.getSerializable("loan_amount");
         }
 
         continuebtn = findViewById(R.id.continuebtn);
-        select_family_income = findViewById(R.id.select_family_income);
-        select_education = findViewById(R.id.select_education);
+        select_maritalstatus = findViewById(R.id.select_maritalstatus);
         monthlysalary = findViewById(R.id.monthlysalary);
-        pincode = findViewById(R.id.pincode);
+        official_email = findViewById(R.id.official_email);
+        employername = findViewById(R.id.employername);
+        oaddreessline1 = findViewById(R.id.oaddreessline1);
+        oaddreessline2 = findViewById(R.id.oaddreessline2);
+        raddreessline1 = findViewById(R.id.raddreessline1);
+        raddreessline2 = findViewById(R.id.raddreessline2);
+        rcity = findViewById(R.id.rcity);
+        rpincode = findViewById(R.id.rpincode);
+        ocity = findViewById(R.id.ocity);
+        opincode = findViewById(R.id.opincode);
         heading = findViewById(R.id.heading);
 
         heading.setText(bank_name);
@@ -187,7 +204,27 @@ public class TataCapitalApplyNow extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(response.toString());
 
                 if (jsonObject.getString("status").equalsIgnoreCase("success")) {
-                    checkpincode();
+
+                    JSONObject jsonObject1 = jsonObject.getJSONObject("result");
+                    JSONArray jsonArray = jsonObject1.getJSONArray("PanVerificationResponse");
+
+                    JSONObject jsonObject2 = jsonArray.getJSONObject(0);
+
+                    str_first_name = jsonObject2.getString("FirstName");
+                    str_middlename = jsonObject2.getString("MiddleName");
+                    str_last_name = jsonObject2.getString("LastName");
+
+                    if (jsonObject2.getString("PanStatus").equalsIgnoreCase("N")) {
+
+                        checkpincode();
+
+                    } else {
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                    }
+
+
                 } else if (jsonObject.getString("status").equalsIgnoreCase("failed")) {
                     if (progressDialog != null && progressDialog.isShowing()) {
                         progressDialog.dismiss();
@@ -241,7 +278,7 @@ public class TataCapitalApplyNow extends AppCompatActivity {
 
             json.put("bankCode", "m016_bl");
             json.put("type", "pincode");
-            json.put("pincode", pincode.getText().toString());
+            json.put("pincode", rpincode.getText().toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -256,6 +293,12 @@ public class TataCapitalApplyNow extends AppCompatActivity {
 
                 if (jsonObject.getString("status").equalsIgnoreCase("success")) {
 
+                    JSONArray jsonArray=jsonObject.getJSONArray("result");
+                    JSONObject objectnew2 = jsonArray.getJSONObject(0);
+                    str_city_name=objectnew2.getString("city");
+                    str_state_name=objectnew2.getString("state");
+                    str_branch_code=objectnew2.getString("branchcode");
+                    str_pincode_name=objectnew2.getString("pincode");
                     createlead();
 
                 } else if (jsonObject.getString("status").equalsIgnoreCase("failed")) {
@@ -389,8 +432,8 @@ public class TataCapitalApplyNow extends AppCompatActivity {
 
             json.put("lead_id", lead_id);
             json.put("mobile_number", SessionManager.get_mobile(prefs));
-            json.put("last_name", "");
-            json.put("pin_code", pincode.getText().toString());
+            json.put("last_name", str_last_name);
+            json.put("pin_code", str_pincode_name);
             json.put("city_name", str_city_name);
             json.put("subSource", "DSA");
             json.put("Product", "BL");
@@ -404,7 +447,6 @@ public class TataCapitalApplyNow extends AppCompatActivity {
             try {
 
                 JSONObject jsonObject = new JSONObject(response.toString());
-
 
                 if (jsonObject.getString("status").equalsIgnoreCase("success")) {
 
@@ -462,9 +504,9 @@ public class TataCapitalApplyNow extends AppCompatActivity {
         try {
 
             json.put("lead_id", lead_id);
-            json.put("dmsBranchCode", "386");
+            json.put("dmsBranchCode", str_branch_code);
             json.put("productName", "Business Loan");
-            json.put("applicantName", "");
+            json.put("applicantName", str_first_name + " " + str_middlename + "" + str_last_name);
 
 
         } catch (JSONException e) {
@@ -477,6 +519,9 @@ public class TataCapitalApplyNow extends AppCompatActivity {
 
 
                 if (jsonObject.getString("status").equalsIgnoreCase("success")) {
+
+                    JSONObject jsonObject1 = jsonObject.getJSONObject("result");
+                    str_webtopNo = jsonObject1.getString("webtopNo");
 
                     submitapplication();
 
@@ -531,37 +576,37 @@ public class TataCapitalApplyNow extends AppCompatActivity {
         final JSONObject json = new JSONObject();
         try {
 
-            json.put("webtopNo", "001CG0107961");
+            json.put("webtopNo", str_webtopNo);
             json.put("requestTime", "");
             json.put("productName", "BL");
-            json.put("firstName", "Rushikesh");
-            json.put("lastName", "Salunkhe");
+            json.put("firstName", str_first_name);
+            json.put("lastName", str_last_name);
             json.put("namePrefix", "Mr.");
-            json.put("gender", "Male");
-            json.put("marital_status", "Single");
-            json.put("dateOfBirth", "21121990");
+            json.put("gender", SessionManager.get_gender(prefs));
+            json.put("marital_status", select_maritalstatus.getSelectedItem().toString());
+            json.put("dateOfBirth", SessionManager.get_dob(prefs));
             json.put("age", "30");
             json.put("timeAtAddress", 0);
             json.put("rentAmount", 0);
-            json.put("addressLine1", "PUNE");
-            json.put("addressLine2", "PUNE");
-            json.put("addressCity", "PUNE");
-            json.put("addressPin", 411019);
-            json.put("addressState", "MAHARASHTRA");
+            json.put("addressLine1", raddreessline1.getText().toString());
+            json.put("addressLine2",  raddreessline2.getText().toString());
+            json.put("addressCity", rcity.getText().toString());
+            json.put("addressPin", rpincode.getText().toString());
+            json.put("addressState", "");
             json.put("resiCumOffice", "N");
-            json.put("phoneNumber", "9156128069");
-            json.put("emailId", "rrs520272@tatamotors.com");
-            json.put("office_emailId", "rrs520272@tatamotors.com");
-            json.put("panNumber", "EFYPS3030R");
+            json.put("phoneNumber", SessionManager.get_mobile(prefs));
+            json.put("emailId", SessionManager.get_emailid(prefs));
+            json.put("office_emailId", official_email.getText().toString());
+            json.put("panNumber", SessionManager.get_pan(prefs));
             json.put("noOfDependents", 0);
             json.put("noOfEarningMembers", 0);
             json.put("noOfFamilyMembers", 0);
-            json.put("employerName", "TATA MOTORS LIMITED");
-            json.put("employementType", "0103");
+            json.put("employerName", employername.getText().toString());
+            json.put("employementType", "Salaried");
             json.put("totalWorkExperience", 96);
             json.put("currentWorkExperience", 96);
-            json.put("monthlyIncome", 57000.0);
-            json.put("grossIncome", 57000.0);
+            json.put("monthlyIncome", monthlysalary.getText().toString());
+            json.put("grossIncome", monthlysalary.getText().toString());
             json.put("itrAmount", 0);
             json.put("totalBusinessStability", 0);
             json.put("currentBusinessStability", 0);
@@ -574,18 +619,18 @@ public class TataCapitalApplyNow extends AppCompatActivity {
             json.put("reqEmiAmount", 0);
             json.put("advancedEmi", 0);
             json.put("marginAmount", 0);
-            json.put("leadId", "23456");
-            json.put("reqLoanAmount", "1000000");
+            json.put("leadId", lead_id);
+            json.put("reqLoanAmount", str_loan_amount);
             json.put("Paddressline1", "NOIDA");
             json.put("Paddressline2", "NOIDA");
-            json.put("Pcity", "NOIDA");
-            json.put("Pstate", "UTTAR PARDESH");
-            json.put("PpinNumber", 201301);
-            json.put("Ofaddressline1", "E 30 NOIDA SECTOR 8");
-            json.put("Ofaddressline2", "wishfin pvt ltd");
-            json.put("Ofcity", "noida");
-            json.put("Ofstate", "UTTAR PARDESH");
-            json.put("OfpinNumber", "201301");
+            json.put("Pcity", str_city_name);
+            json.put("Pstate",str_state_name);
+            json.put("PpinNumber", str_pincode_name);
+            json.put("Ofaddressline1", oaddreessline1.getText().toString());
+            json.put("Ofaddressline2", oaddreessline2.getText().toString());
+            json.put("Ofcity", ocity.getText().toString());
+            json.put("Ofstate", "");
+            json.put("OfpinNumber", opincode.getText().toString());
 
 
         } catch (JSONException e) {

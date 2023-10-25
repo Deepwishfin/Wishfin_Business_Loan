@@ -218,16 +218,11 @@
                     </RadioGroup>
 
 
-
-
-
                     <LinearLayout
                         android:id="@+id/residentlayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-
-
 
 
                         <LinearLayout
@@ -243,41 +238,22 @@
                                 android:layout_weight="1"
                                 android:orientation="vertical">
 
-                                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10sp"
-                                    android:layout_marginBottom="10sp"
-                                    android:text="Family Annual Income"
-                                    android:textColor="#2E384D"
-                                    android:textSize="14sp" />
-
-                                <Spinner
-                                    android:id="@+id/select_family_income"
-                                    android:layout_width="match_parent"
-                                    android:background="@drawable/edittextback"
-                                    android:layout_height="40sp"
-                                    android:entries="@array/array_family_income"
-                                    android:gravity="center"
-                                    android:importantForAutofill="no"
-                                    android:textSize="14sp"
-                                    tools:ignore="RtlSymmetry" />
 
                                 <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10sp"
                                     android:layout_marginBottom="10sp"
-                                    android:text="Education"
+                                    android:text="Marital status"
                                     android:textColor="#2E384D"
                                     android:textSize="14sp" />
 
                                 <Spinner
-                                    android:id="@+id/select_education"
+                                    android:id="@+id/select_maritalstatus"
                                     android:layout_width="match_parent"
-                                    android:background="@drawable/edittextback"
                                     android:layout_height="40sp"
-                                    android:entries="@array/array_education"
+                                    android:background="@drawable/edittextback"
+                                    android:entries="@array/array_marital_status"
                                     android:gravity="center"
                                     android:importantForAutofill="no"
                                     android:textSize="14sp"
@@ -300,8 +276,8 @@
                                     android:layout_margin="2sp"
                                     android:background="@drawable/edittextback"
                                     android:hint="Salary"
-                                    android:maxLength="10"
                                     android:inputType="number"
+                                    android:maxLength="10"
                                     android:padding="10sp"
                                     android:textColor="#304258"
                                     android:textColorHint="#B0BAC9"
@@ -313,27 +289,223 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10sp"
                                     android:layout_marginBottom="10sp"
-                                    android:text="Pincode"
+                                    android:text="Official Email"
                                     android:textColor="#2E384D"
                                     android:textSize="14sp" />
 
                                 <com.wishfin.wishfinbusinessloan.MenuHidingEditText
-                                    android:id="@+id/pincode"
+                                    android:id="@+id/official_email"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="2sp"
                                     android:background="@drawable/edittextback"
-                                    android:hint="Pincode"
-                                    android:maxLength="6"
-                                    android:inputType="number"
+                                    android:hint="Email-Id"
+                                    android:inputType="textEmailAddress"
+                                    android:maxLength="10"
                                     android:padding="10sp"
                                     android:textColor="#304258"
                                     android:textColorHint="#B0BAC9"
                                     android:textSize="14sp" />
 
+                                <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10sp"
+                                    android:layout_marginBottom="10sp"
+                                    android:text="Employer Name"
+                                    android:textColor="#2E384D"
+                                    android:textSize="14sp" />
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/employername"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10sp"
+                                    android:background="@drawable/edittextback"
+                                    android:hint="Employer name"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="textPostalAddress"
+                                    android:longClickable="false"
+                                    android:padding="10sp"
+                                    android:singleLine="true"
+                                    android:textColor="#304258"
+                                    android:textColorHint="#B0BAC9"
+                                    android:textSize="14sp" />
+
+
+                                <LinearLayout
+                                    android:id="@+id/residentlayout1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                                        android:id="@+id/residentaddress"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="20sp"
+                                        android:layout_marginBottom="10sp"
+                                        android:text="@string/residentaddress"
+                                        android:textColor="#2E384D"
+                                        android:textSize="14sp" />
+
+                                    <com.wishfin.wishfinbusinessloan.MenuHidingEditText
+                                        android:id="@+id/raddreessline1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="10sp"
+                                        android:background="@drawable/edittextback"
+                                        android:hint="Address Line1"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="textPostalAddress"
+                                        android:longClickable="false"
+                                        android:maxLength="50"
+                                        android:padding="10sp"
+                                        android:singleLine="true"
+                                        android:textColor="#304258"
+                                        android:textColorHint="#B0BAC9"
+                                        android:textSize="14sp" />
+
+                                    <com.wishfin.wishfinbusinessloan.MenuHidingEditText
+                                        android:id="@+id/raddreessline2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="10sp"
+                                        android:background="@drawable/edittextback"
+                                        android:hint="Address Line2"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="textPostalAddress"
+                                        android:longClickable="false"
+                                        android:maxLength="50"
+                                        android:padding="10sp"
+                                        android:singleLine="true"
+                                        android:textColor="#304258"
+                                        android:textColorHint="#B0BAC9"
+                                        android:textSize="14sp" />
+
+
+                                    <AutoCompleteTextView
+                                        android:id="@+id/rcity"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="10sp"
+                                        android:background="@drawable/edittextback"
+                                        android:hint="City"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="textPostalAddress"
+                                        android:longClickable="false"
+                                        android:padding="10sp"
+                                        android:singleLine="true"
+                                        android:textColor="#304258"
+                                        android:textColorHint="#B0BAC9"
+                                        android:textSize="14sp" />
+
+                                    <AutoCompleteTextView
+                                        android:id="@+id/rpincode"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="10sp"
+                                        android:background="@drawable/edittextback"
+                                        android:hint="Pincode"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="number"
+                                        android:longClickable="false"
+                                        android:maxLength="6"
+                                        android:padding="10sp"
+                                        android:singleLine="true"
+                                        android:textColor="#304258"
+                                        android:textColorHint="#B0BAC9"
+                                        android:textSize="14sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/officeaddresslayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
+                                        android:id="@+id/officeaddress"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="20sp"
+                                        android:layout_marginBottom="10sp"
+                                        android:text="@string/officeaddress"
+                                        android:textColor="#2E384D"
+                                        android:textSize="14sp" />
+
+                                    <com.wishfin.wishfinbusinessloan.MenuHidingEditText
+                                        android:id="@+id/oaddreessline1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="10sp"
+                                        android:background="@drawable/edittextback"
+                                        android:hint="Address Line1"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="textPostalAddress"
+                                        android:longClickable="false"
+                                        android:maxLength="50"
+                                        android:padding="10sp"
+                                        android:singleLine="true"
+                                        android:textColor="#304258"
+                                        android:textColorHint="#B0BAC9"
+                                        android:textSize="14sp" />
+
+                                    <com.wishfin.wishfinbusinessloan.MenuHidingEditText
+                                        android:id="@+id/oaddreessline2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="10sp"
+                                        android:background="@drawable/edittextback"
+                                        android:hint="Address Line2"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="textPostalAddress"
+                                        android:longClickable="false"
+                                        android:maxLength="50"
+                                        android:padding="10sp"
+                                        android:singleLine="true"
+                                        android:textColor="#304258"
+                                        android:textColorHint="#B0BAC9"
+                                        android:textSize="14sp" />
+
+
+                                    <AutoCompleteTextView
+                                        android:id="@+id/ocity"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="10sp"
+                                        android:background="@drawable/edittextback"
+                                        android:hint="City"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="textPostalAddress"
+                                        android:longClickable="false"
+                                        android:padding="10sp"
+                                        android:singleLine="true"
+                                        android:textColor="#304258"
+                                        android:textColorHint="#B0BAC9"
+                                        android:textSize="14sp" />
+
+                                    <AutoCompleteTextView
+                                        android:id="@+id/opincode"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="10sp"
+                                        android:background="@drawable/edittextback"
+                                        android:hint="Pincode"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="number"
+                                        android:longClickable="false"
+                                        android:maxLength="6"
+                                        android:padding="10sp"
+                                        android:singleLine="true"
+                                        android:textColor="#304258"
+                                        android:textColorHint="#B0BAC9"
+                                        android:textSize="14sp" />
+                                </LinearLayout>
+
 
                             </LinearLayout>
-
 
 
                         </LinearLayout>
