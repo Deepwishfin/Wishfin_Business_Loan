@@ -1,6 +1,7 @@
 package com.wishfin.wishfinbusinessloan;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -54,6 +55,7 @@ import org.json.JSONObject;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -73,8 +75,9 @@ public class Signuppage extends Activity implements SMSReceiver.OTPReceiveListen
     EditText mobilenumber, emailid, otpone, otptwo, otpthree, otpfour, fname, mname, lname, pan, dob;
     CheckBox checkbox, checkbox1;
     KProgressHUD progressDialog;
+    int mYear, mMonth, mDay;
     private SMSReceiver smsReceiver;
-    String mobilenumberstr = "", secret_key = "";
+    String selecteddate = "",mobilenumberstr = "", secret_key = "";
     private boolean broadcast = true;
     String IPaddress;
 
@@ -229,6 +232,8 @@ public class Signuppage extends Activity implements SMSReceiver.OTPReceiveListen
                 "<a href='com.wishfin.wishfinbusinessloan.Dynamicdisplaypage://Kode'>TERMS AND CONDITIONS</a>" + " and I give my Consent to check my <b> Cibil Score </b>"));
         checkbox_text.setClickable(true);
         checkbox_text.setMovementMethod(LinkMovementMethod.getInstance());
+
+        dob.setOnClickListener(v -> DatePicdob());
 
         resentotp.setOnClickListener(v -> {
             get_otp_data();
@@ -405,6 +410,37 @@ public class Signuppage extends Activity implements SMSReceiver.OTPReceiveListen
         }
 
         return ip;
+
+    }
+
+    private void DatePicdob() {
+
+        Calendar mcurrentDate = Calendar.getInstance();
+        mYear = mcurrentDate.get(Calendar.YEAR);
+        mMonth = mcurrentDate.get(Calendar.MONTH);
+        mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+
+        mcurrentDate.add(Calendar.DATE, -1);
+
+        DatePickerDialog mDatePicker = new DatePickerDialog(Signuppage.this, (datepicker, selectedyear, selectedmonth, selectedday) -> {
+            // TODO Auto-generated method stub
+
+            selectedmonth++;
+            String month = "";
+            if (selectedmonth > 0 && selectedmonth < 10) {
+                month = "0" + selectedmonth;
+            } else {
+                month = "" + selectedmonth;
+            }
+
+            selecteddate = selectedyear + "-" + month + "-" + selectedday;
+            dob.setText(selecteddate);
+
+        }, mYear, mMonth, mDay);
+        mDatePicker.setTitle("Select date");
+        mDatePicker.getDatePicker().setMaxDate((long) (mcurrentDate.getTimeInMillis() - (1000 * 60 * 60 * 24 * 365.25 * 18)));
+        mDatePicker.getDatePicker().setMinDate((long) (mcurrentDate.getTimeInMillis() - (1000 * 60 * 60 * 24 * 365.25 * 65)));
+        mDatePicker.show();
 
     }
 

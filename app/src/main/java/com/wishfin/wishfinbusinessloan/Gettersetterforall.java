@@ -2,16 +2,33 @@ package com.wishfin.wishfinbusinessloan;
 
 public class Gettersetterforall {
 
-     String bank_code;
-     String interest_rate;
-     String emi;
-     String tenure;
-     String loan_amount;
-     String processing_fee;
-     String bank_name;
-     String show_logo;
-     String api_to_use;
-     String image_path;
+    String bank_code, state_name, state_code;
+    String interest_rate;
+
+    public String getState_name() {
+        return state_name;
+    }
+
+    public void setState_name(String state_name) {
+        this.state_name = state_name;
+    }
+
+    public String getState_code() {
+        return state_code;
+    }
+
+    public void setState_code(String state_code) {
+        this.state_code = state_code;
+    }
+
+    String emi;
+    String tenure;
+    String loan_amount;
+    String processing_fee;
+    String bank_name;
+    String show_logo;
+    String api_to_use;
+    String image_path;
     String pricipal;
     String interestamount;
 
@@ -40,7 +57,7 @@ public class Gettersetterforall {
     }
 
     String balanceamount;
-     String cityname,cityid,statename,statecode;
+    String cityname, cityid, statename, statecode;
 
     public String getCityname() {
         return cityname;

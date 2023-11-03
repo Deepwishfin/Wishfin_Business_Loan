@@ -449,7 +449,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                             intent.putExtra("lead_id", SessionManager.get_lead_id(prefs));
                             intent.putExtra("bank_code", list_car.get(pos).getBank_code());
                             intent.putExtra("bank_name", list_car.get(pos).getBank_name());
-                            intent.putExtra("loan_amount", loanamount.getText().toString());
+                            intent.putExtra("loan_amount", SessionManager.get_loanamount(prefs));
                             startActivity(intent);
                         }
                     }

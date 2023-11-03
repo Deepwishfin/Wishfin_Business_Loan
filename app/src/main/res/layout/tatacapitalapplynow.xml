@@ -251,7 +251,7 @@
                                 <Spinner
                                     android:id="@+id/select_maritalstatus"
                                     android:layout_width="match_parent"
-                                    android:layout_height="40sp"
+                                    android:layout_height="48dp"
                                     android:background="@drawable/edittextback"
                                     android:entries="@array/array_marital_status"
                                     android:gravity="center"
@@ -272,7 +272,7 @@
                                 <com.wishfin.wishfinbusinessloan.MenuHidingEditText
                                     android:id="@+id/monthlysalary"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="48dp"
                                     android:layout_margin="2sp"
                                     android:background="@drawable/edittextback"
                                     android:hint="Salary"
@@ -296,12 +296,12 @@
                                 <com.wishfin.wishfinbusinessloan.MenuHidingEditText
                                     android:id="@+id/official_email"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="48dp"
                                     android:layout_margin="2sp"
                                     android:background="@drawable/edittextback"
                                     android:hint="Email-Id"
                                     android:inputType="textEmailAddress"
-                                    android:maxLength="10"
+                                    android:maxLength="100"
                                     android:padding="10sp"
                                     android:textColor="#304258"
                                     android:textColorHint="#B0BAC9"
@@ -320,7 +320,7 @@
                                 <AutoCompleteTextView
                                     android:id="@+id/employername"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="48dp"
                                     android:layout_marginBottom="10sp"
                                     android:background="@drawable/edittextback"
                                     android:hint="Employer name"
@@ -353,7 +353,7 @@
                                     <com.wishfin.wishfinbusinessloan.MenuHidingEditText
                                         android:id="@+id/raddreessline1"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="48dp"
                                         android:layout_marginBottom="10sp"
                                         android:background="@drawable/edittextback"
                                         android:hint="Address Line1"
@@ -370,7 +370,7 @@
                                     <com.wishfin.wishfinbusinessloan.MenuHidingEditText
                                         android:id="@+id/raddreessline2"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="48dp"
                                         android:layout_marginBottom="10sp"
                                         android:background="@drawable/edittextback"
                                         android:hint="Address Line2"
@@ -384,11 +384,28 @@
                                         android:textColorHint="#B0BAC9"
                                         android:textSize="14sp" />
 
+                                    <AutoCompleteTextView
+                                        android:id="@+id/rstate"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="48dp"
+                                        android:layout_marginBottom="10sp"
+                                        android:background="@drawable/edittextback"
+                                        android:hint="State"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="textPostalAddress"
+                                        android:longClickable="false"
+                                        android:padding="10sp"
+                                        android:singleLine="true"
+                                        android:textColor="#304258"
+                                        android:textColorHint="#B0BAC9"
+                                        android:textSize="14sp" />
+
+
 
                                     <AutoCompleteTextView
                                         android:id="@+id/rcity"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="48dp"
                                         android:layout_marginBottom="10sp"
                                         android:background="@drawable/edittextback"
                                         android:hint="City"
@@ -404,7 +421,7 @@
                                     <AutoCompleteTextView
                                         android:id="@+id/rpincode"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="48dp"
                                         android:layout_marginBottom="10sp"
                                         android:background="@drawable/edittextback"
                                         android:hint="Pincode"
@@ -438,7 +455,7 @@
                                     <com.wishfin.wishfinbusinessloan.MenuHidingEditText
                                         android:id="@+id/oaddreessline1"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="48dp"
                                         android:layout_marginBottom="10sp"
                                         android:background="@drawable/edittextback"
                                         android:hint="Address Line1"
@@ -455,7 +472,7 @@
                                     <com.wishfin.wishfinbusinessloan.MenuHidingEditText
                                         android:id="@+id/oaddreessline2"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="48dp"
                                         android:layout_marginBottom="10sp"
                                         android:background="@drawable/edittextback"
                                         android:hint="Address Line2"
@@ -469,11 +486,27 @@
                                         android:textColorHint="#B0BAC9"
                                         android:textSize="14sp" />
 
+                                    <AutoCompleteTextView
+                                        android:id="@+id/ostate"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="48dp"
+                                        android:layout_marginBottom="10sp"
+                                        android:background="@drawable/edittextback"
+                                        android:hint="State"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="textPostalAddress"
+                                        android:longClickable="false"
+                                        android:padding="10sp"
+                                        android:singleLine="true"
+                                        android:textColor="#304258"
+                                        android:textColorHint="#B0BAC9"
+                                        android:textSize="14sp" />
+
 
                                     <AutoCompleteTextView
                                         android:id="@+id/ocity"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="48dp"
                                         android:layout_marginBottom="10sp"
                                         android:background="@drawable/edittextback"
                                         android:hint="City"
@@ -489,7 +522,7 @@
                                     <AutoCompleteTextView
                                         android:id="@+id/opincode"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="48dp"
                                         android:layout_marginBottom="10sp"
                                         android:background="@drawable/edittextback"
                                         android:hint="Pincode"
@@ -517,7 +550,7 @@
                     <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
                         android:id="@+id/continuebtn"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
                         android:layout_marginTop="20sp"
                         android:background="@drawable/roundedbutton"
                         android:gravity="center"
