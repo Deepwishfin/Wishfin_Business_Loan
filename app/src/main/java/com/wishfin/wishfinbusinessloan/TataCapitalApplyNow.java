@@ -1,6 +1,7 @@
 package com.wishfin.wishfinbusinessloan;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -868,6 +869,7 @@ public class TataCapitalApplyNow extends AppCompatActivity {
                         } else {
 
                             eligible = "True";
+
                             ELIGIBILITY_NAME = jsonArray1.getJSONObject(i).getString("ELIGIBILITY-NAME");
                             APPROVED_LOAN_AMOUNT = jsonArray1.getJSONObject(i).getString("APPROVED-LOAN-AMOUNT");
                             APPROVED_LOAN_TENOR = jsonArray1.getJSONObject(i).getString("APPROVED-LOAN-TENOR");
@@ -878,14 +880,22 @@ public class TataCapitalApplyNow extends AppCompatActivity {
                             DECISION = jsonArray1.getJSONObject(i).getString("DECISION");
                             PROCESSIN_FEE = jsonArray1.getJSONObject(i).getString("PROCESSING-FEE");
 
-                            break;
                         }
                     }
 
                     if (eligible.equalsIgnoreCase("True")) {
-                        ///////////show emi calculator page
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(this, "You are eligible", Toast.LENGTH_SHORT).show();
+
                     } else {
-                        //////pop show You are not eligible
+                        Toast.makeText(this, "You are not eligible", Toast.LENGTH_SHORT).show();
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                        finish();
+
                     }
 
 
