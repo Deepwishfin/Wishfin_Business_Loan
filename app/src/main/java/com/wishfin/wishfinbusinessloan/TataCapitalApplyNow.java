@@ -48,7 +48,7 @@ public class TataCapitalApplyNow extends AppCompatActivity {
     KProgressHUD progressDialog;
     SharedPreferences prefs;
     RequestQueue queue;
-    Spinner select_maritalstatus,select_raccomtype,select_oaccomtype;
+    Spinner select_maritalstatus, select_raccomtype, select_oaccomtype;
     ArrayList<String> statelistarraystring = new ArrayList<>();
     ArrayList<Gettersetterforall> statelistarray = new ArrayList<>();
     ArrayList<String> rcitylistarray = new ArrayList<>();
@@ -61,14 +61,15 @@ public class TataCapitalApplyNow extends AppCompatActivity {
             lead_id = "", bank_code = "", bank_name = "", str_first_name = "", str_middlename = "", str_last_name = "", str_company_name = "",
             str_loan_amount = "", current_age = "", str_ostate = "", str_ocity = "", str_opincode = "", str_rstate = "", str_rcity = "", str_rpincode = "", tataleadid = "", OpportunityId = "";
     TextView continuebtn, heading;
-    EditText monthlysalary, official_email,fathersname,mothersname, oaddreessline1, oaddreessline2, raddreessline1, raddreessline2;
+    EditText monthlysalary, official_email, fathersname, mothersname, oaddreessline1, oaddreessline2, raddreessline1, raddreessline2;
     AutoCompleteTextView employername, ostate, ocity, opincode, rstate, rcity, rpincode;
     String ELIGIBILITY_NAME = "", APPROVED_LOAN_AMOUNT = "", APPROVED_LOAN_TENOR = "", APPROVED_ABB = "", APPROVED_FOIR = "",
-            APPROVED_IRR = "", APPROVED_LTV = "", DECISION = "", PROCESSIN_FEE = "", selected_emi = "", selected_tenure = "";
+            APPROVED_IRR = "", APPROVED_LTV = "", DECISION = "", PROCESSIN_FEE = "", selected_emi = "", selected_tenure = "", str_select_raccomtype = "", str_select_oaccomtype = "";
 
     TextView processing_fees, roi, tenure12, tenure24, tenure36, maxloanamount, selectedloanamount, applybtn;
     ScrollView pageone, pagetwo;
     SeekBar loan_seekbar;
+    String[] array_accomtype;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -115,8 +116,10 @@ public class TataCapitalApplyNow extends AppCompatActivity {
         fathersname = findViewById(R.id.fathersname);
         mothersname = findViewById(R.id.mothersname);
         employername = findViewById(R.id.employername);
+        select_raccomtype = findViewById(R.id.select_raccomtype);
         oaddreessline1 = findViewById(R.id.oaddreessline1);
         oaddreessline2 = findViewById(R.id.oaddreessline2);
+        select_oaccomtype = findViewById(R.id.select_oaccomtype);
         raddreessline1 = findViewById(R.id.raddreessline1);
         raddreessline2 = findViewById(R.id.raddreessline2);
         rstate = findViewById(R.id.rstate);
@@ -137,6 +140,8 @@ public class TataCapitalApplyNow extends AppCompatActivity {
         maxloanamount = findViewById(R.id.maxloanamount);
         selectedloanamount = findViewById(R.id.selectedloanamount);
         applybtn = findViewById(R.id.applybtn);
+
+        array_accomtype = getResources().getStringArray(R.array.array_accom_key);
 
         //////////////testing//////////////
 
@@ -190,6 +195,39 @@ public class TataCapitalApplyNow extends AppCompatActivity {
 //        tenure36.setText("₹ " + Math.ceil(TotalEmi36) + " X 36 months");
 //
         ////////////////////////////////////////////
+
+        select_oaccomtype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i == 0) {
+                    str_select_oaccomtype = "";
+                } else {
+                    str_select_oaccomtype = array_accomtype[i];
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        select_raccomtype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i == 0) {
+                    str_select_raccomtype = "";
+                } else {
+                    str_select_raccomtype = array_accomtype[i];
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         loan_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -235,7 +273,7 @@ public class TataCapitalApplyNow extends AppCompatActivity {
 
                 double TotalEmi = (P * (R / 1200) * Math.pow(1 + (R / 1200), T)) / (Math.pow(1 + (R / 1200), T) - 1);
                 tenure12.setText("₹ " + Math.ceil(TotalEmi) + " X 12 months");
-                selected_emi = String.valueOf(TotalEmi);
+                selected_emi = String.valueOf(Math.ceil(TotalEmi));
                 selected_tenure = "12";
             }
         });
@@ -250,7 +288,7 @@ public class TataCapitalApplyNow extends AppCompatActivity {
 
                 double TotalEmi = (P * (R / 1200) * Math.pow(1 + (R / 1200), T)) / (Math.pow(1 + (R / 1200), T) - 1);
                 tenure24.setText("₹ " + Math.ceil(TotalEmi) + " X 24 months");
-                selected_emi = String.valueOf(TotalEmi);
+                selected_emi = String.valueOf(Math.ceil(TotalEmi));
                 selected_tenure = "24";
             }
         });
@@ -265,7 +303,7 @@ public class TataCapitalApplyNow extends AppCompatActivity {
 
                 double TotalEmi = (P * (R / 1200) * Math.pow(1 + (R / 1200), T)) / (Math.pow(1 + (R / 1200), T) - 1);
                 tenure36.setText("₹ " + Math.ceil(TotalEmi) + " X 36 months");
-                selected_emi = String.valueOf(TotalEmi);
+                selected_emi = String.valueOf(Math.ceil(TotalEmi));
                 selected_tenure = "36";
 
             }
@@ -378,9 +416,11 @@ public class TataCapitalApplyNow extends AppCompatActivity {
                     Toast.makeText(TataCapitalApplyNow.this, "Enter Company Name", Toast.LENGTH_SHORT).show();
                 } else if (fathersname.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(TataCapitalApplyNow.this, "Enter Fathers Name", Toast.LENGTH_SHORT).show();
-                }else if (mothersname.getText().toString().equalsIgnoreCase("")) {
+                } else if (mothersname.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(TataCapitalApplyNow.this, "Enter Mothers Name", Toast.LENGTH_SHORT).show();
-                }else if (raddreessline1.getText().toString().equalsIgnoreCase("")) {
+                } else if (str_select_raccomtype.equalsIgnoreCase("")) {
+                    Toast.makeText(TataCapitalApplyNow.this, "Select Resident Accommodation", Toast.LENGTH_SHORT).show();
+                } else if (raddreessline1.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(TataCapitalApplyNow.this, "Enter Resident Address 1", Toast.LENGTH_SHORT).show();
                 } else if (raddreessline2.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(TataCapitalApplyNow.this, "Enter Resident Address 2", Toast.LENGTH_SHORT).show();
@@ -390,6 +430,8 @@ public class TataCapitalApplyNow extends AppCompatActivity {
                     Toast.makeText(TataCapitalApplyNow.this, "Enter Resident City", Toast.LENGTH_SHORT).show();
                 } else if (str_rpincode.equalsIgnoreCase("")) {
                     Toast.makeText(TataCapitalApplyNow.this, "Enter Resident Pincode", Toast.LENGTH_SHORT).show();
+                } else if (str_select_oaccomtype.equalsIgnoreCase("")) {
+                    Toast.makeText(TataCapitalApplyNow.this, "Select Office Accommodation", Toast.LENGTH_SHORT).show();
                 } else if (oaddreessline1.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(TataCapitalApplyNow.this, "Enter Office Address 1", Toast.LENGTH_SHORT).show();
                 } else if (oaddreessline2.getText().toString().equalsIgnoreCase("")) {
@@ -790,8 +832,9 @@ public class TataCapitalApplyNow extends AppCompatActivity {
 
                 if (jsonObject.getString("status").equalsIgnoreCase("success")) {
 
-                    JSONObject jsonObject1 = jsonObject.getJSONObject("response");
-                    tataleadid = jsonObject1.getString("LeadId");
+                    JSONObject jsonObject1 = jsonObject.getJSONObject("result");
+                    JSONObject jsonObject2 = jsonObject1.getJSONObject("response");
+                    tataleadid = jsonObject2.getString("LeadId");
 
                     createwebtop();
 
@@ -1214,10 +1257,10 @@ public class TataCapitalApplyNow extends AppCompatActivity {
             json.put("CurrentBusinessStability", "10");
             json.put("WebtopNo", str_webtopNo);
             json.put("PanNumber", SessionManager.get_pan(prefs));
-            json.put("MaritalStatus", select_maritalstatus);
+            json.put("MaritalStatus", select_maritalstatus.getSelectedItem().toString());
             json.put("Gender", gendervalue);
             json.put("mothersMaidenName", mothersname.getText().toString());
-            json.put("AccomodationType", "");
+            json.put("AccomodationType", str_select_raccomtype);
             json.put("TimeAtCity", "10");
             json.put("Landmark", str_rcity);
             json.put("City", str_rcity);
@@ -1232,9 +1275,9 @@ public class TataCapitalApplyNow extends AppCompatActivity {
             json.put("ReqLoanAmount", selectedloanamount.getText().toString());
             json.put("ReqLoanTenor", selected_tenure);
             json.put("emi", selected_emi);
-            json.put("nFinal_Rate", roi);
+            json.put("nFinal_Rate", APPROVED_IRR);
             json.put("nFinal_PF", PROCESSIN_FEE);
-            json.put("OfficeAccomodationType", "");
+            json.put("OfficeAccomodationType", str_select_oaccomtype);
             json.put("OfficeTimeAtCity", "10");
             json.put("OfficeLandmark", str_ocity);
             json.put("OfficeCity", str_ocity);
@@ -1243,7 +1286,7 @@ public class TataCapitalApplyNow extends AppCompatActivity {
             json.put("OfficeState", str_ostate);
             json.put("OfficeTimeAtAddress", "10");
             json.put("OfficePincode", str_opincode);
-            json.put("PermanentAccomodationType", "");
+            json.put("PermanentAccomodationType", str_select_raccomtype);
             json.put("PermanentTimeAtCity", "10");
             json.put("PermanentLandmark", str_rcity);
             json.put("PermanentCity", str_rcity);
@@ -1321,6 +1364,22 @@ public class TataCapitalApplyNow extends AppCompatActivity {
                 return header;
             }
         };
+        jsonObjectRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
         queue.add(jsonObjectRequest);
     }
 
@@ -1415,6 +1474,22 @@ public class TataCapitalApplyNow extends AppCompatActivity {
                 return header;
             }
         };
+        jsonObjectRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
         queue.add(jsonObjectRequest);
     }
 
