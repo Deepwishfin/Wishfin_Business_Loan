@@ -105,4 +105,31 @@
         <item>Married</item>
         <item>Divorced</item>
     </string-array>
+
+    <string-array name="array_accom_key">
+        <item>Select Accommodation Type</item>
+        <item>BacAcc</item>
+        <item>Company Prvd</item>
+        <item>Hostel</item>
+        <item>PARENTAL</item>
+        <item>SELF</item>
+        <item>PG</item>
+        <item>Relative</item>
+        <item>RENTED</item>
+        <item>DNA</item>
+
+    </string-array>
+
+    <string-array name="array_accom_value">
+        <item>Select Accommodation Type</item>
+        <item>Bachelor Accommodation</item>
+        <item>Company Provided</item>
+        <item>Hostel</item>
+        <item>Owned by Parent/Sibling</item>
+        <item>Owned by Self/Spouse</item>
+        <item>Paying Guest</item>
+        <item>Relative</item>
+        <item>Rented</item>
+        <item>Detail Not Available</item>
+    </string-array>
 </resources>

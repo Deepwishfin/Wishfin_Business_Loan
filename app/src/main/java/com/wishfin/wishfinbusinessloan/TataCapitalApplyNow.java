@@ -1,7 +1,6 @@
 package com.wishfin.wishfinbusinessloan;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -11,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +48,7 @@ public class TataCapitalApplyNow extends AppCompatActivity {
     KProgressHUD progressDialog;
     SharedPreferences prefs;
     RequestQueue queue;
-    Spinner select_maritalstatus;
+    Spinner select_maritalstatus,select_raccomtype,select_oaccomtype;
     ArrayList<String> statelistarraystring = new ArrayList<>();
     ArrayList<Gettersetterforall> statelistarray = new ArrayList<>();
     ArrayList<String> rcitylistarray = new ArrayList<>();
@@ -58,19 +59,16 @@ public class TataCapitalApplyNow extends AppCompatActivity {
     ArrayList<Gettersetterforall> companylistarray = new ArrayList<>();
     String str_city_name = "", str_state_name = "", str_pincode_name = "", str_branch_code = "", str_webtopNo = "",
             lead_id = "", bank_code = "", bank_name = "", str_first_name = "", str_middlename = "", str_last_name = "", str_company_name = "",
-            str_loan_amount = "", current_age = "", str_ostate = "", str_ocity = "", str_opincode = "", str_rstate = "", str_rcity = "", str_rpincode = "";
+            str_loan_amount = "", current_age = "", str_ostate = "", str_ocity = "", str_opincode = "", str_rstate = "", str_rcity = "", str_rpincode = "", tataleadid = "", OpportunityId = "";
     TextView continuebtn, heading;
-    EditText monthlysalary, official_email, oaddreessline1, oaddreessline2, raddreessline1, raddreessline2;
+    EditText monthlysalary, official_email,fathersname,mothersname, oaddreessline1, oaddreessline2, raddreessline1, raddreessline2;
     AutoCompleteTextView employername, ostate, ocity, opincode, rstate, rcity, rpincode;
-    String ELIGIBILITY_NAME = "";
-    String APPROVED_LOAN_AMOUNT = "";
-    String APPROVED_LOAN_TENOR = "";
-    String APPROVED_ABB = "";
-    String APPROVED_FOIR = "";
-    String APPROVED_IRR = "";
-    String APPROVED_LTV = "";
-    String DECISION = "";
-    String PROCESSIN_FEE = "";
+    String ELIGIBILITY_NAME = "", APPROVED_LOAN_AMOUNT = "", APPROVED_LOAN_TENOR = "", APPROVED_ABB = "", APPROVED_FOIR = "",
+            APPROVED_IRR = "", APPROVED_LTV = "", DECISION = "", PROCESSIN_FEE = "", selected_emi = "", selected_tenure = "";
+
+    TextView processing_fees, roi, tenure12, tenure24, tenure36, maxloanamount, selectedloanamount, applybtn;
+    ScrollView pageone, pagetwo;
+    SeekBar loan_seekbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,10 +105,15 @@ public class TataCapitalApplyNow extends AppCompatActivity {
             str_loan_amount = (String) savedInstanceState.getSerializable("loan_amount");
         }
 
+        pageone = findViewById(R.id.pageone);
+        pagetwo = findViewById(R.id.pagetwo);
+        ////////////////////////
         continuebtn = findViewById(R.id.continuebtn);
         select_maritalstatus = findViewById(R.id.select_maritalstatus);
         monthlysalary = findViewById(R.id.monthlysalary);
         official_email = findViewById(R.id.official_email);
+        fathersname = findViewById(R.id.fathersname);
+        mothersname = findViewById(R.id.mothersname);
         employername = findViewById(R.id.employername);
         oaddreessline1 = findViewById(R.id.oaddreessline1);
         oaddreessline2 = findViewById(R.id.oaddreessline2);
@@ -124,7 +127,163 @@ public class TataCapitalApplyNow extends AppCompatActivity {
         opincode = findViewById(R.id.opincode);
         heading = findViewById(R.id.heading);
         heading.setText(bank_name);
+        ////////////////////////////
+        processing_fees = findViewById(R.id.processing_fees);
+        roi = findViewById(R.id.roi);
+        loan_seekbar = findViewById(R.id.loan_seekbar);
+        tenure12 = findViewById(R.id.tenure12);
+        tenure24 = findViewById(R.id.tenure24);
+        tenure36 = findViewById(R.id.tenure36);
+        maxloanamount = findViewById(R.id.maxloanamount);
+        selectedloanamount = findViewById(R.id.selectedloanamount);
+        applybtn = findViewById(R.id.applybtn);
 
+        //////////////testing//////////////
+
+//
+//        APPROVED_LOAN_AMOUNT = "75000";
+//        APPROVED_IRR = "15.49";
+//        PROCESSIN_FEE = "4999";
+//        ELIGIBILITY_NAME = "LTDL_BL";
+//        APPROVED_LOAN_TENOR = "12,24";
+//
+//        pageone.setVisibility(View.GONE);
+//        pagetwo.setVisibility(View.VISIBLE);
+//
+//        if (APPROVED_LOAN_TENOR.contains("12")) {
+//            tenure12.setVisibility(View.VISIBLE);
+//        } else {
+//            tenure12.setVisibility(View.GONE);
+//        }
+//        if (APPROVED_LOAN_TENOR.contains("24")) {
+//            tenure24.setVisibility(View.VISIBLE);
+//        } else {
+//            tenure24.setVisibility(View.GONE);
+//        }
+//        if (APPROVED_LOAN_TENOR.contains("36")) {
+//            tenure36.setVisibility(View.VISIBLE);
+//        } else {
+//            tenure36.setVisibility(View.GONE);
+//        }
+//
+//        processing_fees.setText("₹ " + PROCESSIN_FEE);
+//        roi.setText(APPROVED_IRR + "%");
+//        maxloanamount.setText("max " + APPROVED_LOAN_AMOUNT);
+//        selectedloanamount.setText(APPROVED_LOAN_AMOUNT);
+//        loan_seekbar.setMax(Integer.parseInt(APPROVED_LOAN_AMOUNT));
+//        loan_seekbar.setProgress(Integer.parseInt(APPROVED_LOAN_AMOUNT));
+//        loan_seekbar.incrementProgressBy(1000);
+//
+//        double P = Double.parseDouble(APPROVED_LOAN_AMOUNT);
+//        double R = Double.parseDouble(APPROVED_IRR);
+//
+//        double T12 = 12;
+//        double T24 = 24;
+//        double T36 = 36;
+//
+//        double TotalEmi12 = (P * (R / 1200) * Math.pow(1 + (R / 1200), T12)) / (Math.pow(1 + (R / 1200), T12) - 1);
+//        double TotalEmi24 = (P * (R / 1200) * Math.pow(1 + (R / 1200), T24)) / (Math.pow(1 + (R / 1200), T24) - 1);
+//        double TotalEmi36 = (P * (R / 1200) * Math.pow(1 + (R / 1200), T36)) / (Math.pow(1 + (R / 1200), T36) - 1);
+//
+//        tenure12.setText("₹ " + Math.ceil(TotalEmi12) + " X 12 months");
+//        tenure24.setText("₹ " + Math.ceil(TotalEmi24) + " X 24 months");
+//        tenure36.setText("₹ " + Math.ceil(TotalEmi36) + " X 36 months");
+//
+        ////////////////////////////////////////////
+        loan_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                double P = progress;
+                double R = Double.parseDouble(APPROVED_IRR);
+                selectedloanamount.setText("" + progress);
+
+                double T12 = 12;
+                double T24 = 24;
+                double T36 = 36;
+
+                double TotalEmi12 = (P * (R / 1200) * Math.pow(1 + (R / 1200), T12)) / (Math.pow(1 + (R / 1200), T12) - 1);
+                double TotalEmi24 = (P * (R / 1200) * Math.pow(1 + (R / 1200), T24)) / (Math.pow(1 + (R / 1200), T24) - 1);
+                double TotalEmi36 = (P * (R / 1200) * Math.pow(1 + (R / 1200), T36)) / (Math.pow(1 + (R / 1200), T36) - 1);
+
+                tenure12.setText("₹ " + Math.ceil(TotalEmi12) + " X 12 months");
+                tenure24.setText("₹ " + Math.ceil(TotalEmi24) + " X 24 months");
+                tenure36.setText("₹ " + Math.ceil(TotalEmi36) + " X 36 months");
+
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        tenure12.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                double P = Double.parseDouble(selectedloanamount.getText().toString());
+                double R = Double.parseDouble(APPROVED_IRR);
+                double T = 12;
+
+
+                double TotalEmi = (P * (R / 1200) * Math.pow(1 + (R / 1200), T)) / (Math.pow(1 + (R / 1200), T) - 1);
+                tenure12.setText("₹ " + Math.ceil(TotalEmi) + " X 12 months");
+                selected_emi = String.valueOf(TotalEmi);
+                selected_tenure = "12";
+            }
+        });
+
+        tenure24.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                double P = Double.parseDouble(selectedloanamount.getText().toString());
+                double R = Double.parseDouble(APPROVED_IRR);
+                double T = 24;
+
+                double TotalEmi = (P * (R / 1200) * Math.pow(1 + (R / 1200), T)) / (Math.pow(1 + (R / 1200), T) - 1);
+                tenure24.setText("₹ " + Math.ceil(TotalEmi) + " X 24 months");
+                selected_emi = String.valueOf(TotalEmi);
+                selected_tenure = "24";
+            }
+        });
+
+        tenure36.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                double P = Double.parseDouble(selectedloanamount.getText().toString());
+                double R = Double.parseDouble(APPROVED_IRR);
+                double T = 36;
+
+                double TotalEmi = (P * (R / 1200) * Math.pow(1 + (R / 1200), T)) / (Math.pow(1 + (R / 1200), T) - 1);
+                tenure36.setText("₹ " + Math.ceil(TotalEmi) + " X 36 months");
+                selected_emi = String.valueOf(TotalEmi);
+                selected_tenure = "36";
+
+            }
+        });
+
+        applybtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (selected_tenure.equalsIgnoreCase("")) {
+                    Toast.makeText(TataCapitalApplyNow.this, "Please select emi with tenure", Toast.LENGTH_SHORT).show();
+                } else {
+                    progressDialog.show();
+                    updatelead();
+                }
+
+            }
+        });
 
         employername.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -217,7 +376,11 @@ public class TataCapitalApplyNow extends AppCompatActivity {
                     Toast.makeText(TataCapitalApplyNow.this, "Enter Official Email", Toast.LENGTH_SHORT).show();
                 } else if (str_company_name.equalsIgnoreCase("")) {
                     Toast.makeText(TataCapitalApplyNow.this, "Enter Company Name", Toast.LENGTH_SHORT).show();
-                } else if (raddreessline1.getText().toString().equalsIgnoreCase("")) {
+                } else if (fathersname.getText().toString().equalsIgnoreCase("")) {
+                    Toast.makeText(TataCapitalApplyNow.this, "Enter Fathers Name", Toast.LENGTH_SHORT).show();
+                }else if (mothersname.getText().toString().equalsIgnoreCase("")) {
+                    Toast.makeText(TataCapitalApplyNow.this, "Enter Mothers Name", Toast.LENGTH_SHORT).show();
+                }else if (raddreessline1.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(TataCapitalApplyNow.this, "Enter Resident Address 1", Toast.LENGTH_SHORT).show();
                 } else if (raddreessline2.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(TataCapitalApplyNow.this, "Enter Resident Address 2", Toast.LENGTH_SHORT).show();
@@ -626,6 +789,10 @@ public class TataCapitalApplyNow extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(response.toString());
 
                 if (jsonObject.getString("status").equalsIgnoreCase("success")) {
+
+                    JSONObject jsonObject1 = jsonObject.getJSONObject("response");
+                    tataleadid = jsonObject1.getString("LeadId");
+
                     createwebtop();
 
                 } else if (jsonObject.getString("status").equalsIgnoreCase("failed")) {
@@ -818,7 +985,8 @@ public class TataCapitalApplyNow extends AppCompatActivity {
             json.put("totalWorkExperience", 96);
             json.put("currentWorkExperience", 96);
             json.put("monthlyIncome", monthlysalary.getText().toString());
-            json.put("grossIncome", monthlysalary.getText().toString());
+            int grosssalary = Integer.parseInt(monthlysalary.getText().toString()) * 12;
+            json.put("grossIncome", grosssalary);
             json.put("itrAmount", 0);
             json.put("totalBusinessStability", 0);
             json.put("currentBusinessStability", 0);
@@ -864,7 +1032,17 @@ public class TataCapitalApplyNow extends AppCompatActivity {
                     for (int i = 0; i < jsonArray1.length(); i++) {
                         if (jsonArray1.getJSONObject(i).getString("DECISION").equalsIgnoreCase("Declined")) {
 
-                            eligible = "False";
+//                            eligible = "False";
+
+                            //////////////Testing/////////////
+                            APPROVED_LOAN_AMOUNT = "75000";
+                            APPROVED_IRR = "15.49";
+                            PROCESSIN_FEE = "4999";
+                            ELIGIBILITY_NAME = "LTDL_BL";
+                            APPROVED_LOAN_TENOR = "12,24";
+                            eligible = "True";
+                            /////////////////////////////////
+
 
                         } else {
 
@@ -887,6 +1065,51 @@ public class TataCapitalApplyNow extends AppCompatActivity {
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
+
+
+                        pageone.setVisibility(View.GONE);
+                        pagetwo.setVisibility(View.VISIBLE);
+
+                        if (APPROVED_LOAN_TENOR.contains("12")) {
+                            tenure12.setVisibility(View.VISIBLE);
+                        } else {
+                            tenure12.setVisibility(View.GONE);
+                        }
+                        if (APPROVED_LOAN_TENOR.contains("24")) {
+                            tenure24.setVisibility(View.VISIBLE);
+                        } else {
+                            tenure24.setVisibility(View.GONE);
+                        }
+                        if (APPROVED_LOAN_TENOR.contains("36")) {
+                            tenure36.setVisibility(View.VISIBLE);
+                        } else {
+                            tenure36.setVisibility(View.GONE);
+                        }
+
+                        processing_fees.setText("₹ " + PROCESSIN_FEE);
+                        roi.setText(APPROVED_IRR + "%");
+                        maxloanamount.setText("max " + APPROVED_LOAN_AMOUNT);
+                        selectedloanamount.setText(APPROVED_LOAN_AMOUNT);
+                        loan_seekbar.setMax(Integer.parseInt(APPROVED_LOAN_AMOUNT));
+                        loan_seekbar.setProgress(Integer.parseInt(APPROVED_LOAN_AMOUNT));
+                        loan_seekbar.incrementProgressBy(1000);
+
+                        double P = Double.parseDouble(APPROVED_LOAN_AMOUNT);
+                        double R = Double.parseDouble(APPROVED_IRR);
+
+
+                        double T12 = 12;
+                        double T24 = 24;
+                        double T36 = 36;
+
+                        double TotalEmi12 = (P * (R / 1200) * Math.pow(1 + (R / 1200), T12)) / (Math.pow(1 + (R / 1200), T12) - 1);
+                        double TotalEmi24 = (P * (R / 1200) * Math.pow(1 + (R / 1200), T24)) / (Math.pow(1 + (R / 1200), T24) - 1);
+                        double TotalEmi36 = (P * (R / 1200) * Math.pow(1 + (R / 1200), T36)) / (Math.pow(1 + (R / 1200), T36) - 1);
+
+                        tenure12.setText("₹ " + Math.ceil(TotalEmi12) + " X 12 months");
+                        tenure24.setText("₹ " + Math.ceil(TotalEmi24) + " X 24 months");
+                        tenure36.setText("₹ " + Math.ceil(TotalEmi36) + " X 36 months");
+
                         Toast.makeText(this, "You are eligible", Toast.LENGTH_SHORT).show();
 
                     } else {
@@ -959,6 +1182,239 @@ public class TataCapitalApplyNow extends AppCompatActivity {
 
             }
         });
+        queue.add(jsonObjectRequest);
+    }
+
+    private void updatelead() {
+        final JSONObject json = new JSONObject();
+        try {
+
+            String gendervalue = "";
+            if (SessionManager.get_gender(prefs).equalsIgnoreCase("1")) {
+                gendervalue = "MALE";
+            } else if (SessionManager.get_gender(prefs).equalsIgnoreCase("2")) {
+                gendervalue = "FEMALE";
+            } else {
+                gendervalue = "TRANSGENDER";
+            }
+
+            json.put("lead_id", lead_id);
+            json.put("mobileNumber", SessionManager.get_mobile(prefs));
+            json.put("appLeadId", tataleadid);
+            json.put("PersonalEmailID", SessionManager.get_emailid(prefs));
+            json.put("LastName", str_last_name);
+            json.put("FirstName", str_first_name);
+            json.put("FatherName", fathersname.getText().toString());
+            json.put("MonthlyNetSalary", monthlysalary.getText().toString());
+            json.put("cName", str_company_name);
+            json.put("OfficialEmailID", official_email.getText().toString());
+            int grosssalary = Integer.parseInt(monthlysalary.getText().toString()) * 12;
+            json.put("GrossYearlyIncome", grosssalary);
+            json.put("TotalBusinessStability", "10");
+            json.put("CurrentBusinessStability", "10");
+            json.put("WebtopNo", str_webtopNo);
+            json.put("PanNumber", SessionManager.get_pan(prefs));
+            json.put("MaritalStatus", select_maritalstatus);
+            json.put("Gender", gendervalue);
+            json.put("mothersMaidenName", mothersname.getText().toString());
+            json.put("AccomodationType", "");
+            json.put("TimeAtCity", "10");
+            json.put("Landmark", str_rcity);
+            json.put("City", str_rcity);
+            json.put("AddressLine2", raddreessline2.getText().toString());
+            json.put("AddressLine1", raddreessline1.getText().toString());
+            json.put("State", str_rstate);
+            json.put("TimeAtAddress", "10");
+            json.put("Pincode", str_rpincode);
+            json.put("AadharDOB", SessionManager.get_dob(prefs));
+            json.put("MonthlyIncome", monthlysalary.getText().toString());
+            json.put("TotalWorkExperience", "10");
+            json.put("ReqLoanAmount", selectedloanamount.getText().toString());
+            json.put("ReqLoanTenor", selected_tenure);
+            json.put("emi", selected_emi);
+            json.put("nFinal_Rate", roi);
+            json.put("nFinal_PF", PROCESSIN_FEE);
+            json.put("OfficeAccomodationType", "");
+            json.put("OfficeTimeAtCity", "10");
+            json.put("OfficeLandmark", str_ocity);
+            json.put("OfficeCity", str_ocity);
+            json.put("OfficeAddressLine2", oaddreessline2.getText().toString());
+            json.put("OfficeAddressLine1", oaddreessline1.getText().toString());
+            json.put("OfficeState", str_ostate);
+            json.put("OfficeTimeAtAddress", "10");
+            json.put("OfficePincode", str_opincode);
+            json.put("PermanentAccomodationType", "");
+            json.put("PermanentTimeAtCity", "10");
+            json.put("PermanentLandmark", str_rcity);
+            json.put("PermanentCity", str_rcity);
+            json.put("PermanentAddressLine2", raddreessline2.getText().toString());
+            json.put("PermanentAddressLine1", raddreessline1.getText().toString());
+            json.put("PermanentTimeAtAddress", "10");
+            json.put("PermanentPincode", str_rpincode);
+            json.put("PermanentState", str_rstate);
+            json.put("OccupationRecordType", "Salaried");
+            json.put("SchemeId", ELIGIBILITY_NAME);
+            json.put("dsaConnector", "8073774");
+            json.put("sourcingChannel", "ALTERNATE_CHANNEL");
+            json.put("subSource", "WISHFINBL");
+            json.put("Product", "BL");
+            json.put("officeEmail", official_email.getText().toString());
+            json.put("dateOfBirth", SessionManager.get_dob(prefs));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/update-lead", json, response -> {
+
+
+            try {
+
+                JSONObject jsonObject = new JSONObject(response.toString());
+
+
+                if (jsonObject.getString("status").equalsIgnoreCase("success")) {
+
+                    JSONObject jsonObject1 = jsonObject.getJSONObject("result");
+                    OpportunityId = jsonObject1.getString("OpportunityId");
+                    referencecreation();
+
+                } else if (jsonObject.getString("status").equalsIgnoreCase("failed")) {
+
+                    if (progressDialog != null && progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
+
+                }
+
+            } catch (Exception e) {
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+                e.printStackTrace();
+            }
+
+
+        }, error -> {
+
+            try {
+                int statusCode = error.networkResponse.statusCode;
+                if (statusCode == 421) {
+                    getaouth();
+                }
+                error.printStackTrace();
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> header = new HashMap<>();
+                String bearer = "Bearer " + SessionManager.get_access_token(prefs);
+                header.put("Content-Type", "application/json; charset=utf-8");
+                header.put("Accept", "application/json");
+                header.put("Authorization", bearer);
+
+                return header;
+            }
+        };
+        queue.add(jsonObjectRequest);
+    }
+
+    public void referencecreation() {
+        final JSONObject json = new JSONObject();
+        try {
+
+
+            json.put("lead_id", lead_id);
+            json.put("opportunityId", OpportunityId);
+            json.put("webtopId", str_webtopNo);
+            json.put("referencefirstName1", "Rfdefault Rfdefault");
+            json.put("referencelastName1", "Rfdefault Rfdefault");
+            json.put("referenceType1", "Relative");
+            json.put("addressType1", "ResidentialAddress");
+            json.put("addressLineOne1", "radddefault");
+            json.put("addressLineTwo1", "radddefault");
+            json.put("addressLineThree1", "radddefault");
+            json.put("landMark1", "radddefault");
+            json.put("pincode1", "400001");
+            json.put("accomodationType1", "SELF");
+            json.put("mobileNumber1", SessionManager.get_mobile(prefs));
+            json.put("emailId1", SessionManager.get_emailid(prefs));
+            json.put("firstName2", "Rfdefault Rfdefault");
+            json.put("lastName2", "Rfdefault Rfdefault");
+            json.put("referenceType2", "Relative");
+            json.put("addressType2", "ResidentialAddress");
+            json.put("addressLineOne2", "radddefault");
+            json.put("addressLineTwo2", "radddefault");
+            json.put("addressLineThree2", "radddefault");
+            json.put("landMark2", "radddefault");
+            json.put("pincode2", "400001");
+            json.put("accomodationType2", "SELF");
+            json.put("mobileNumber2", SessionManager.get_mobile(prefs));
+            json.put("emailId2", SessionManager.get_emailid(prefs));
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/reference-creation", json, response -> {
+            try {
+
+                JSONObject jsonObject = new JSONObject(response.toString());
+
+                if (jsonObject.getString("status").equalsIgnoreCase("success")) {
+                    JSONObject jsonObject1 = jsonObject.getJSONObject("result");
+                    Toast.makeText(this, jsonObject1.getString("message"), Toast.LENGTH_SHORT).show();
+                    finish();
+
+                } else if (jsonObject.getString("status").equalsIgnoreCase("failed")) {
+
+
+                    if (progressDialog != null && progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
+
+                }
+
+            } catch (Exception e) {
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+                e.printStackTrace();
+            }
+
+
+        }, error -> {
+
+            try {
+                int statusCode = error.networkResponse.statusCode;
+                if (statusCode == 421) {
+                    getaouth();
+                }
+                error.printStackTrace();
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> header = new HashMap<>();
+                String bearer = "Bearer " + SessionManager.get_access_token(prefs);
+                header.put("Content-Type", "application/json; charset=utf-8");
+                header.put("Accept", "application/json");
+                header.put("Authorization", bearer);
+
+                return header;
+            }
+        };
         queue.add(jsonObjectRequest);
     }
 
