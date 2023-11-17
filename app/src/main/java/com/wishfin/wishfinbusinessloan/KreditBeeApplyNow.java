@@ -152,15 +152,20 @@ public class KreditBeeApplyNow extends AppCompatActivity {
         StringRequest getRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
                     // response
-                    if (progressDialog != null && progressDialog.isShowing()) {
-                        progressDialog.dismiss();
-                    }
+
                     try {
                         JSONObject jsonObject = new JSONObject(response);
 
                         if (jsonObject.getString("status").equalsIgnoreCase("success")) {
-                            leadbank();
+                            if (progressDialog != null && progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+                            Toast.makeText(this, "Application Request Already Exist", Toast.LENGTH_SHORT).show();
+                            finish();
                         } else if (jsonObject.getString("status").equalsIgnoreCase("failed")) {
+                            if (jsonObject.getString("message").equalsIgnoreCase("no data found")) {
+                                leadbank();
+                            }
                             if (progressDialog != null && progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }

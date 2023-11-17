@@ -132,4 +132,16 @@
         <item>Rented</item>
         <item>Detail Not Available</item>
     </string-array>
+    <string-array name="array_registered_as">
+        <item>Select Business Registered AS</item>
+        <item>Proprietorship</item>
+        <item>Partnership</item>
+        <item>Pvt. Ltd.</item>
+        <item>LLP</item>
+        <item>Limited Company</item>
+        <item>One Person Company</item>
+        <item>Not Registered</item>
+
+    </string-array>
+
 </resources>

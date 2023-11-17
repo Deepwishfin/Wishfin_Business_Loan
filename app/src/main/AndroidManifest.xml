@@ -51,7 +51,6 @@
         <activity
             android:name=".Signuppage"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".LoanInformationPage"
             android:screenOrientation="portrait" />
@@ -72,6 +71,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".KreditBeeApplyNow"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LendingKartApplyNow"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MoneyViewApplyNow"

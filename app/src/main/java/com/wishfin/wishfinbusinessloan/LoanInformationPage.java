@@ -595,7 +595,7 @@ public class LoanInformationPage extends AppCompatActivity {
                 lineareight.setVisibility(View.GONE);
                 page = 5;
 
-                Toast.makeText(LoanInformationPage.this,  SessionManager.get_city(prefs), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoanInformationPage.this,  SessionManager.get_city(prefs), Toast.LENGTH_SHORT).show();
 
 
             }

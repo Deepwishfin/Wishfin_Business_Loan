@@ -143,59 +143,6 @@ public class TataCapitalApplyNow extends AppCompatActivity {
 
         array_accomtype = getResources().getStringArray(R.array.array_accom_key);
 
-        //////////////testing//////////////
-
-//
-//        APPROVED_LOAN_AMOUNT = "75000";
-//        APPROVED_IRR = "15.49";
-//        PROCESSIN_FEE = "4999";
-//        ELIGIBILITY_NAME = "LTDL_BL";
-//        APPROVED_LOAN_TENOR = "12,24";
-//
-//        pageone.setVisibility(View.GONE);
-//        pagetwo.setVisibility(View.VISIBLE);
-//
-//        if (APPROVED_LOAN_TENOR.contains("12")) {
-//            tenure12.setVisibility(View.VISIBLE);
-//        } else {
-//            tenure12.setVisibility(View.GONE);
-//        }
-//        if (APPROVED_LOAN_TENOR.contains("24")) {
-//            tenure24.setVisibility(View.VISIBLE);
-//        } else {
-//            tenure24.setVisibility(View.GONE);
-//        }
-//        if (APPROVED_LOAN_TENOR.contains("36")) {
-//            tenure36.setVisibility(View.VISIBLE);
-//        } else {
-//            tenure36.setVisibility(View.GONE);
-//        }
-//
-//        processing_fees.setText("₹ " + PROCESSIN_FEE);
-//        roi.setText(APPROVED_IRR + "%");
-//        maxloanamount.setText("max " + APPROVED_LOAN_AMOUNT);
-//        selectedloanamount.setText(APPROVED_LOAN_AMOUNT);
-//        loan_seekbar.setMax(Integer.parseInt(APPROVED_LOAN_AMOUNT));
-//        loan_seekbar.setProgress(Integer.parseInt(APPROVED_LOAN_AMOUNT));
-//        loan_seekbar.incrementProgressBy(1000);
-//
-//        double P = Double.parseDouble(APPROVED_LOAN_AMOUNT);
-//        double R = Double.parseDouble(APPROVED_IRR);
-//
-//        double T12 = 12;
-//        double T24 = 24;
-//        double T36 = 36;
-//
-//        double TotalEmi12 = (P * (R / 1200) * Math.pow(1 + (R / 1200), T12)) / (Math.pow(1 + (R / 1200), T12) - 1);
-//        double TotalEmi24 = (P * (R / 1200) * Math.pow(1 + (R / 1200), T24)) / (Math.pow(1 + (R / 1200), T24) - 1);
-//        double TotalEmi36 = (P * (R / 1200) * Math.pow(1 + (R / 1200), T36)) / (Math.pow(1 + (R / 1200), T36) - 1);
-//
-//        tenure12.setText("₹ " + Math.ceil(TotalEmi12) + " X 12 months");
-//        tenure24.setText("₹ " + Math.ceil(TotalEmi24) + " X 24 months");
-//        tenure36.setText("₹ " + Math.ceil(TotalEmi36) + " X 36 months");
-//
-        ////////////////////////////////////////////
-
         select_oaccomtype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -1029,7 +976,7 @@ public class TataCapitalApplyNow extends AppCompatActivity {
             json.put("currentWorkExperience", 96);
             json.put("monthlyIncome", monthlysalary.getText().toString());
             int grosssalary = Integer.parseInt(monthlysalary.getText().toString()) * 12;
-            json.put("grossIncome", grosssalary);
+            json.put("grossIncome", ""+grosssalary);
             json.put("itrAmount", 0);
             json.put("totalBusinessStability", 0);
             json.put("currentBusinessStability", 0);
@@ -1075,15 +1022,15 @@ public class TataCapitalApplyNow extends AppCompatActivity {
                     for (int i = 0; i < jsonArray1.length(); i++) {
                         if (jsonArray1.getJSONObject(i).getString("DECISION").equalsIgnoreCase("Declined")) {
 
-//                            eligible = "False";
+                            eligible = "False";
 
-                            //////////////Testing/////////////
-                            APPROVED_LOAN_AMOUNT = "75000";
-                            APPROVED_IRR = "15.49";
-                            PROCESSIN_FEE = "4999";
-                            ELIGIBILITY_NAME = "LTDL_BL";
-                            APPROVED_LOAN_TENOR = "12,24";
-                            eligible = "True";
+//                            //////////////Testing/////////////
+//                            APPROVED_LOAN_AMOUNT = "75000";
+//                            APPROVED_IRR = "15.49";
+//                            PROCESSIN_FEE = "4999";
+//                            ELIGIBILITY_NAME = "LTDL_BL";
+//                            APPROVED_LOAN_TENOR = "12,24";
+//                            eligible = "True";
                             /////////////////////////////////
 
 
@@ -1252,7 +1199,7 @@ public class TataCapitalApplyNow extends AppCompatActivity {
             json.put("cName", str_company_name);
             json.put("OfficialEmailID", official_email.getText().toString());
             int grosssalary = Integer.parseInt(monthlysalary.getText().toString()) * 12;
-            json.put("GrossYearlyIncome", grosssalary);
+            json.put("GrossYearlyIncome", ""+grosssalary);
             json.put("TotalBusinessStability", "10");
             json.put("CurrentBusinessStability", "10");
             json.put("WebtopNo", str_webtopNo);

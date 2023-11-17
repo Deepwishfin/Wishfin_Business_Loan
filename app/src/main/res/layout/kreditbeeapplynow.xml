@@ -276,7 +276,7 @@
                                 <com.wishfin.wishfinbusinessloan.MenuHidingEditText
                                     android:id="@+id/monthlysalary"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="48dp"
                                     android:layout_margin="2sp"
                                     android:background="@drawable/edittextback"
                                     android:hint="Salary"
