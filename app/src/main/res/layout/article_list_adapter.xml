@@ -18,10 +18,11 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="80dp"
+            android:layout_width="120dp"
             android:layout_height="60dp"
+            android:scaleType="fitCenter"
             android:contentDescription="TODO"
-            android:scaleType="fitCenter" />
+            />
 
         <com.wishfin.wishfinbusinessloan.FontClasses.InterFont
             android:id="@+id/textView"

@@ -95,13 +95,8 @@ public class EMICalculator extends AppCompatActivity {
         tenure_value = findViewById(R.id.tenure_value);
         amountinwords = findViewById(R.id.amountinwords);
         signupone = findViewById(R.id.signupone);
-
         article_list = findViewById(R.id.article_list);
         pieView = findViewById(R.id.pie_view);
-        ArrayList<PieHelper> pieHelperArrayList = new ArrayList<>();
-        pieView.setDate(pieHelperArrayList);
-
-
 
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -468,7 +463,7 @@ public class EMICalculator extends AppCompatActivity {
         pieHelperArrayList.add(new PieHelper(interestval, greencolor));
         pieHelperArrayList.add(new PieHelper(loanval, greycolor));
         pieView.selectedPie(PieView.NO_SELECTED_INDEX);
-        pieView.showPercentLabel(true);
+//        pieView.showPercentLabel(true);
         pieView.setDate(pieHelperArrayList);
     }
 

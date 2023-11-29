@@ -42,6 +42,7 @@ public class PersonalInformationPage extends AppCompatActivity {
     RequestQueue queue;
 
     String gender = "1", lead_id = "";
+    String selecteddate = "";
 
     RadioButton yescheck, nocheck, malecheck, femalecheck;
     EditText pincode, pan, fullname, email, dob;
@@ -180,7 +181,8 @@ public class PersonalInformationPage extends AppCompatActivity {
             } else {
                 month = "" + selectedmonth;
             }
-
+            selecteddate = selectedyear + "-" + month + "-" + selectedday;
+            dob.setText(selecteddate);
 
         }, mYear, mMonth, mDay);
         mDatePicker.setTitle("Select date");
@@ -222,7 +224,7 @@ public class PersonalInformationPage extends AppCompatActivity {
             json.put("lname", SessionManager.get_lastname(prefs));
             json.put("Gender", SessionManager.get_gender(prefs));
             json.put("Email", SessionManager.get_emailid(prefs));
-            json.put("Dob", SessionManager.get_dob(prefs));
+            json.put("Dob", dob.getText().toString());
             json.put("Pincode", pincode.getText().toString());
             json.put("Pan", SessionManager.get_pan(prefs));
             json.put("city_name", SessionManager.get_city(prefs));

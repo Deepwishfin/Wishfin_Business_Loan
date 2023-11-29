@@ -88,6 +88,13 @@ public class LendingKartApplyNow extends AppCompatActivity {
         monthlysalary = findViewById(R.id.monthlysalary);
         select_registeredas = findViewById(R.id.select_registeredas);
 
+        backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         heading.setText(bank_name);
 
 

@@ -62,12 +62,10 @@ public class LoanInformationPage extends AppCompatActivity {
     KProgressHUD progressDialog;
     SharedPreferences prefs;
     RequestQueue queue;
-    String str_occupation = "2", str_annual_turnover = "1", str_company_type, str_nature_business, str_industry_type,
-            str_sub_industry_type, str_business_place = "Owned by Self / Spouse", str_collateral_loan = "Property";
+    String str_occupation = "2", str_annual_turnover = "1", str_company_type, str_nature_business, str_industry_type, str_sub_industry_type, str_business_place = "Owned by Self / Spouse", str_collateral_loan = "Property";
     String str_cityname = "Delhi";
     Spinner spinnercompanytype, spinnernaturebusiness, spinnerindustrytype, spinnersubindustrytype;
-    RadioButton selfbusiness, selfproffessional, turnover_btw_10_40_lac, turnover_btw_40_lac_1_cr, turnover_btw_1_3_cr,
-            turnover_over_3_cr, ownedbyself, ownedbyparents, rentedfamily, property, gold, car, billdiscounting, no;
+    RadioButton selfbusiness, selfproffessional, turnover_btw_10_40_lac, turnover_btw_40_lac_1_cr, turnover_btw_1_3_cr, turnover_over_3_cr, ownedbyself, ownedbyparents, rentedfamily, property, gold, car, billdiscounting, no;
     String IPaddress = "";
     ArrayList<String> list1 = new ArrayList<>();
     ArrayList<String> list2 = new ArrayList<>();
@@ -163,7 +161,7 @@ public class LoanInformationPage extends AppCompatActivity {
                 if (position != 0) {
                     str_nature_business = spinnernaturebusiness.getSelectedItem().toString();
                     get_industry_type_list();
-                    str_industry_type="";
+                    str_industry_type = "";
 
                 }
             }
@@ -418,6 +416,7 @@ public class LoanInformationPage extends AppCompatActivity {
 
                 Intent intent = new Intent(LoanInformationPage.this, SelectCityPage.class);
                 startActivity(intent);
+                SessionManager.save_after_city_selection(prefs, "False");
             }
         });
 
@@ -547,6 +546,18 @@ public class LoanInformationPage extends AppCompatActivity {
                 if (loanamount.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(LoanInformationPage.this, "Enter Loan Amount", Toast.LENGTH_SHORT).show();
                 } else {
+                    SessionManager.save_loanamount(prefs, loanamount.getText().toString());
+
+                    if (SessionManager.get_annualturnover(prefs).equalsIgnoreCase("2")) {
+                        turnover_btw_40_lac_1_cr.setChecked(true);
+                    } else if (SessionManager.get_annualturnover(prefs).equalsIgnoreCase("3")) {
+                        turnover_btw_1_3_cr.setChecked(true);
+                    } else if (SessionManager.get_annualturnover(prefs).equalsIgnoreCase("4")) {
+                        turnover_over_3_cr.setChecked(true);
+                    } else {
+                        turnover_btw_10_40_lac.setChecked(true);
+                    }
+
                     linearone.setVisibility(View.GONE);
                     lineartwo.setVisibility(View.GONE);
                     linearthree.setVisibility(View.VISIBLE);
@@ -556,7 +567,8 @@ public class LoanInformationPage extends AppCompatActivity {
                     linearseven.setVisibility(View.GONE);
                     lineareight.setVisibility(View.GONE);
                     page = 3;
-                    SessionManager.save_loanamount(prefs, loanamount.getText().toString());
+
+
                 }
 
             }
@@ -618,6 +630,7 @@ public class LoanInformationPage extends AppCompatActivity {
                     lineareight.setVisibility(View.GONE);
                     page = 6;
                     SessionManager.save_business_year(prefs, businessyears.getText().toString());
+                    SessionManager.save_after_city_selection(prefs, "False");
                 }
 
             }
@@ -652,6 +665,14 @@ public class LoanInformationPage extends AppCompatActivity {
                     lineareight.setVisibility(View.GONE);
                     page = 7;
 
+                    if (SessionManager.get_ownership_residence(prefs).equalsIgnoreCase("Owned by Self / Spouse")) {
+                        ownedbyself.setChecked(true);
+                    } else if (SessionManager.get_ownership_residence(prefs).equalsIgnoreCase("Owned by Parents / Siblings")) {
+                        ownedbyparents.setChecked(true);
+                    } else {
+                        rentedfamily.setChecked(true);
+                    }
+
                 }
 
 
@@ -673,6 +694,18 @@ public class LoanInformationPage extends AppCompatActivity {
                 page = 8;
                 SessionManager.save_ownership_residence(prefs, str_business_place);
 
+                if (SessionManager.get_collatoral_loan(prefs).equalsIgnoreCase("Property")) {
+                    property.setChecked(true);
+                } else if (SessionManager.get_collatoral_loan(prefs).equalsIgnoreCase("Gold")) {
+                    gold.setChecked(true);
+                } else if (SessionManager.get_collatoral_loan(prefs).equalsIgnoreCase("Car")) {
+                    car.setChecked(true);
+                } else if (SessionManager.get_collatoral_loan(prefs).equalsIgnoreCase("Bill Discounting")) {
+                    billdiscounting.setChecked(true);
+                } else {
+                    no.setChecked(true);
+                }
+
 
             }
         });
@@ -688,6 +721,15 @@ public class LoanInformationPage extends AppCompatActivity {
             }
         });
 
+
+        if (!SessionManager.get_business_year(prefs).equalsIgnoreCase("")) {
+            businessyears.setText(SessionManager.get_business_year(prefs));
+        }
+        if (!SessionManager.get_loanamount(prefs).equalsIgnoreCase("")) {
+            loanamount.setText(SessionManager.get_loanamount(prefs));
+            int loanseek= Integer.parseInt(SessionManager.get_loanamount(prefs));
+            seekBar.setProgress(loanseek);
+        }
         loanamount.addTextChangedListener(textWatcher1);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -1152,7 +1194,20 @@ public class LoanInformationPage extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (SessionManager.get_after_city_selection(prefs).equalsIgnoreCase("True")) {
+            linearone.setVisibility(View.GONE);
+            lineartwo.setVisibility(View.GONE);
+            linearthree.setVisibility(View.GONE);
+            linearfour.setVisibility(View.GONE);
+            linearfive.setVisibility(View.VISIBLE);
+            linearsix.setVisibility(View.GONE);
+            linearseven.setVisibility(View.GONE);
+            lineareight.setVisibility(View.GONE);
+            page = 5;
+        }
         get_cibil_history();
+
+
     }
 
     public void get_industry_type_list() {
@@ -1166,7 +1221,7 @@ public class LoanInformationPage extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(response);
                 list1 = new ArrayList<>();
                 list1.add("Select");
-                list2=new ArrayList<>();
+                list2 = new ArrayList<>();
 
                 if (jsonObject.getString("status").equalsIgnoreCase("Success")) {
 

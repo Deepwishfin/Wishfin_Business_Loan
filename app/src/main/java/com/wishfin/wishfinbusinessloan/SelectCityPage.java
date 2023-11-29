@@ -73,6 +73,7 @@ public class SelectCityPage extends AppCompatActivity {
 
                 }else {
                     SessionManager.save_city(prefs, str_cityname);
+                    SessionManager.save_after_city_selection(prefs,"True");
                     finish();
                 }
             }

@@ -438,11 +438,6 @@ public class Profilepage extends AppCompatActivity implements View.OnClickListen
         try {
             if (type.equalsIgnoreCase("normal")) {
                 appendurl = "/v2/cibil-fulfill-order";
-//                json.put("first_name", "Ranjanben");
-//                json.put("last_name", "Vijaybhai");
-//                json.put("email_id", "shivaji.chauhan@wishfin.com");
-//                json.put("mobile_number", "8287025412");
-
                 json.put("first_name", "" + SessionManager.get_firstname(prefs));
                 json.put("middle_name", "" + SessionManager.get_mname(prefs));
                 if (SessionManager.get_lastname(prefs).equalsIgnoreCase("")) {
@@ -452,8 +447,6 @@ public class Profilepage extends AppCompatActivity implements View.OnClickListen
                 }
                 json.put("email_id", "" + SessionManager.get_emailid(prefs));
                 json.put("mobile_number", "" + SessionManager.get_mobile(prefs));
-
-                json.put("pancard", "");
                 json.put("date_of_birth", "");
                 json.put("annual_income", "");
                 json.put("occupation", "");
@@ -462,14 +455,13 @@ public class Profilepage extends AppCompatActivity implements View.OnClickListen
                 json.put("first_name", "" + fname.getText().toString().trim());
                 json.put("middle_name", "" + mname.getText().toString().trim());
                 json.put("last_name", "" + lname.getText().toString().trim());
-                json.put("pancard", "" + pan.getText().toString().trim());
                 json.put("date_of_birth", "" + dob.getText().toString().trim());
                 json.put("email_id", "" + email.getText().toString().trim());
                 json.put("annual_income", "" + Integer.parseInt(monthly_income.getText().toString()) * 12);
                 json.put("occupation", "" + str_occupation);
                 json.put("mobile_number", "" + SessionManager.get_mobile(prefs));
             }
-
+            json.put("pancard", "" + SessionManager.get_pan(prefs));
             json.put("gender", "");
             json.put("city_name", "Default");
             json.put("state_code", "27");
@@ -1151,7 +1143,8 @@ public class Profilepage extends AppCompatActivity implements View.OnClickListen
                 if (progressDialog != null) {
                     progressDialog.show();
                 }
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.wishfin_credit_card")));
+                final String appPackageName = getPackageName();
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
 
             }
 

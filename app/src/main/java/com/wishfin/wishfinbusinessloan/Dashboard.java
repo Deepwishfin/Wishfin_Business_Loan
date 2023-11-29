@@ -9,6 +9,8 @@ import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -39,6 +41,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ahmadrosid.svgloader.SvgLoader;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -48,6 +51,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
@@ -59,13 +63,17 @@ import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.kaopiz.kprogresshud.KProgressHUD;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.NetworkInterface;
+import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -216,6 +224,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onClick(View v) {
 
+                SessionManager.save_after_city_selection(prefs,"False");
                 Intent intent = new Intent(Dashboard.this, LoanInformationPage.class);
                 intent.putExtra("source", "login");
                 intent.putExtra("ipaddress", IPaddress);
@@ -261,7 +270,8 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                         pack.setBank_name(objectnew2.getString("pl_bank_name"));
                         pack.setShow_logo(objectnew2.getString("show_logo"));
 //                        pack.setApi_to_use(objectnew2.getString("api_to_use"));
-                        pack.setImage_path(objectnew2.getString("image_path"));
+                        String urlimage=objectnew2.getString("image_path").replace(" ","%");
+                        pack.setImage_path(urlimage);
 
                         if (selected_banks.contains(objectnew2.getString("bank_code"))) {
                             pack.setSelected_banks("True");
@@ -403,11 +413,8 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
             holder.joiningfees.setText(list_car.get(position).getInterest_rate() + "%");
             holder.annualfees.setText(list_car.get(position).getProcessing_fee());
             String uffuhg = list_car.get(position).getImage_path();
-            try {
-                Utilllllssss.fetchSvg(context, uffuhg, holder.imageView);
-            } catch (Exception e) {
 
-            }
+            Picasso.get().load(uffuhg).into(holder.imageView);
 
             if (list_car.get(position).getSelected_banks().equalsIgnoreCase("True")) {
                 holder.viewdetails.setText("Selected");
