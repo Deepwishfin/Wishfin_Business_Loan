@@ -85,6 +85,7 @@ public class PersonalInformationPage extends AppCompatActivity {
         email.setText(SessionManager.get_emailid(prefs));
         fullname.setText(SessionManager.get_firstname(prefs));
 
+        pincode.setText(SessionManager.get_pincode(prefs));
         backbutton.setOnClickListener(v -> finish());
 
         getaouth();
@@ -220,6 +221,7 @@ public class PersonalInformationPage extends AppCompatActivity {
             json.put("SubIndustryType", SessionManager.get_sub_industry_type(prefs));
             json.put("OwnershipofResidenceOrBusinessPlace", SessionManager.get_ownership_residence(prefs));
             json.put("Wishtotakeloanagainstcollateral", SessionManager.get_collatoral_loan(prefs));
+
             json.put("fname", SessionManager.get_firstname(prefs));
             json.put("lname", SessionManager.get_lastname(prefs));
             json.put("Gender", SessionManager.get_gender(prefs));
@@ -228,6 +230,7 @@ public class PersonalInformationPage extends AppCompatActivity {
             json.put("Pincode", pincode.getText().toString());
             json.put("Pan", SessionManager.get_pan(prefs));
             json.put("city_name", SessionManager.get_city(prefs));
+            json.put("mobile", SessionManager.get_mobile(prefs));
 
         } catch (JSONException e) {
             e.printStackTrace();

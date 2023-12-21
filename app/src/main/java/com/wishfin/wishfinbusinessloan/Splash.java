@@ -65,6 +65,7 @@ public class Splash extends Activity {
         prefs = PreferenceManager.getDefaultSharedPreferences(Splash.this);
         queue = Volley.newRequestQueue(Splash.this);
 
+
         if (SessionManager.get_app_lang(prefs).equalsIgnoreCase("")) {
             myLocale = new Locale("en");
         } else {

@@ -200,7 +200,7 @@ public class LendingKartApplyNow extends AppCompatActivity {
             json.put("bank_code", bank_code);
             json.put("product_type", "BL");
             json.put("member_reference_id", "0");
-            json.put("partner_application_id", "WISHFIN-ANDROID" + ts);
+            json.put("partner_application_id", "WF-AND" + ts);
             json.put("first_name", SessionManager.get_firstname(prefs));
             json.put("middle_name", SessionManager.get_mname(prefs));
             json.put("last_name", SessionManager.get_lastname(prefs));

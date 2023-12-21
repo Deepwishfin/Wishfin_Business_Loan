@@ -594,7 +594,7 @@ public class Signuppage extends Activity implements SMSReceiver.OTPReceiveListen
             json.put("device_type", "Android");
             json.put("app_version", "" + SessionManager.get_appversion(prefs));
             json.put("enter_otp_type", enter_otp_type);
-            json.put("app_type", "android-home-loan");
+            json.put("app_type", "android-business-loan");
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -2964,7 +2964,7 @@ public class Profilepage extends AppCompatActivity implements View.OnClickListen
         final JSONObject json = new JSONObject();
         try {
             json.put("master_user_id", "" + SessionManager.get_masteruserid(prefs));
-            json.put("app_type", "android-home-loan");
+            json.put("app_type", "android-business-loan");
         } catch (JSONException e) {
             e.printStackTrace();
         }

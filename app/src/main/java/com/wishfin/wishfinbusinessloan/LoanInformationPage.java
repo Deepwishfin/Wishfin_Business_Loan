@@ -46,13 +46,15 @@ import org.json.JSONObject;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LoanInformationPage extends AppCompatActivity {
 
-    TextView nextone, nexttwo, nextthree, nextfour, nextfive, nextsix, nextseven, nexteight, view_all, delhi, mumbai, pune, banglore, chennai, jaipur;
+    TextView nextone, nexttwo, nextthree, nextfour, nextfive, nextsix, nextseven, nexteight, view_all, delhi, mumbai,
+            pune, banglore, chennai, jaipur;
     LinearLayout linearone, lineartwo, linearthree, linearfour, linearfive, linearsix, linearseven, lineareight;
     ImageView backbutton;
     int stepSize = 50000;
@@ -62,10 +64,13 @@ public class LoanInformationPage extends AppCompatActivity {
     KProgressHUD progressDialog;
     SharedPreferences prefs;
     RequestQueue queue;
-    String str_occupation = "2", str_annual_turnover = "1", str_company_type, str_nature_business, str_industry_type, str_sub_industry_type, str_business_place = "Owned by Self / Spouse", str_collateral_loan = "Property";
+    String str_occupation = "2", str_annual_turnover = "1", str_company_type = "", str_nature_business = "",
+            str_industry_type = "", str_sub_industry_type = "", str_business_place = "Owned by Self / Spouse",
+            str_collateral_loan = "Property";
     String str_cityname = "Delhi";
     Spinner spinnercompanytype, spinnernaturebusiness, spinnerindustrytype, spinnersubindustrytype;
-    RadioButton selfbusiness, selfproffessional, turnover_btw_10_40_lac, turnover_btw_40_lac_1_cr, turnover_btw_1_3_cr, turnover_over_3_cr, ownedbyself, ownedbyparents, rentedfamily, property, gold, car, billdiscounting, no;
+    RadioButton selfbusiness, selfproffessional, turnover_btw_10_40_lac, turnover_btw_40_lac_1_cr, turnover_btw_1_3_cr,
+            turnover_over_3_cr, ownedbyself, ownedbyparents, rentedfamily, property, gold, car, billdiscounting, no;
     String IPaddress = "";
     ArrayList<String> list1 = new ArrayList<>();
     ArrayList<String> list2 = new ArrayList<>();
@@ -137,6 +142,33 @@ public class LoanInformationPage extends AppCompatActivity {
         billdiscounting = findViewById(R.id.billdiscounting);
         no = findViewById(R.id.no);
 
+        ArrayList<String> companytemp = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.companytype)));
+        for (int i = 0; i < companytemp.size(); i++) {
+            String randomString = companytemp.get(i);
+            if (SessionManager.get_company_type(prefs).equalsIgnoreCase(randomString)) {
+                spinnercompanytype.setSelection(i);
+                break;
+            }
+        }
+
+        ArrayList<String> naturetemp = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.naturebusiness)));
+        for (int i = 0; i < naturetemp.size(); i++) {
+            String randomString = naturetemp.get(i);
+            if (SessionManager.get_nature_business(prefs).equalsIgnoreCase(randomString)) {
+                spinnernaturebusiness.setSelection(i);
+                break;
+            }
+        }
+
+//        ArrayList<String> industrytemp = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.industrytype)));
+//        for (int i = 0; i < industrytemp.size(); i++) {
+//            String randomString = industrytemp.get(i);
+//            if (SessionManager.get_industry_type(prefs).equalsIgnoreCase(randomString)) {
+//                spinnerindustrytype.setSelection(i);
+//                break;
+//            }
+//        }
+
 
         spinnercompanytype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -144,6 +176,8 @@ public class LoanInformationPage extends AppCompatActivity {
 
                 if (position != 0) {
                     str_company_type = spinnercompanytype.getSelectedItem().toString();
+                }else {
+                    str_company_type="";
                 }
             }
 
@@ -163,6 +197,8 @@ public class LoanInformationPage extends AppCompatActivity {
                     get_industry_type_list();
                     str_industry_type = "";
 
+                }else {
+                    str_nature_business="";
                 }
             }
 
@@ -179,6 +215,8 @@ public class LoanInformationPage extends AppCompatActivity {
                 if (position != 0) {
                     str_industry_type = spinnerindustrytype.getSelectedItem().toString();
                     get_sub_industry_type_list();
+                }else {
+                    str_industry_type="";
                 }
             }
 
@@ -194,6 +232,8 @@ public class LoanInformationPage extends AppCompatActivity {
 
                 if (position != 0) {
                     str_sub_industry_type = spinnersubindustrytype.getSelectedItem().toString();
+                }else {
+                    str_sub_industry_type="";
                 }
             }
 
@@ -727,7 +767,7 @@ public class LoanInformationPage extends AppCompatActivity {
         }
         if (!SessionManager.get_loanamount(prefs).equalsIgnoreCase("")) {
             loanamount.setText(SessionManager.get_loanamount(prefs));
-            int loanseek= Integer.parseInt(SessionManager.get_loanamount(prefs));
+            int loanseek = Integer.parseInt(SessionManager.get_loanamount(prefs));
             seekBar.setProgress(loanseek);
         }
         loanamount.addTextChangedListener(textWatcher1);

@@ -79,7 +79,7 @@ public class Loginpage extends AppCompatActivity implements SMSReceiver.OTPRecei
     int page = 1;
     private SMSReceiver smsReceiver;
     private boolean broadcast = true;
-    String IPaddress="";
+    String IPaddress = "";
     Dialog dialog;
 
 
@@ -271,7 +271,7 @@ public class Loginpage extends AppCompatActivity implements SMSReceiver.OTPRecei
                         Toast.makeText(Loginpage.this, "Please Enter OTP", Toast.LENGTH_LONG).show();
 
                     } else {
-                        login_api("Button clicked","phone","");
+                        login_api("Button clicked", "phone", "");
                     }
                 } else {
                     if ((currenttimestam - Constants.apihittime) > 160) {
@@ -279,7 +279,7 @@ public class Loginpage extends AppCompatActivity implements SMSReceiver.OTPRecei
                             Toast.makeText(Loginpage.this, "Please Enter OTP", Toast.LENGTH_LONG).show();
 
                         } else {
-                            login_api("Button clicked","phone","");
+                            login_api("Button clicked", "phone", "");
                         }
                     } else {
 
@@ -491,16 +491,15 @@ public class Loginpage extends AppCompatActivity implements SMSReceiver.OTPRecei
         queue.add(jsonObjectRequest);
     }
 
-    public void login_api(String enter_otp_type,String number_type, String number) {
+    public void login_api(String enter_otp_type, String number_type, String number) {
 
         final JSONObject json = new JSONObject();
 
         try {
             if (number_type.equalsIgnoreCase("truecaller")) {
                 json.put("case", "TVA");
-                if(number.contains("+91"))
-                {
-                    number=number.substring(3);
+                if (number.contains("+91")) {
+                    number = number.substring(3);
                 }
                 json.put("email_mobile", "" + number);
                 json.put("otp_password", "Dummy");
@@ -549,24 +548,17 @@ public class Loginpage extends AppCompatActivity implements SMSReceiver.OTPRecei
                             SessionManager.save_emailid(prefs, jsonObjectresult.getString("email_id"));
                             SessionManager.save_masteruserid(prefs, jsonObjectresult.getString("master_user_id"));
                             SessionManager.save_mfuserid(prefs, jsonObjectresult.getString("mf_user_id"));
-                            SessionManager.save_login(prefs, "True");
-                            SessionManager.save_logintype(prefs, "Login");
-                            SessionManager.save_app_time(prefs, "0");
 
 
                             if (progressDialog != null && progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }
-                            Intent intent = new Intent(Loginpage.this, LoanInformationPage.class);
-                            intent.putExtra("source", "login");
-                            intent.putExtra("ipaddress", IPaddress);
-                            startActivity(intent);
-                            finish();
+
                             if (smsReceiver != null) {
                                 LocalBroadcastManager.getInstance(Loginpage.this).unregisterReceiver(smsReceiver);
                             }
 
-                            Toast.makeText(Loginpage.this, "Welcome Back " + SessionManager.get_firstname(prefs), Toast.LENGTH_LONG).show();
+                            get_previous_data();
 
                         } else if (jsonObject.getString("status").equalsIgnoreCase("failed")) {
                             if (progressDialog != null && progressDialog.isShowing()) {
@@ -700,7 +692,7 @@ public class Loginpage extends AppCompatActivity implements SMSReceiver.OTPRecei
         }
 
         if (isThereInternetConnection()) {
-            check_email_exist("normal",mobilenumber.getText().toString());
+            check_email_exist("normal", mobilenumber.getText().toString());
         } else {
             Toast.makeText(Loginpage.this, getString(R.string.checkinternet), Toast.LENGTH_LONG).show();
 
@@ -708,14 +700,13 @@ public class Loginpage extends AppCompatActivity implements SMSReceiver.OTPRecei
 
     }
 
-    private void check_email_exist(String type,String mobile_number) {
+    private void check_email_exist(String type, String mobile_number) {
 
         final JSONObject json = new JSONObject();
 
         try {
-            if(mobile_number.contains("+91"))
-            {
-                mobile_number=mobile_number.substring(3);
+            if (mobile_number.contains("+91")) {
+                mobile_number = mobile_number.substring(3);
             }
             json.put("mobile_number", mobile_number);
 
@@ -733,7 +724,7 @@ public class Loginpage extends AppCompatActivity implements SMSReceiver.OTPRecei
 
                         if (jsonObject.getString("status").equalsIgnoreCase("success")) {
 
-                            if(type.equalsIgnoreCase("normal")) {
+                            if (type.equalsIgnoreCase("normal")) {
 
                                 String lastnumber = mobilenumber.getText().toString().substring(mobilenumber.getText().toString().length() - 4);
 
@@ -741,7 +732,7 @@ public class Loginpage extends AppCompatActivity implements SMSReceiver.OTPRecei
 
                                 hideKeyboard(Loginpage.this);
                                 get_otp_data();
-                            }else {
+                            } else {
                                 login_api("Button clicked", "truecaller", finalMobile_number);
                             }
 
@@ -884,7 +875,7 @@ public class Loginpage extends AppCompatActivity implements SMSReceiver.OTPRecei
                 LocalBroadcastManager.getInstance(Loginpage.this).unregisterReceiver(smsReceiver);
             }
 
-            login_api("Auto populate","phone","");
+            login_api("Auto populate", "phone", "");
         }
     }
 
@@ -999,7 +990,7 @@ public class Loginpage extends AppCompatActivity implements SMSReceiver.OTPRecei
         @Override
         public void onSuccessProfileShared(@NonNull final TrueProfile trueProfile) {
 
-            check_email_exist("truecaller",trueProfile.phoneNumber);
+            check_email_exist("truecaller", trueProfile.phoneNumber);
 
         }
 
@@ -1022,6 +1013,102 @@ public class Loginpage extends AppCompatActivity implements SMSReceiver.OTPRecei
         if (requestCode == TruecallerSDK.SHARE_PROFILE_REQUEST_CODE) {
             TruecallerSDK.getInstance().onActivityResultObtained(this, requestCode, resultCode, data);
         }
+
+    }
+
+    private void get_previous_data() {
+
+        final JSONObject json = new JSONObject();
+
+        try {
+
+            json.put("mobile", SessionManager.get_mobile(prefs));
+            json.put("type", "app");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        progressDialog.show();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST, BuildConfig.BASE_URL + "/get-applied-bl-data", json,
+                response -> {
+                    try {
+
+                        JSONObject jsonObject = new JSONObject(response.toString());
+                        SessionManager.save_lead_id(prefs,"");
+
+                        if (jsonObject.getString("status").equalsIgnoreCase("success")) {
+
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("result");
+
+                            SessionManager.save_city(prefs, jsonObject1.getString("city_name"));
+                            SessionManager.save_company_type(prefs, jsonObject1.getString("company_type"));
+                            SessionManager.save_loanamount(prefs, jsonObject1.getString("loan_amount"));
+                            SessionManager.save_annualturnover(prefs, jsonObject1.getString("annual_turnover"));
+                            SessionManager.save_ownership_residence(prefs, jsonObject1.getString("OwnershipofResidenceOrBusinessPlace"));
+                            SessionManager.save_pincode(prefs, jsonObject1.getString("residence_pincode"));
+                            SessionManager.save_occupation(prefs, jsonObject1.getString("occupation"));
+                            SessionManager.save_sub_industry_type(prefs, jsonObject1.getString("SubIndustryType"));
+                            SessionManager.save_monthly_income(prefs, jsonObject1.getString("total_monthly_obligation"));
+                            SessionManager.save_collatoral_loan(prefs, jsonObject1.getString("Wishtotakeloanagainstcollateral"));
+                            SessionManager.save_business_year(prefs, jsonObject1.getString("YearsinCurrentBusiness"));
+                            SessionManager.save_lead_id(prefs, jsonObject1.getString("lead_id"));
+
+
+                        }
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+
+                        SessionManager.save_login(prefs, "True");
+                        SessionManager.save_logintype(prefs, "Login");
+                        SessionManager.save_app_time(prefs, "0");
+
+                        if(SessionManager.get_lead_id(prefs).equalsIgnoreCase("")) {
+                            Intent intent = new Intent(Loginpage.this, LoanInformationPage.class);
+                            intent.putExtra("source", "login");
+                            intent.putExtra("ipaddress", IPaddress);
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            Intent intent = new Intent(Loginpage.this, Dashboard.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        Toast.makeText(Loginpage.this, "Welcome Back " + SessionManager.get_firstname(prefs), Toast.LENGTH_LONG).show();
+
+
+                    } catch (Exception e) {
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                        e.printStackTrace();
+                    }
+
+                }, error -> {
+            error.printStackTrace();
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+
+        }
+
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<String, String>();
+                String bearer = "Bearer " + SessionManager.get_access_token(prefs);
+                header.put("Content-Type", "application/json; charset=utf-8");
+                header.put("Accept", "application/json");
+                header.put("Authorization", bearer);
+
+                return header;
+            }
+        };
+        int socketTimeout = 30000;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        jsonObjectRequest.setRetryPolicy(policy);
+        queue.add(jsonObjectRequest);
 
     }
 

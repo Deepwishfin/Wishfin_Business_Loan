@@ -84,6 +84,26 @@
         <item>Textiles</item>
         <item>Other</item>
     </string-array>
+    <string-array name="array_loan_purpose">
+        <item>Select</item>
+        <item>Marriage</item>
+        <item>Education</item>
+        <item>Asset Purchase</item>
+        <item>Vacation/Travel</item>
+        <item>Medical Expenses</item>
+        <item>Household Expenses</item>
+        <item>Festival/Family Function</item>
+    </string-array>
+    <string-array name="array_loan_purpose_value">
+        <item>Select</item>
+        <item>marriage</item>
+        <item>education</item>
+        <item>asset purchase</item>
+        <item>vacation/travel</item>
+        <item>medical expenses</item>
+        <item>household expenses</item>
+        <item>festival/family function</item>
+    </string-array>
     <string-array name="array_family_income">
         <item>Select</item>
         <item>Less than 3 Lakhs</item>

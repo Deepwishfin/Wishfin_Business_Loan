@@ -2,7 +2,9 @@ package com.wishfin.wishfinbusinessloan;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
@@ -27,6 +29,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.RetryPolicy;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
 
 import org.json.JSONArray;
@@ -47,6 +50,7 @@ public class MoneyViewOfferPage extends AppCompatActivity {
     RecyclerView article_list;
     ArrayList<Gettersetterforall> list1 = new ArrayList<>();
     Share_Adapter radio_question_list_adapter;
+    RelativeLayout backbutton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,6 +88,15 @@ public class MoneyViewOfferPage extends AppCompatActivity {
         heading = findViewById(R.id.heading);
         article_list = findViewById(R.id.article_list);
 
+        backbutton = findViewById(R.id.backbutton);
+        backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
         heading.setText(bank_name);
 
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(MoneyViewOfferPage.this) {
@@ -108,7 +121,6 @@ public class MoneyViewOfferPage extends AppCompatActivity {
         article_list.setLayoutManager(layoutManager1);
 
         getaouth();
-
         progressDialog.show();
         getoffers();
     }
@@ -148,6 +160,7 @@ public class MoneyViewOfferPage extends AppCompatActivity {
         try {
 
             json.put("lead_id", lead_id);
+            json.put("partner_reference_id", strpartnetrefid);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -160,9 +173,10 @@ public class MoneyViewOfferPage extends AppCompatActivity {
                 if (progressDialog != null && progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
-                if (jsonObject.getString("status").equalsIgnoreCase("Success")) {
+                if (jsonObject.getString("status").equalsIgnoreCase("success")) {
 
-                    JSONArray jsonArray = (jsonObject.getJSONArray("offerObjects"));
+                    JSONObject jsonObject1=jsonObject.getJSONObject("result");
+                    JSONArray jsonArray = (jsonObject1.getJSONArray("offerObjects"));
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject objectnew2 = jsonArray.getJSONObject(i);
                         Gettersetterforall pack = new Gettersetterforall();
@@ -186,6 +200,7 @@ public class MoneyViewOfferPage extends AppCompatActivity {
                     if (list1.size() > 0) {
                         radio_question_list_adapter = new Share_Adapter(MoneyViewOfferPage.this, list1);
                         article_list.setAdapter(radio_question_list_adapter);
+                        article_list.setVisibility(View.GONE);
 
                     } else {
                         Toast.makeText(MoneyViewOfferPage.this, "No Offers Found", Toast.LENGTH_LONG).show();
@@ -194,10 +209,8 @@ public class MoneyViewOfferPage extends AppCompatActivity {
                     }
 
                     progressDialog.show();
-                    getleadstatus();
+                    getactivitystatus();
 
-//                    progressDialog.show();
-//                    getactivitystatus(lead_id);
 
                 } else if (jsonObject.getString("status").equalsIgnoreCase("failed")) {
                     if (progressDialog != null && progressDialog.isShowing()) {
@@ -245,67 +258,68 @@ public class MoneyViewOfferPage extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
-    private void getleadstatus() {
-        final JSONObject json = new JSONObject();
-        try {
-            json.put("leadId", lead_id);
-            json.put("partner_reference_id", strpartnetrefid);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/get-lead-status", json, response -> {
-            try {
-
-                JSONObject jsonObject = new JSONObject(response.toString());
-
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-                if (jsonObject.getString("status").equalsIgnoreCase("success") && jsonObject.getString("leadStatus").equalsIgnoreCase("offered")) {///created logic
-                    article_list.setVisibility(View.VISIBLE);
-                }else {
-                    journeyurl(lead_id);
-                }
-
-
-            } catch (Exception e) {
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-                e.printStackTrace();
-            }
-
-
-        }, error -> {
-
-            try {
-                int statusCode = error.networkResponse.statusCode;
-                if (statusCode == 421) {
-                    getaouth();
-                }
-                error.printStackTrace();
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> header = new HashMap<>();
-                String bearer = "Bearer " + SessionManager.get_access_token(prefs);
-                header.put("Content-Type", "application/json; charset=utf-8");
-                header.put("Accept", "application/json");
-                header.put("Authorization", bearer);
-
-                return header;
-            }
-        };
-        queue.add(jsonObjectRequest);
-    }
+//    private void getleadstatus() {
+//        final JSONObject json = new JSONObject();
+//        try {
+//            json.put("lead_id", lead_id);
+//            json.put("partner_reference_id", strpartnetrefid);
+//
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/lead-activity-status", json, response -> {
+//            try {
+//
+//                JSONObject jsonObject = new JSONObject(response.toString());
+//
+//                if (progressDialog != null && progressDialog.isShowing()) {
+//                    progressDialog.dismiss();
+//                }
+//                if (jsonObject.getString("status").equalsIgnoreCase("success") && jsonObject.getString("leadStatus").equalsIgnoreCase("NOT_REQUIRED")) {///created logic
+//                    article_list.setVisibility(View.VISIBLE);
+//                }else {
+//                    journeyurl(lead_id);
+//                }
+//
+//
+//            } catch (Exception e) {
+//                if (progressDialog != null && progressDialog.isShowing()) {
+//                    progressDialog.dismiss();
+//                }
+//                e.printStackTrace();
+//            }
+//
+//
+//        }, error -> {
+//
+//            try {
+//                int statusCode = error.networkResponse.statusCode;
+//                if (statusCode == 421) {
+//                    getaouth();
+//                }
+//                error.printStackTrace();
+//                if (progressDialog != null && progressDialog.isShowing()) {
+//                    progressDialog.dismiss();
+//                }
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }) {
+//            @Override
+//            public Map<String, String> getHeaders() {
+//                Map<String, String> header = new HashMap<>();
+//                String bearer = "Bearer " + SessionManager.get_access_token(prefs);
+//                header.put("Content-Type", "application/json; charset=utf-8");
+//                header.put("Accept", "application/json");
+//                header.put("Authorization", bearer);
+//
+//                return header;
+//            }
+//        };
+//        queue.add(jsonObjectRequest);
+//    }
 
     private void getactivitystatus() {
         final JSONObject json = new JSONObject();
@@ -317,7 +331,7 @@ public class MoneyViewOfferPage extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/get-status", json, response -> {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BuildConfig.BASE_URL + "/money-view/lead-activity-status", json, response -> {
             try {
 
                 JSONObject jsonObject = new JSONObject(response.toString());
@@ -325,7 +339,8 @@ public class MoneyViewOfferPage extends AppCompatActivity {
                 if (progressDialog != null && progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
-                if (jsonObject.getString("status").equalsIgnoreCase("success") && jsonObject.getString("activityStatus").equalsIgnoreCase("NOT_REQUIRED")) {
+                JSONObject jsonObject1 = jsonObject.getJSONObject("result");
+                if (jsonObject.getString("status").equalsIgnoreCase("success") && jsonObject1.getString("activityStatus").equalsIgnoreCase("NOT_REQUIRED")) {
                    article_list.setVisibility(View.VISIBLE);
                 }else {
                     journeyurl(lead_id);
@@ -370,19 +385,27 @@ public class MoneyViewOfferPage extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
-    private void getupdatelead() {
+    private void getupdatelead(String loanamt,String emi,String processfee,String tenure,String roi) {
         final JSONObject json = new JSONObject();
         try {
-            json.put("partnerCode", "26");
+            json.put("partnerCode", "29");
             json.put("leadId", lead_id);
             json.put("partner_reference_id", strpartnetrefid);
 
-            ////////////////selectedOffer Json to be passed////////////
+            JSONObject jsonObject1=new JSONObject();
+            jsonObject1.put("loanAmount",loanamt);
+            jsonObject1.put("loanEmi",emi);
+            jsonObject1.put("processingFeeAmount",processfee);
+            jsonObject1.put("loanTenure",tenure);
+            jsonObject1.put("rateOfInterest",roi);
+
+            json.put("selectedOffer",jsonObject1);
+
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, BuildConfig.BASE_URL + "/get-create-lead", json, response -> {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, BuildConfig.BASE_URL + "/money-view/create-lead/1", json, response -> {
             try {
 
                 JSONObject jsonObject = new JSONObject(response.toString());
@@ -435,12 +458,11 @@ public class MoneyViewOfferPage extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
-
     private void journeyurl(String id) {
         final JSONObject json = new JSONObject();
         try {
 
-            json.put("leadId", id);
+            json.put("lead_id", lead_id);
             json.put("partner_reference_id", strpartnetrefid);
 
 
@@ -456,9 +478,13 @@ public class MoneyViewOfferPage extends AppCompatActivity {
                     progressDialog.dismiss();
                 }
                 if (jsonObject.getString("status").equalsIgnoreCase("success")) {
-                    Toast.makeText(this, "" + jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                    JSONObject jsonObject1=jsonObject.getJSONObject("result");
+                    String url = jsonObject1.getString("pwa");
+                    Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(urlIntent);
+                    finish();
                 }
-                finish();
+
 
             } catch (Exception e) {
                 if (progressDialog != null && progressDialog.isShowing()) {
@@ -520,17 +546,18 @@ public class MoneyViewOfferPage extends AppCompatActivity {
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
-            ImageView imageView;
-            TextView joiningfees, annualfees, viewdetails;
+
+            TextView joiningfees, annualfees, viewdetails,loan_amount_text,emi_text;
             RelativeLayout relit;
 
             MyViewHolder(View view) {
                 super(view);
 
-                imageView = view.findViewById(R.id.imageView);
                 annualfees = view.findViewById(R.id.annualfees);
                 joiningfees = view.findViewById(R.id.joiningfees);
                 viewdetails = view.findViewById(R.id.viewdetails);
+                loan_amount_text = view.findViewById(R.id.loan_amount_text);
+                emi_text = view.findViewById(R.id.emi_text);
                 relit = view.findViewById(R.id.relit);
 
             }
@@ -538,7 +565,7 @@ public class MoneyViewOfferPage extends AppCompatActivity {
 
         @Override
         public Share_Adapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.article_list_adapter, parent, false);
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.moneyview_offer_adapter, parent, false);
 
             return new Share_Adapter.MyViewHolder(itemView);
         }
@@ -549,6 +576,8 @@ public class MoneyViewOfferPage extends AppCompatActivity {
 
             holder.joiningfees.setText(list_car.get(position).getInterest_rate() + "%");
             holder.annualfees.setText(list_car.get(position).getProcessing_fee());
+            holder.loan_amount_text.setText(list_car.get(position).getLoan_amount());
+            holder.emi_text.setText(list_car.get(position).getEmi());
 
             holder.viewdetails.setTag(position);
 
@@ -562,7 +591,8 @@ public class MoneyViewOfferPage extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             progressDialog.show();
-                            getupdatelead();
+                            getupdatelead(list_car.get(pos).getLoan_amount(),list_car.get(pos).getEmi(),
+                                    list_car.get(pos).getProcessing_fee(),list_car.get(pos).getTenure(),list_car.get(pos).getInterest_rate());
                         }
                     });
 
