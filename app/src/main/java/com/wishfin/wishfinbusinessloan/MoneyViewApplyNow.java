@@ -340,8 +340,7 @@ public class MoneyViewApplyNow extends AppCompatActivity {
             json.put("partnerCode", "29");
             json.put("partnerRef", strpartnetrefid);
             json.put("phone", SessionManager.get_mobile(prefs));
-//            json.put("pan", SessionManager.get_pan(prefs));
-            json.put("pan", "TESPL8141Q");
+            json.put("pan", SessionManager.get_pan(prefs));
             json.put("name", SessionManager.get_firstname(prefs) + " " + SessionManager.get_mname(prefs) + " " + SessionManager.get_lastname(prefs));
 
             String gendervalue = "male";

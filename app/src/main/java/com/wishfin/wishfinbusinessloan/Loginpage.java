@@ -1045,15 +1045,24 @@ public class Loginpage extends AppCompatActivity implements SMSReceiver.OTPRecei
                             SessionManager.save_company_type(prefs, jsonObject1.getString("company_type"));
                             SessionManager.save_loanamount(prefs, jsonObject1.getString("loan_amount"));
                             SessionManager.save_annualturnover(prefs, jsonObject1.getString("annual_turnover"));
-                            SessionManager.save_ownership_residence(prefs, jsonObject1.getString("OwnershipofResidenceOrBusinessPlace"));
                             SessionManager.save_pincode(prefs, jsonObject1.getString("residence_pincode"));
                             SessionManager.save_occupation(prefs, jsonObject1.getString("occupation"));
-                            SessionManager.save_sub_industry_type(prefs, jsonObject1.getString("SubIndustryType"));
                             SessionManager.save_monthly_income(prefs, jsonObject1.getString("total_monthly_obligation"));
-                            SessionManager.save_collatoral_loan(prefs, jsonObject1.getString("Wishtotakeloanagainstcollateral"));
-                            SessionManager.save_business_year(prefs, jsonObject1.getString("YearsinCurrentBusiness"));
                             SessionManager.save_lead_id(prefs, jsonObject1.getString("lead_id"));
 
+                            try{
+                                SessionManager.save_collatoral_loan(prefs, jsonObject1.getString("Wishtotakeloanagainstcollateral"));
+                                SessionManager.save_business_year(prefs, jsonObject1.getString("YearsinCurrentBusiness"));
+                                SessionManager.save_sub_industry_type(prefs, jsonObject1.getString("SubIndustryType"));
+                                SessionManager.save_ownership_residence(prefs, jsonObject1.getString("OwnershipofResidenceOrBusinessPlace"));
+
+                            }catch (Exception e)
+                            {
+                                SessionManager.save_collatoral_loan(prefs, "");
+                                SessionManager.save_business_year(prefs, "");
+                                SessionManager.save_sub_industry_type(prefs, "");
+                                SessionManager.save_ownership_residence(prefs, "");
+                            }
 
                         }
                         if (progressDialog != null && progressDialog.isShowing()) {
@@ -1064,7 +1073,8 @@ public class Loginpage extends AppCompatActivity implements SMSReceiver.OTPRecei
                         SessionManager.save_logintype(prefs, "Login");
                         SessionManager.save_app_time(prefs, "0");
 
-                        if(SessionManager.get_lead_id(prefs).equalsIgnoreCase("")) {
+                        if(SessionManager.get_lead_id(prefs).equalsIgnoreCase("") ||
+                                SessionManager.get_collatoral_loan(prefs).equalsIgnoreCase("")) {
                             Intent intent = new Intent(Loginpage.this, LoanInformationPage.class);
                             intent.putExtra("source", "login");
                             intent.putExtra("ipaddress", IPaddress);

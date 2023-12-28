@@ -141,7 +141,7 @@
     </string-array>
 
     <string-array name="array_accom_value">
-        <item>Select Accommodation Type</item>
+        <item>Select</item>
         <item>Bachelor Accommodation</item>
         <item>Company Provided</item>
         <item>Hostel</item>
@@ -153,7 +153,7 @@
         <item>Detail Not Available</item>
     </string-array>
     <string-array name="array_registered_as">
-        <item>Select Business Registered AS</item>
+        <item>Select</item>
         <item>Proprietorship</item>
         <item>Partnership</item>
         <item>Pvt. Ltd.</item>

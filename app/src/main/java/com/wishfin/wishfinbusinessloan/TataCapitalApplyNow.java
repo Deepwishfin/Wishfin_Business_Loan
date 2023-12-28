@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -70,6 +71,7 @@ public class TataCapitalApplyNow extends AppCompatActivity {
     ScrollView pageone, pagetwo;
     SeekBar loan_seekbar;
     String[] array_accomtype;
+    RelativeLayout backbutton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -140,7 +142,13 @@ public class TataCapitalApplyNow extends AppCompatActivity {
         maxloanamount = findViewById(R.id.maxloanamount);
         selectedloanamount = findViewById(R.id.selectedloanamount);
         applybtn = findViewById(R.id.applybtn);
-
+        backbutton = findViewById(R.id.backbutton);
+        backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         array_accomtype = getResources().getStringArray(R.array.array_accom_key);
 
         select_oaccomtype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

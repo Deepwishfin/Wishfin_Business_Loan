@@ -410,7 +410,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         @Override
         public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
-            holder.joiningfees.setText(list_car.get(position).getInterest_rate() + "%");
+            holder.joiningfees.setText(list_car.get(position).getInterest_rate());
             holder.annualfees.setText(list_car.get(position).getProcessing_fee());
             String uffuhg = list_car.get(position).getImage_path();
 

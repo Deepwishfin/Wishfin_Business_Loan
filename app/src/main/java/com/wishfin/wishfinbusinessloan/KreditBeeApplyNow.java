@@ -8,6 +8,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ public class KreditBeeApplyNow extends AppCompatActivity {
     AutoCompleteTextView autocompletecompanytype;
     TextView continuebtn,heading;
     EditText monthlysalary;
+    RelativeLayout backbutton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +81,13 @@ public class KreditBeeApplyNow extends AppCompatActivity {
         autocompletecompanytype=findViewById(R.id.spinnercompanytype);
         monthlysalary=findViewById(R.id.monthlysalary);
         heading=findViewById(R.id.heading);
-
+        backbutton = findViewById(R.id.backbutton);
+        backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         heading.setText(bank_name);
 
         getaouth();
